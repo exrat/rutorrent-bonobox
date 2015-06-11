@@ -1,0 +1,5 @@
+description: The Ultimate Organizational Suite for ruTorrent
+author: thezwallrus
+version: 0.8
+runlevel: 11
+need_rtorrent: 0

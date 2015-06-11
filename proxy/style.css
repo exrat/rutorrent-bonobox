@@ -1,0 +1,162 @@
+
+@font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Ubuntu'), url(https://themes.googleusercontent.com/static/fonts/ubuntu/v5/_xyN3apAT_yRRDeqB3sPRg.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'bebas_neueregular';
+    src: url('bebasneue-webfont.eot');
+    src: url('bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('bebasneue-webfont.woff') format('woff'),
+         url('bebasneue-webfont.ttf') format('truetype'),
+         url('bebasneue-webfont.svg#bebas_neueregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+	padding-top: 50px;
+    font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+    background-image: url('./img/bg.png');
+
+    color: #5A5A5A;
+}
+
+input {
+    font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: #9B9C83;
+    text-decoration: none;
+    border-bottom: 1px orange dashed;
+}
+
+a:hover {
+    color: #8bbcfe;
+}
+
+#titre {
+	display: inline-block;
+    font-size: 42pt;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    color: #8bbcfe;
+
+}
+
+#container {	
+    border: 1px #9B9C83 solid;
+    -moz-border-radius: 8px;
+    margin: auto;
+    padding: 5px;
+    width: 700px;
+    background-color: #E5E5E5;
+    border-radius: 20px;
+    opacity: 0.9;
+    box-shadow: 1px 1px 10px black;
+}
+
+#title {
+    color: #CC6633;
+    margin: 0;
+}
+
+ul#navigation, ul#form {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul#navigation {
+    float: right;
+}
+
+ul#form {
+    clear: both;
+}
+
+ul#navigation li {
+    float: left;
+    margin: 0;
+    padding: 5px 0;
+    border-top: 2px #BFAA9B solid;
+}
+
+ul#navigation li a {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #AA8E79;
+    padding: 5px 15px;
+    margin-left: 1px;
+    text-decoration: none;
+    border-bottom: 0 #ffffff solid;
+}
+
+ul#navigation li  a:hover {
+    color: #44352C;
+}
+
+ul#form li {
+    width: 700px;
+}
+
+#footer {
+    color: #9B9C83;
+    font-size: small;
+    text-align: right;
+}
+
+#address_bar {
+    background: #616161;
+    text-align: center;
+    padding: 5px 0;
+    color: #ffffff;
+    border-radius: 20px;
+}
+
+#go {
+    background-color: #8bbcfe;
+    font-weight: bold;
+    color: #616161;
+    border: 0 #ffffff solid;
+    padding: 2px 5px;
+    border-radius: 20px;
+}
+
+#address_box {
+    width: 500px;
+    border-radius: 20px;
+    color: #616161;
+}
+
+.option {
+    padding: 2px 0;
+}
+
+.option label {
+
+}
+
+form {
+    margin: 0;
+}
+
+#error, #auth {
+    background-color: #BF6464;
+    border-top: 1px solid #44352C;
+    border-bottom: 1px solid #44352C;
+    width: 700px;
+    clear: both;
+}
+
+#auth {
+    background-color: #94C261;
+}
+
+#error p, #auth p, #auth form {
+    margin: 5px;
+}

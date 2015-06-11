@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 22
+/svn/!svn/ver/13/trunk
+END
+plugin.info
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/13/trunk/plugin.info
+END
+init.js
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/13/trunk/init.js
+END
+pausewebui.css
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/13/trunk/pausewebui.css
+END

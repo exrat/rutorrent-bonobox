@@ -1,0 +1,451 @@
+
+@font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Ubuntu'), url(https://themes.googleusercontent.com/static/fonts/ubuntu/v5/_xyN3apAT_yRRDeqB3sPRg.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'bebas_neueregular';
+	src: url('bebasneue-webfont.eot');
+	src: url('bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('bebasneue-webfont.woff') format('woff'),
+		 url('bebasneue-webfont.ttf') format('truetype'),
+		 url('bebasneue-webfont.svg#bebas_neueregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	-moz-background-size: 100% 100%;
+	background-attachment: fixed;
+	background-position: center;
+	margin: 0% 0% 0% 0%;
+	padding: 0% 0% 0% 0%;
+	background-color: #3a3a3a;
+}
+
+div.transbox {
+	width: 12%;
+	height: 100%;
+	left: 15%;
+	top: 0%;
+	background-color: #8fa9ab;
+	position: fixed;
+	display: block;
+	z-index: +100;
+}
+
+.indexVerti {
+	font-size: 1.2em;
+	font-family: Kremlin,Helvetica,sans-serif;
+	position: relative;
+	list-style-type: none;
+	padding: 3% 3% 0% 3%;
+	line-height: 1.5em;
+}
+
+ul.indexVerti {
+	margin-top: 20%;
+}
+
+
+li.indexVerti {
+	padding-top: 10%;
+}
+
+a.indexVerti:link {
+	font-size: 100%;
+	text-decoration: none;
+	color: #333333;
+	filter: Alpha(opacity=100);
+	opacity: 1;
+	padding: 0.3% 0.3% 0.3% 0.3%;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+
+a.indexVerti:visited {
+	font-size: 100%;
+	text-decoration: none;
+	color: #333333;
+	filter: Alpha(opacity=100);
+	opacity: 1;
+	padding: 0.3% 0.3% 0.3% 0.3%;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+
+a.indexVerti:hover {
+	font-size: 100%;
+	text-decoration: none;
+	color: #8fa9ab;
+	filter: Alpha(opacity=100);
+	opacity: 1;
+	padding: 0.3% 0.3% 0.3% 0.3%;
+	color: #3cf6ff;
+	background-color: #333333;
+}
+
+a.indexVerti:active {
+	font-size: 100%;
+	text-decoration: none;
+	color: #333333;
+	filter: Alpha(opacity=100);
+	opacity: 1;
+	padding: 0.3% 0.3% 0.3% 0.3%;
+	transition: width 0.5s;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+
+#input_adv {
+	font-size: 1em;
+	padding: 2%;
+	margin: 1%;
+	line-height: 1em;
+	transition: width 0.5s;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+
+#input_comp {
+	font-family: Kremlin,Helvetica,sans-serif;
+	color: #333333;  
+	padding: 3% 3% 3% 3%;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	font-size: 1.3em;
+	padding: 0%;
+	margin: 40% 5% 0% 5%;
+	transition: width 0.5s;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+
+div.transbox_hori {
+	max-height: 22%;
+	width: 750px;
+	position: fixed;
+	diplay: inline-flex;
+	flex-direction: column;
+	top: 5px;
+	right: 30px;
+	opacity: 1;
+	z-index: +150000;
+}
+
+.indexHori {
+	font-size: 1.4em;
+	font-family: Kremlin,Helvetica,sans-serif;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	color: #fff;
+	display: inline;
+	list-style-type: none;
+}
+
+li.indexHori {
+	transition: width 0.5s;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	margin: 2%;
+}
+
+ul.indexHori {
+	padding-left: 26%;
+}
+
+.stats {
+	position:relative;
+	margin: 3% 0% 1% 0%;
+	padding: 1% 0% 0% 0%;
+	background-color: #3a3a3a;
+	list-style-type: none;
+	font-family: Kremlin,Helvetica,sans-serif;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+ul.stats_li {
+	color: #8bbcfe;
+	text-shadow: 0px 2px 3px #555;
+}
+
+li.stats_li {
+	font-size: 2.2em;
+	margin: 0.5% 0% 0% 0%;
+	display: inline;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+ul.stats_li_adv {
+	font-size: 0.5em;
+	margin: 0.2% 0% 0% 0%;
+}
+
+li.stats_li_adv {
+	display: inline;
+	padding: 0% 0% 0% 0%;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+.blink {
+	color: #666666;
+}
+
+.blink_fak {
+	color: #8fa9ab;
+}
+
+ul.stats_li_nav {
+	font-size: 1em;
+	color: white;
+	margin-top: 0.8%;
+	text-shadow: 0px 2px 3px #555;
+}
+
+li.stats_li_nav {
+	display: inline;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+#adv_1 {
+	padding-left: 0%;
+}
+
+#adv_2 {
+	padding-left: 38%;
+}
+
+#adv_3 {
+	padding-left: 34%;
+}
+
+ul.stats_det {
+	color: #8bbcfe;
+	text-shadow: 0px 2px 3px #555;
+}
+
+li.stats_det {
+	font-size: 1.8em;
+	margin: 0.5% 0% 0% 0%;
+	display: inline;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+ul.stats_det_nav {
+	font-size: 1em;
+	color: white;
+	margin-top: 0.8%;
+	text-shadow: 0px 2px 3px #555;
+}
+
+li.stats_det_nav {
+	display: inline;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+.stats_det_nav {
+	position: relative;
+	list-style-type: none;
+}
+
+#adv_1_det {
+	padding-left: 0%;
+}
+
+#adv_2_det {
+	padding-left: 36%;
+}
+
+#adv_3_det {
+	padding-left: 34%;
+}
+
+.stats1_det {
+	font-family: 'Ubuntu';
+	background-color: #3a3a3a;
+	position: relative;
+	list-style-type: none;
+	margin: 3% 0% 1% 0%;
+	padding: 1% 0% 0% 0%;
+	color: #222;
+	text-shadow: 0px 2px 3px #555;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+.stats2_det {
+	font-family: 'Ubuntu';
+	background-color: #3a3a3a;
+	position: relative;
+	list-style-type: none;
+	margin: 3% 0% 1% 0%;
+	padding: 1% 0% 0% 0%;
+	color: #222;
+	text-shadow: 0px 2px 3px #555;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+.stats3_det {
+	font-family: 'Ubuntu';
+	background-color: #3a3a3a;
+	position: relative;
+	list-style-type: none;
+	margin: 3% 0% 1% 0%;
+	padding: 1% 0% 0% 0%;
+	color: #222;
+	text-shadow: 0px 2px 3px #555;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+.stats4_det {
+	font-family: 'Ubuntu';
+	background-color: #3a3a3a;
+	position: relative;
+	list-style-type: none;
+	margin: 3% 0% 1% 0%;
+	padding: 1% 0% 0% 0%;
+	color: #222;
+	text-shadow: 0px 2px 3px #555;
+	transition: width 1s;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+div.imgcontainer {
+	position: relative;
+	/*background-color:;*/
+	max-width: 110%;
+	padding: 1% 0% 0% 0%;
+	margin: 1% 0% 0% 0%;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 20px;
+	display: block;
+}
+
+div.imgcontainer img {
+	margin: 0.5%;
+	filter: Alpha(opacity=80); /* IE8 and earlier */
+	opacity: 0.8; /*Transition*/
+	transition: width 0.5s;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	width: 32%; /* you can use % */
+	height: auto;
+	border-radius: 20px;
+	background: rgba(0, 0, 0, .25);
+	box-shadow: 1px 1px 12px #000;
+}
+
+.clicked {
+	color: #8bbcfe;
+}
+
+.invisible {
+	display: none;
+}
+.fake_invi {
+	color: #8fa9ab;
+}
+
+::selection {
+	color: #8fa9ab;
+}
+
+::-moz-selection {
+	color: #8fa9ab;
+}
+
+/*NEWWWWWWW*/
+
+h1 {
+	text-align: center;
+	color: #8bbcfe;
+	font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+	font-size: 60px;
+	font-weight: 400;
+	text-decoration: none;
+}
+
+h2 {
+	text-align: center;
+	color: #8bbcfe;
+	/*font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;*/
+	font-family: 'Ubuntu';
+	font-size: 24px;
+	font-weight: 400;
+	text-decoration: none;
+}
+
+.navbar-default {
+	background-image: -webkit-linear-gradient(top,#fff 0,#f8f8f8 100%);
+	background-image: linear-gradient(to bottom, #3a3a3a 0,grey 200%);
+	background-repeat: repeat-x;
+	box-shadow: 1px 1px 10px black;
+	border-color: #3a3a3a;
+}
+
+.navbar-default .navbar-nav>li>a {
+	font-family: 'Ubuntu';
+	font-size: 22px;
+	color: white;
+	z-index: +156000;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	font-family: 'Ubuntu';
+	color: #8bbcfe;
+	font-size: 22px;
+	z-index: +156000;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+
+}
+
+b {
+	font-family: 'Ubuntu';
+	font-size: 22px;
+	color: #8bbcfe;
+	font-weight: normal;
+	font-style: normal;
+}

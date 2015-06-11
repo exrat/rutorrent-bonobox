@@ -1,0 +1,6 @@
+description: The plug-in allows users to communicate with other users on the same rutorrent.
+author: ScarS
+version: 2.0
+need_rtorrent: 0
+remote: ok
+runlevel: 100.0

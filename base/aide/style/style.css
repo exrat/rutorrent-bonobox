@@ -1,0 +1,175 @@
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu'), url(https://themes.googleusercontent.com/static/fonts/ubuntu/v5/_xyN3apAT_yRRDeqB3sPRg.woff) format('woff');
+}
+
+@font-face
+{
+    font-family: 'bebas_neueregular';
+    src: url('bebasneue-webfont.eot');
+    src: url('bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('bebasneue-webfont.woff') format('woff'),
+         url('bebasneue-webfont.ttf') format('truetype'),
+         url('bebasneue-webfont.svg#bebas_neueregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body
+{
+    background-color: #3a3a3a;
+	text-align: center;
+}
+
+h1
+{
+    color: #8bbcfe;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 3em;
+    font-weight: 400;
+    margin-top: 2%;
+    text-decoration: none;
+}
+
+.txt, .txtgr, .pics, .code, .date, #name-title
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.txt, .txtgr
+{
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: 300;
+    font-family: 'Ubuntu';
+    line-height: 1;
+}
+
+.txt
+{
+    color: #ffffff;
+}
+
+.txtgr
+{
+    color: #8bbcfe;
+}
+
+.code
+{
+    color: white;
+    background-color: black;
+    font-size: 1.3em;
+    display: inline-block;
+}
+
+.pics
+{
+    display: inline-block;
+}
+
+.contactgr, #contact
+{
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: 300;
+    font-family: 'Ubuntu';
+    line-height: 1;
+}
+
+.contactgr
+{
+    color: #8bbcfe;
+    margin-top: 5%;
+}
+
+#contact
+{
+    color: #ffffff;
+    margin-top: 10%;
+}
+
+/* div logo */
+
+.title-site
+{
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#name-title
+{
+    color: #8c8c8c;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+}
+
+#name-title span
+{
+    color: #8bbcfe;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+#name-title::before
+{
+    color: #8c8c8c;
+    content: '{';
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+}
+
+#name-title::after
+{
+    color: #8bbcfe;
+    content: '}';
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+}
+
+.date
+{
+    text-align: center;
+    font-size: 26px;
+    margin-top: 0px;
+}
+
+#date-grey
+{
+    color: #8c8c8c;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+}
+
+#date-grey span
+{
+    color: #8bbcfe;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+#description
+{
+    color: #8c8c8c;
+    font-style: italic;
+    font-weight: 300;
+    font-family: 'Ubuntu';
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
