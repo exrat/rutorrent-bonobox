@@ -230,8 +230,8 @@ wget http://www.dotdeb.org/dotdeb.gpg
 apt-key add dotdeb.gpg
 
 # ffmpeg
-wget http://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_2015.6_all.deb
-dpkg -i deb-multimedia-keyring_2015.6_all.deb
+wget http://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_2015.6.1_all.deb
+dpkg -i deb-multimedia-keyring_2015.6.1_all.deb
 
 else
 	echo -e "${CRED}          Ce script doit être exécuté sur Debian 7 ou 8 exclusivement.$CEND" 1>&2
