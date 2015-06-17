@@ -39,6 +39,10 @@ CYELLOW="${CSI}1;33m"
 CBLUE="${CSI}1;34m"
 
 RUTORRENT="/var/www/rutorrent"
+
+LIBZEN0="0.4.31"
+LIBMEDIAINFO0="0.7.74"
+MEDIAINFO="0.7.74"
 MULTIMEDIA="deb-multimedia-keyring_2015.6.1_all.deb"
 
 # contrôle droits utilisateur
@@ -273,7 +277,7 @@ echo ""
 echo -e "${CBLUE}Mise à jour du serveur${CEND}     ${CGREEN}Done !${CEND}"
 echo ""
 
-apt-get install -y htop openssl apt-utils python build-essential libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev nginx vim nano ccze screen subversion apache2-utils curl php5 php5-cli php5-fpm php5-curl php5-geoip unrar rar zip buildtorrent mediainfo fail2ban ntp ntpdate munin ffmpeg aptitude
+apt-get install -y htop openssl apt-utils python build-essential libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev nginx vim nano ccze screen subversion apache2-utils curl php5 php5-cli php5-fpm php5-curl php5-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude
 
 echo ""
 echo -e "${CBLUE}Installation des paquets essentiels${CEND}     ${CGREEN}Done !${CEND}"
@@ -356,7 +360,7 @@ server 1.fr.pool.ntp.org
 server 2.fr.pool.ntp.org
 server 3.fr.pool.ntp.org">> /etc/ntp.conf
 
-ntpdate 0.fr.pool.ntp.org
+ntpdate -d 0.fr.pool.ntp.org
 
 # installation XMLRPC LibTorrent rTorrent
 svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
@@ -502,6 +506,21 @@ $downloadpath = 'http://@IP@/share.php';
 ?>
 EOF
 sed -i "s/@IP@/$IP/g;" "$RUTORRENT"/plugins/fileshare/conf.php
+
+# mediainfo
+if [[ $(uname -m) == i686 ]]; then
+	SYS="i386"
+elif [[ $(uname -m) == x86_64 ]]; then
+	SYS="amd64"
+fi
+
+wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/libzen0_"$LIBZEN0"-1_"$SYS".Debian_7.0.deb
+wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS".Debian_7.0.deb
+wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_"$SYS".Debian_7.0.deb
+
+dpkg -i libzen0_"$LIBZEN0"-1_"$SYS".Debian_7.0.deb
+dpkg -i libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS".Debian_7.0.deb
+dpkg -i mediainfo_"$MEDIAINFO"-1_"$SYS".Debian_7.0.deb
 
 # script mise à jour mensuel geoip et complément plugin city
 # création dossier par sécurité suite bug d'install
@@ -1038,10 +1057,11 @@ sed -i '/plugins/d' access.log
 sed -i '/getsettings.php/d' access.log
 sed -i '/setsettings.php/d' access.log
 sed -i '/@USERMAJ@\ HTTP/d' access.log
-ccze -h < /tmp/access.log > "$RUTORRENT"/logserver/access.html
+ccze -h < /tmp/access.log > @RUTORRENT@/logserver/access.html
 EOF
 
 sed -i "s/@USERMAJ@/$USERMAJ/g;" /usr/share/scripts-perso/logserver.sh
+sed -i "s|@RUTORRENT@|$RUTORRENT|;" /usr/share/scripts-perso/logserver.sh
 chmod +x logserver.sh
 
 echo ""
