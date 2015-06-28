@@ -24,6 +24,7 @@ Jedediah pour avoir joué avec le html/css du thème.
 Aux traducteurs: Sophie, Spectre, Hardware et l'A... Gang.
 
 ## Installation:
+Multilingue automatique
 ```
 apt-get update && apt-get upgrade -y
 apt-get install git-core -y
@@ -34,7 +35,7 @@ cd rutorrent-bonobox
 chmod a+x bonobox.sh && ./bonobox.sh
 ```
 
-Vous pouvez aussi forcer la langue de votre choix:
+**Vous pouvez aussi forcer la langue de votre choix:**
 ```
 # Français
 chmod a+x bonobox.sh && ./bonobox.sh --fr

@@ -34,7 +34,7 @@
 164 Configuration of Logrotate
 166 Configuration SSH
 168 Configuration of ruTorrent's user
-170 Configuration Fail2ban
+170 Configuration Fail2Ban
 172 Installing VsFTPd
 174 Creating Diffie-Hellman parameters with a length of 2048 bits
 176 Please be patient while server computing DH parameters !

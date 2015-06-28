@@ -35,7 +35,7 @@
 164 Konfiguration Logs html und Logrotate
 166 Konfiguration SSH
 168 Konfiguration User ruTorrent
-170 Konfiguration Fail2ban
+170 Konfiguration Fail2Ban
 172 Konfiguration VsFTPd
 174 Erstellung zertifikat Diffie-Hellman 2048 Bits
 176 Die wartezeit kann länger als 10 minuten sein, bitte die geduld nicht verlieren !

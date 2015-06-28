@@ -301,7 +301,7 @@ apt-get install -y htop openssl apt-utils python build-essential libssl-dev pkg-
 echo "" ; set "136" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # génération clè 2048 bits
-#openssl dhparam -out dhparams.pem 2048 &
+openssl dhparam -out dhparams.pem 2048 >/dev/null 2>&1 &
 
 # téléchargement complément favicon
 wget http://www.bonobox.net/script/favicon.tar.gz
@@ -681,7 +681,7 @@ EOF
 cat <<'EOF' > /etc/nginx/conf.d/ciphers.conf
 ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
 ssl_prefer_server_ciphers on;
-#ssl_dhparam /etc/nginx/ssl/dhparams.pem;
+ssl_dhparam /etc/nginx/ssl/dhparams.pem;
 ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 EOF
 
@@ -1441,20 +1441,20 @@ echo "" ; set "172" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 fi
 
 # déplacement clé 2048
-#cp /tmp/dhparams.pem /etc/nginx/ssl/dhparams.pem
-#chmod 600 /etc/nginx/ssl/dhparams.pem
+cp /tmp/dhparams.pem /etc/nginx/ssl/dhparams.pem
+chmod 600 /etc/nginx/ssl/dhparams.pem
 service nginx restart
 # Contrôle
-#if [ ! -f /etc/nginx/ssl/dhparams.pem ]; then
-
-#set "174" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
-#set "176" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}"
-#cd /etc/nginx/ssl
-#openssl dhparam -out dhparams.pem 2048
-#chmod 600 dhparams.pem
-#service nginx restart
-#echo "" ; set "178" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
-#fi
+if [ ! -f /etc/nginx/ssl/dhparams.pem ]; then
+kill -HUP $(pgrep -x openssl)
+echo "" ; set "174" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
+set "176" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
+cd /etc/nginx/ssl
+openssl dhparam -out dhparams.pem 2048
+chmod 600 dhparams.pem
+service nginx restart
+echo "" ; set "178" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
+fi
 
 # configuration page index munin
 if [ ! -d "/var/www/monitoring/localdomain" ]; then

@@ -34,7 +34,7 @@
 164 Configuration Logs html et Logrotate
 166 Configuration SSH
 168 Configuration utilisateur ruTorrent
-170 Configuration Fail2ban
+170 Configuration Fail2Ban
 172 Installation VsFTPd
 174 Création des paramètres Diffie-Hellman de 2048 bits
 176 L'attente peut durer plus de 10 minutes, soyez patient !
