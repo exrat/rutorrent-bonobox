@@ -1,0 +1,110 @@
+## Allemand ##
+100                       Dieser skript als root durchführen.
+102            Willkommen in der automatische einrichtung von ruTorrent
+104         Der erste user wird der Administrator von Seedbox-Manager sein,
+106          Si können, am ende der einrichtung zusätzliche user eingeben.
+108 Bitte name des ersten user erfassen (kleinbuchstaben):
+110 Der user name muss in kleinbuchstaben sein,\ngrösser als 3 charakteer und ohne sonderzeichen.
+112 Passwort eingeben für diesen user, oder "
+114 Enter
+116 "\ndrücken um ein automatischer passwort zu erhalten:
+118 Möchten sie
+120 als passwort benutzen ? (j/n):
+122 Das passwort darf kein sonderzeichen enthalten und\nmuss grösser sein als 5 buchstaben oder ziffern.
+124 In Seedbox-Manager bitte kontakt E-Mail erfassen:
+126 Die mail adresse ist nicht gültig, bitte verbessern oder leer lassen.
+128 Möchten sie ein server FTP installieren (j/n):
+130        Dieser skript kann nur unter Debian 7 oder 8 ausgeführt werden.
+132 Update vom server
+134      Erledigt!
+136 Einrichtung der wesentliche datenpaketen
+138 Einstellung der farben für Nano
+140 Konfiguration XMLRPC
+142 Konfiguration PHP
+142 Konfiguration libTorrent
+144 Konfiguration rTorrent
+146 Konfiguration ruTorrent
+148 Konfiguration plugins
+150 Konfiguration PHP
+152 Konfiguration Nginx
+154 Konfiguration Munin
+156 Konfiguration Composer
+158 Konfiguration Nodejs
+160 Konfiguration bower
+162 Konfiguration Seedbox-Manager
+164 Konfiguration Logs html und Logrotate
+166 Konfiguration SSH
+168 Konfiguration User ruTorrent
+170 Konfiguration Fail2ban
+172 Konfiguration VsFTPd
+174 Erstellung zertifikat Diffie-Hellman 2048 Bits
+176 Die wartezeit kann länger als 10 minuten sein, bitte die geduld nicht verlieren !
+178 Erstellung zertifikat
+180 Einrichtung durchgeführt !
+182 Merken sie sich bitte folgende angaben: 
+184 User name:
+186 Passwort:
+188 Sie benötigen diese angaben damit sie sich bei ruTorrent,\nSeedbox-Manager und in FTP, wenn ausgewählt, anmelden möchten.
+190 Möchten sie ein anderen user installieren (j/n):
+192 Generation von der logfile installation.
+194 Möchten sie neu starten um die installation zu beenden (j/n):
+196 Der logfile der einspielung ist sichtbar unter dieser adresse:
+198 #
+199 #
+200 Betrachten sie manuell ihren server neu starten, bevor nutzung !
+202 Sie können sich jetzt auf ruTorrent einloggen:
+204 #
+206 Im teil "Administration" von Seedbox-Manager für verschiedene einstellungen:
+208 #
+210        Gutes download, bleiben Sie in seed et bis gleich auf mondedie.fr
+212 #
+214 Bitte user name eingeben (in kleinschrift):
+216 #
+218 User eingerichtet !
+220      Ihre installation ist nicht kompatible mit dieser version vom skript.
+222                Sie werden hilfe finden unter http://mondedie.fr !
+224                     User liste mit zugriffe unter ruTorrent
+226  Achtung, wenn sie die datei rutorrent.conf nach der automatische installation
+228                 geändert haben, könnte es sein, dass der skript
+230                nicht normal funktionieren. Bitte manuell starten !
+232 Möchten sie weiter machen? (j/n):
+234 Bitte eine option wählen.
+236 1
+238 2
+240 3
+242 4
+244 5
+246 6
+248 : Anfügen neuer user
+250 : Sperren von user
+252 : Reaktivieren von user
+254 : Änderung von passwort
+256 : User löschen
+258 : Escape
+260 Anzahl:
+262 User sperren.
+264 Der user
+266 #
+268 wurde gesperrt.
+270 Wiederherstellung von einem user.
+272 wurde wieder aktiviert.
+274 Neues passwort für diesen user eingeben, oder auf\n"
+276 Änderung vom user passwort.
+278 Der user passwort
+280 wurde geändert.
+282 Möchten sie den user
+284 löschen (j/n):
+286 Löschung des user.
+288 wurde gelöscht.
+290 Möchten sie sich wieder einloggen um die änderung in\nder user verwaltung zu beenden (j/n):
+292 Wahl ungültig
+294 #
+296 #
+298  Der erste erfasste user ist der Administrator von SB-Manager wenn installiert,
+300 Möchten Sie Seedbox-Manager installieren (j/n):
+302 Und im teil "Administration" von Seedbox-Manager um\nzusatzeinstellungen wenn installiert:
+304 Ihre installation auswählen:
+306 Full
+308 Light
+
+
