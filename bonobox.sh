@@ -67,7 +67,7 @@ while true; do
 		if   [ "$BASELANG" = "en" ]; then GENLANG="en"
 		elif [ "$BASELANG" = "fr" ]; then GENLANG="fr"
 		elif [ "$BASELANG" = "de" ]; then GENLANG="de"
-		elif [ "$BASELANG" = "de" ]; then GENLANG="en"
+		elif [ "$BASELANG" = "it" ]; then GENLANG="en"
 		elif [ "$BASELANG" = "es" ]; then GENLANG="en"
 		elif [ "$BASELANG" = "ru" ]; then GENLANG="en"
 		elif [ "$BASELANG" = "sr" ]; then GENLANG="en"
