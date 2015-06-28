@@ -1,7 +1,8 @@
 # Script d'installation ruTorrent / Nginx
 
+* Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur.
+* Français, English, German
 * Nécessite Debian 7 ou 8 (32/64 bits) & un serveur fraîchement installé
-* Multi-utilisateurs
 
 * Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh) & Proxy php
 * Seedbox-Manager, Auteurs: Magicalex, Hydrog3n et Backtoback
@@ -18,7 +19,9 @@ Merci Aliochka & Meister pour les conf de munin et VsFTPd
 
 à Albaret pour le coup de main sur la gestion d'users et
 
-Jedediah pour avoir joué avec le html/css du thème
+Jedediah pour avoir joué avec le html/css du thème.
+
+Aux traducteurs: Sophie, Spectre, Hardware et l'A... Gang.
 
 ## Installation:
 ```
@@ -31,10 +34,20 @@ cd rutorrent-bonobox
 chmod a+x bonobox.sh && ./bonobox.sh
 ```
 
+Vous pouvez aussi forcer la langue de votre choix:
+```
+# Français
+chmod a+x bonobox.sh && ./bonobox.sh --fr
+
+# English
+chmod a+x bonobox.sh && ./bonobox.sh --en
+
+# German
+chmod a+x bonobox.sh && ./bonobox.sh --de
+```
+
 Pour gérer vos utilisateurs ultérieurement, il vous suffit de relancer le script
 
-#### Inspiration:
-- [hexodark](https://github.com/gaaara/)
 
 ## Developpement vagrant
 
