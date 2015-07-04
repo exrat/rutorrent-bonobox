@@ -235,7 +235,7 @@ VERSION=$(cat /etc/debian_version)
 cd /tmp
 
 if [[ $VERSION =~ 7. ]]; then
-SYS1=Debian_7.0.deb
+
 # ajout des dépots debian 7
 echo "#dépôt paquet propriétaire
 deb http://ftp2.fr.debian.org/debian/ wheezy main non-free
