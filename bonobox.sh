@@ -45,8 +45,8 @@ RUTORRENT="/var/www/rutorrent"
 BONOBOX="/tmp/rutorrent-bonobox"
 
 LIBZEN0="0.4.31"
-LIBMEDIAINFO0="0.7.74"
-MEDIAINFO="0.7.74"
+LIBMEDIAINFO0="0.7.75"
+MEDIAINFO="0.7.75"
 MULTIMEDIA="deb-multimedia-keyring_2015.6.1_all.deb"
 
 # langues
@@ -235,7 +235,7 @@ VERSION=$(cat /etc/debian_version)
 cd /tmp
 
 if [[ $VERSION =~ 7. ]]; then
-
+SYS1=Debian_7.0.deb
 # ajout des dépots debian 7
 echo "#dépôt paquet propriétaire
 deb http://ftp2.fr.debian.org/debian/ wheezy main non-free
@@ -258,6 +258,8 @@ apt-key add dotdeb.gpg
 # nginx
 wget http://nginx.org/keys/nginx_signing.key
 apt-key add nginx_signing.key
+
+SYS1="Debian_7.0.deb"
 
 elif [[ $VERSION =~ 8. ]]; then
 
@@ -286,6 +288,8 @@ apt-key add dotdeb.gpg
 # ffmpeg
 wget http://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/"$MULTIMEDIA"
 dpkg -i "$MULTIMEDIA"
+
+SYS1="Debian_8.0.deb"
 
 else
 	set "130" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
@@ -516,18 +520,18 @@ sed -i "s/@IP@/$IP/g;" "$RUTORRENT"/plugins/fileshare/conf.php
 
 # mediainfo
 if [[ $(uname -m) == i686 ]]; then
-	SYS="i386"
+	SYS2="i386"
 elif [[ $(uname -m) == x86_64 ]]; then
-	SYS="amd64"
+	SYS2="amd64"
 fi
 
-wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/libzen0_"$LIBZEN0"-1_"$SYS".Debian_7.0.deb
-wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS".Debian_7.0.deb
-wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_"$SYS".Debian_7.0.deb
+wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/libzen0_"$LIBZEN0"-1_"$SYS2"."$SYS1"
+wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS2"."$SYS1"
+wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_"$SYS2"."$SYS1"
 
-dpkg -i libzen0_"$LIBZEN0"-1_"$SYS".Debian_7.0.deb
-dpkg -i libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS".Debian_7.0.deb
-dpkg -i mediainfo_"$MEDIAINFO"-1_"$SYS".Debian_7.0.deb
+dpkg -i libzen0_"$LIBZEN0"-1_"$SYS2"."$SYS1"
+dpkg -i libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS2"."$SYS1"
+dpkg -i mediainfo_"$MEDIAINFO"-1_"$SYS2"."$SYS1"
 
 # script mise à jour mensuel geoip et complément plugin city
 # création dossier par sécurité suite bug d'install
@@ -1405,8 +1409,8 @@ force_local_logins_ssl=NO
 # Acceptation des différentes versions du ssl
 ssl_ciphers=HIGH
 ssl_tlsv1=YES
-ssl_sslv2=YES
-ssl_sslv3=YES
+ssl_sslv2=NO
+ssl_sslv3=NO
 #
 max_per_ip=0
 pasv_min_port=0
