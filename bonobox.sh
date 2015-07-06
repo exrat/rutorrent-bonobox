@@ -259,7 +259,7 @@ apt-key add dotdeb.gpg
 wget http://nginx.org/keys/nginx_signing.key
 apt-key add nginx_signing.key
 
-SYS1="Debian_7.0.deb"
+DEB="Debian_7.0.deb"
 
 elif [[ $VERSION =~ 8. ]]; then
 
@@ -289,7 +289,7 @@ apt-key add dotdeb.gpg
 wget http://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/"$MULTIMEDIA"
 dpkg -i "$MULTIMEDIA"
 
-SYS1="Debian_8.0.deb"
+DEB="Debian_8.0.deb"
 
 else
 	set "130" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
@@ -308,7 +308,7 @@ echo "" ; set "136" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 openssl dhparam -out dhparams.pem 2048 >/dev/null 2>&1 &
 
 # téléchargement complément favicon
-wget http://www.bonobox.net/script/favicon.tar.gz
+wget -T 10 -t 3 http://www.bonobox.net/script/favicon.tar.gz || wget -T 10 -t 3 http://alt.bonobox.net/favicon.tar.gz
 tar xzfv favicon.tar.gz
 
 # création fichiers couleurs nano
@@ -520,18 +520,18 @@ sed -i "s/@IP@/$IP/g;" "$RUTORRENT"/plugins/fileshare/conf.php
 
 # mediainfo
 if [[ $(uname -m) == i686 ]]; then
-	SYS2="i386"
+	SYS="i386"
 elif [[ $(uname -m) == x86_64 ]]; then
-	SYS2="amd64"
+	SYS="amd64"
 fi
 
-wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/libzen0_"$LIBZEN0"-1_"$SYS2"."$SYS1"
-wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS2"."$SYS1"
-wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_"$SYS2"."$SYS1"
+wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/libzen0_"$LIBZEN0"-1_"$SYS"."$DEB"
+wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS"."$DEB"
+wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_"$SYS"."$DEB"
 
-dpkg -i libzen0_"$LIBZEN0"-1_"$SYS2"."$SYS1"
-dpkg -i libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS2"."$SYS1"
-dpkg -i mediainfo_"$MEDIAINFO"-1_"$SYS2"."$SYS1"
+dpkg -i libzen0_"$LIBZEN0"-1_"$SYS"."$DEB"
+dpkg -i libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS"."$DEB"
+dpkg -i mediainfo_"$MEDIAINFO"-1_"$SYS"."$DEB"
 
 # script mise à jour mensuel geoip et complément plugin city
 # création dossier par sécurité suite bug d'install
