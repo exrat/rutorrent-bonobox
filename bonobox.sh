@@ -384,7 +384,7 @@ fi
 
 # installation XMLRPC LibTorrent rTorrent
 svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-if [ ! -f /tmp/xmlrpc-c ]; then
+if [ ! -d /tmp/xmlrpc-c ]; then
 	wget http://bonobox.net/script/xmlrpc-c.tar.gz
 	tar xzfv xmlrpc-c.tar.gz
 fi
@@ -402,8 +402,15 @@ git clone https://github.com/rakshasa/libtorrent.git
 git clone https://github.com/rakshasa/rtorrent.git
 
 # libTorrent compilation
-cd libtorrent
-git checkout "$LIBTORRENT"
+if [ ! -d /tmp/libtorrent ]; then
+	wget http://bonobox.net/script/libtorrent.tar.gz
+	tar xzfv libtorrent.tar.gz
+	cd libtorrent
+else
+	cd libtorrent
+	git checkout "$LIBTORRENT"
+fi
+
 ./autogen.sh
 ./configure
 make -j "$THREAD"
@@ -411,8 +418,16 @@ make install
 echo "" ; set "142" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1 $LIBTORRENT${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # rTorrent compilation
+if [ ! -d /tmp/rtorrent ]; then
+	cd /tmp
+	wget http://bonobox.net/script/rtorrent.tar.gz
+	tar xzfv rtorrent.tar.gz
+	cd rtorrent
+else
 cd ../rtorrent
 git checkout "$RTORRENT"
+fi
+
 ./autogen.sh
 ./configure --with-xmlrpc-c
 make -j "$THREAD"
@@ -1455,7 +1470,7 @@ chmod 600 /etc/nginx/ssl/dhparams.pem
 service nginx restart
 # Contrôle
 if [ ! -f /etc/nginx/ssl/dhparams.pem ]; then
-kill -HUP $(pgrep -x openssl)
+kill -HUP "$(pgrep -x openssl)"
 echo "" ; set "174" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
 set "176" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
 cd /etc/nginx/ssl
