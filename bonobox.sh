@@ -384,6 +384,11 @@ fi
 
 # installation XMLRPC LibTorrent rTorrent
 svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
+if [ ! -f /tmp/xmlrpc-c ]; then
+	wget http://bonobox.net/script/xmlrpc-c.tar.gz
+	tar xzfv xmlrpc-c.tar.gz
+fi
+
 cd xmlrpc-c
 ./configure --disable-cplusplus
 make -j "$THREAD"
