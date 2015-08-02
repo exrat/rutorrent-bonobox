@@ -223,10 +223,16 @@ fi
 
 # modification DNS
 rm /etc/resolv.conf && touch /etc/resolv.conf
+#cat <<'EOF' >  /etc/resolv.conf
+#nameserver 127.0.0.1
+#nameserver 208.67.220.220
+#nameserver 208.67.222.222
+#EOF
 cat <<'EOF' >  /etc/resolv.conf
 nameserver 127.0.0.1
-nameserver 208.67.220.220
-nameserver 208.67.222.222
+# dns.watch
+nameserver 84.200.69.80
+nameserver 84.200.70.40
 EOF
 
 # contrôle version debian
@@ -383,11 +389,14 @@ ntpdate -d 0.fr.pool.ntp.org
 fi
 
 # installation XMLRPC LibTorrent rTorrent
-svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-if [ ! -d /tmp/xmlrpc-c ]; then
-	wget http://bonobox.net/script/xmlrpc-c.tar.gz
-	tar xzfv xmlrpc-c.tar.gz
-fi
+#svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
+#if [ ! -d /tmp/xmlrpc-c ]; then
+#	wget http://bonobox.net/script/xmlrpc-c.tar.gz
+#	tar xzfv xmlrpc-c.tar.gz
+#fi
+
+wget http://bonobox.net/script/xmlrpc-c.tar.gz
+tar xzfv xmlrpc-c.tar.gz
 
 cd xmlrpc-c
 ./configure --disable-cplusplus
