@@ -222,13 +222,13 @@ if [ "$THREAD" = "" ]; then
 fi
 
 # modification DNS
-rm /etc/resolv.conf && touch /etc/resolv.conf
-cat <<'EOF' >  /etc/resolv.conf
-nameserver 127.0.0.1
+#rm /etc/resolv.conf && touch /etc/resolv.conf
+#cat <<'EOF' >  /etc/resolv.conf
+#nameserver 127.0.0.1
 # dns.watch
-nameserver 84.200.69.80
-nameserver 84.200.70.40
-EOF
+#nameserver 84.200.69.80
+#nameserver 84.200.70.40
+#EOF
 
 # contrôle version debian
 VERSION=$(cat /etc/debian_version)
