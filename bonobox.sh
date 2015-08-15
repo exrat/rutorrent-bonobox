@@ -1433,6 +1433,7 @@ ssl_tlsv1=YES
 ssl_sslv2=NO
 ssl_sslv3=NO
 #
+seccomp_sandbox=no
 max_per_ip=0
 pasv_min_port=0
 pasv_min_port=0
