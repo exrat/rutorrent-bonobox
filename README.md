@@ -21,7 +21,7 @@ Merci Aliochka & Meister pour les conf de munin et VsFTPd
 
 Jedediah pour avoir joué avec le html/css du thème.
 
-Aux traducteurs: Sophie, Spectre, Hardware et l'A... Gang.
+Aux traducteurs: Sophie, Spectre, Hardware, Zazev.
 
 ## Installation:
 Multilingue automatique
@@ -43,9 +43,15 @@ chmod a+x bonobox.sh && ./bonobox.sh --fr
 # English
 chmod a+x bonobox.sh && ./bonobox.sh --en
 
+# русский  ( "д/H" или "y/n" )
+chmod a+x bonobox.sh && ./bonobox.sh --ru
+
 # German
 chmod a+x bonobox.sh && ./bonobox.sh --de
 ```
 
 Pour gérer vos utilisateurs ultérieurement, il vous suffit de relancer le script
+
+### License
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
