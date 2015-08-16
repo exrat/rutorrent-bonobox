@@ -1,7 +1,7 @@
 # Script d'installation ruTorrent / Nginx
 
 * Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur.
-* Français, English, German
+* Français, English, German, Pусский
 * Nécessite Debian 7 ou 8 (32/64 bits) & un serveur fraîchement installé
 
 * Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh) & Proxy php
@@ -43,7 +43,7 @@ chmod a+x bonobox.sh && ./bonobox.sh --fr
 # English
 chmod a+x bonobox.sh && ./bonobox.sh --en
 
-# русский  ( "д/H" или "y/n" )
+# Pусский  ( "д/H" или "y/n" )
 chmod a+x bonobox.sh && ./bonobox.sh --ru
 
 # German
