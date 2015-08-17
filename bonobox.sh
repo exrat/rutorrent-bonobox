@@ -45,7 +45,7 @@ RUTORRENT="/var/www/rutorrent"
 BONOBOX="/tmp/rutorrent-bonobox"
 
 LIBZEN0="0.4.31"
-LIBMEDIAINFO0="0.7.75"
+LIBMEDIAINFO0="0.7.76"
 MEDIAINFO="0.7.76"
 MULTIMEDIA="deb-multimedia-keyring_2015.6.1_all.deb"
 
