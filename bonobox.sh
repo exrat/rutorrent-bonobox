@@ -16,7 +16,7 @@
 # Merci Aliochka & Meister pour les conf de Munin et VsFTPd
 # à Albaret pour le coup de main sur la gestion d'users,
 # Jedediah pour avoir joué avec le html/css du thème.
-# Aux traducteurs: Sophie, Spectre, Hardware, Zazev.
+# Aux traducteurs: Sophie, Spectre, Hardware, Zarev.
 #
 # Installation:
 #
