@@ -237,7 +237,7 @@ fi
 #rm /etc/resolv.conf && touch /etc/resolv.conf
 #cat <<'EOF' >  /etc/resolv.conf
 #nameserver 127.0.0.1
-# dns.watch
+#dns.watch
 #nameserver 84.200.69.80
 #nameserver 84.200.70.40
 #EOF
@@ -309,11 +309,48 @@ else
 	exit 1
 fi
 
+# bind9
+if [ ! -d /etc/bind ]; then
+	rm /etc/init.d/bind9
+	apt-get install -y bind9
+fi
+
+cat <<'EOF' >  /etc/bind/named.conf.options
+acl clients {
+  localhost;
+  localnets;
+};
+
+options {
+
+  directory "/var/cache/bind";
+
+  recursion yes;
+  allow-query { clients; };
+  allow-recursion { clients; };
+
+  forwarders {
+    # dns.watch
+    84.200.69.80;
+    84.200.70.40;
+  };
+
+  dnssec-enable yes; 
+  dnssec-validation auto;
+
+  auth-nxdomain no;
+  listen-on { 127.0.0.1; };
+
+};
+
+EOF
+service bind9 restart
+
 # installation des paquets
 apt-get update && apt-get upgrade -y
 echo "" ; set "132" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
-apt-get install -y --force-yes htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev nginx vim nano ccze screen subversion apache2-utils curl php5 php5-cli php5-fpm php5-curl php5-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude
+apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev nginx vim nano ccze screen subversion apache2-utils curl php5 php5-cli php5-fpm php5-curl php5-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude
 
 echo "" ; set "136" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
