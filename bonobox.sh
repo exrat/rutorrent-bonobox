@@ -309,10 +309,14 @@ else
 	exit 1
 fi
 
-# bind9
+# bind9 & dhcp
 if [ ! -d /etc/bind ]; then
 	rm /etc/init.d/bind9
 	apt-get install -y bind9
+fi
+
+if [ -f /etc/dhcp/dhclient.conf ]; then
+	sed -i "s/#prepend domain-name-servers 127.0.0.1;/prepend domain-name-servers 127.0.0.1;/g;" /etc/dhcp/dhclient.conf
 fi
 
 cat <<'EOF' >  /etc/bind/named.conf.options
@@ -344,6 +348,9 @@ options {
 };
 
 EOF
+
+sed -i '/127.0.0.1/d' /etc/resolv.conf # pour éviter doublon
+echo "nameserver 127.0.0.1" >> /etc/resolv.conf
 service bind9 restart
 
 # installation des paquets
