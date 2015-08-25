@@ -683,8 +683,10 @@ sed -i "s/expose_php = On/expose_php = Off/g;" /etc/php5/fpm/php.ini
 
 if [ "$BASELANG" = "fr" ]; then
 	sed -i "s/^;date.timezone =/date.timezone = Europe\/Paris/g;" /etc/php5/fpm/php.ini
+	sed -i "s/^;date.timezone =/date.timezone = Europe\/Paris/g;" /etc/php5/cli/php.ini
 else
 	sed -i "s/^;date.timezone =/date.timezone = UTC/g;" /etc/php5/fpm/php.ini
+	sed -i "s/^;date.timezone =/date.timezone = UTC/g;" /etc/php5/cli/php.ini
 fi
 
 sed -i "s/^;listen.owner = www-data/listen.owner = www-data/g;" /etc/php5/fpm/pool.d/www.conf

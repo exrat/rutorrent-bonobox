@@ -4,7 +4,7 @@
         <title>Monitoring - @USER@</title>
         <link rel="icon" type="image/png" href="favicon.png">
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-		<link rel="stylesheet" type="text/css" href="./style/style.css">
+		<link rel="stylesheet" type="text/css" href="./style.css">
         <meta charset="utf-8" />
         <!-- Bootstrap -->
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
