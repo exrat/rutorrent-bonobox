@@ -39,8 +39,8 @@ CGREEN="${CSI}1;32m"
 CYELLOW="${CSI}1;33m"
 CBLUE="${CSI}1;34m"
 
-LIBTORRENT="0.13.4"
-RTORRENT="0.9.4"
+LIBTORRENT="0.13.6"
+RTORRENT="0.9.6"
 RUTORRENT="/var/www/rutorrent"
 BONOBOX="/tmp/rutorrent-bonobox"
 
@@ -361,7 +361,7 @@ apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg
 
 echo "" ; set "136" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
-# génération clè 2048 bits
+# génération clé 2048 bits
 openssl dhparam -out dhparams.pem 2048 >/dev/null 2>&1 &
 
 # téléchargement complément favicon
