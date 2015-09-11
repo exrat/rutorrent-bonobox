@@ -1,0 +1,20 @@
+scgi_port = 127.0.0.1:@PORT@
+encoding_list = UTF-8
+port_range = 45000-65000
+port_random = no
+check_hash = no
+directory = /home/@USER@/torrents
+session = /home/@USER@/.session
+encryption = allow_incoming, try_outgoing, enable_retry
+schedule = watch_directory,1,1,"load_start=/home/@USER@/watch/*.torrent"
+schedule = untied_directory,5,5,"stop_untied=/home/@USER@/watch/*.torrent"
+schedule = espace_disque_insuffisant,1,30,close_low_diskspace=500M
+use_udp_trackers = yes
+dht = off
+peer_exchange = no
+min_peers = 40
+max_peers = 100
+min_peers_seed = 10
+max_peers_seed = 50
+max_uploads = 15
+execute = {sh,-c,/usr/bin/php @RUTORRENT@/php/initplugins.php @USER@ &}

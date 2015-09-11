@@ -1,0 +1,9 @@
+## Generic *.conf file syntax highlighting
+syntax "conf" "\.(c(onf|nf|fg))$"
+icolor yellow ""(\\.|[^"])*""
+icolor brightyellow start="=" end="$"
+icolor magenta start="(^|[[:space:]])[0-9a-z-]" end="="
+icolor brightred "(^|[[:space:]])((\[|\()[0-9a-z_!@#$%^&*-]+(\]|\)))"
+color green "[[:space:]][0-9.KM]+"
+color cyan start="(^|[[:space:]])(#|;).*$" end="$"
+color brightblue "(^|[[:space:]])(#|;)"

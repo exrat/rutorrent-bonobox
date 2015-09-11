@@ -1,0 +1,9 @@
+## ini highlighting
+syntax "ini" "\.ini(\.old|~)?$"
+color brightred "=.*$"
+color green "="
+color brightblue "-?[0-9\.]+\s*($|;)"
+color brightmagenta "ON|OFF|On|Off|on|off\s*($|;)"
+color brightcyan "^\s*\[.*\]"
+color cyan "^\s*[a-zA-Z0-9_\.]+"
+color brightyellow ";.*$"
