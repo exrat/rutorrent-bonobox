@@ -141,3 +141,15 @@ chmod 640 "$NGINXPASS"/*
 chown -c www-data:www-data "$NGINXPASS"/*
 service nginx restart
 }
+
+function FONCRTCONF ()
+{
+echo "
+        location /$USERMAJ {
+            include scgi_params;
+            scgi_pass 127.0.0.1:$PORT; #ou socket : unix:/home/username/.session/username.socket
+            auth_basic \"seedbox\";
+            auth_basic_user_file \"/etc/nginx/passwd/rutorrent_passwd_$USER\";
+        }
+}">> "$NGINXENABLE"/rutorrent.conf
+}
