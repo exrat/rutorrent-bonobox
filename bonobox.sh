@@ -141,6 +141,7 @@ if [ "$THREAD" = "" ]; then
     THREAD=1
 fi
 
+# ajout depots
 . "$INCLUDES"/deb.sh
 
 # bind9 & dhcp
@@ -386,6 +387,7 @@ cp -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUTORRENT"/plugins/theme/themes/Spiri
 
 # configuration thème
 sed -i "s/defaultTheme = \"\"/defaultTheme = \"SpiritOfBonobo\"/g;" "$RUTORRENT"/plugins/theme/conf.php
+
 echo "" ; set "148" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # liens symboliques et permissions
@@ -552,15 +554,8 @@ sed -i "s/@USER@/$USER/g;" /home/"$USER"/.rtorrent.rc
 sed -i "s/@PORT@/$PORT/g;" /home/"$USER"/.rtorrent.rc
 sed -i "s|@RUTORRENT@|$RUTORRENT|;" /home/"$USER"/.rtorrent.rc
 
-# user rtorrent.conf config
-echo "
-        location /$USERMAJ {
-            include scgi_params;
-            scgi_pass 127.0.0.1:5001; #ou socket : unix:/home/username/.session/username.socket
-            auth_basic \"seedbox\";
-            auth_basic_user_file \"$NGINXPASS/rutorrent_passwd_$USER\";
-        }
-}">> "$NGINXENABLE"/rutorrent.conf
+# config user rutorrent.conf
+FONCRTCONF
 
 mkdir "$RUTORRENT"/conf/users/"$USER"
 
@@ -803,16 +798,9 @@ sed -i "s/@USER@/$USER/g;" /home/"$USER"/.rtorrent.rc
 sed -i "s/@PORT@/$PORT/g;" /home/"$USER"/.rtorrent.rc
 sed -i "s|@RUTORRENT@|$RUTORRENT|;" /home/"$USER"/.rtorrent.rc
 
-# user rutorrent.conf config
+# config user rutorrent.conf
 sed -i '$d' "$NGINXENABLE"/rutorrent.conf
-echo "
-        location /$USERMAJ {
-            include scgi_params;
-            scgi_pass 127.0.0.1:$PORT; #ou socket : unix:/home/username/.session/username.socket
-            auth_basic \"seedbox\";
-            auth_basic_user_file \"$NGINXPASS/rutorrent_passwd_$USER\";
-        }">> "$NGINXENABLE"/rutorrent.conf
-echo "}" >> "$NGINXENABLE"/rutorrent.conf
+FONCRTCONF
 
 # logserver user config
 sed -i '$d' "$SCRIPT"/logserver.sh
@@ -905,6 +893,7 @@ set "228" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}"
 set "230" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}"
 echo "" ; set "232" ; FONCTXT "$1" ; echo -n -e "${CGREEN}$TXT1 ${CEND}"
 read -r VALIDE
+
 if FONCNO "$VALIDE"; then
 	echo "" ; set "210" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
 	echo -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}" ; echo ""
@@ -997,16 +986,9 @@ sed -i "s/@USER@/$USER/g;" /home/"$USER"/.rtorrent.rc
 sed -i "s/@PORT@/$PORT/g;" /home/"$USER"/.rtorrent.rc
 sed -i "s|@RUTORRENT@|$RUTORRENT|;" /home/"$USER"/.rtorrent.rc
 
-# user rtorrent.conf config
+# config user rutorrent.conf
 sed -i '$d' "$NGINXENABLE"/rutorrent.conf
-echo "
-        location /$USERMAJ {
-            include scgi_params;
-            scgi_pass 127.0.0.1:$PORT; #ou socket : unix:/home/username/.session/username.socket
-            auth_basic \"seedbox\";
-            auth_basic_user_file \"$NGINXPASS/rutorrent_passwd_$USER\";
-        }">> "$NGINXENABLE"/rutorrent.conf
-echo "}" >> "$NGINXENABLE"/rutorrent.conf
+FONCRTCONF
 
 # logserver user config
 sed -i '$d' "$SCRIPT"/logserver.sh
