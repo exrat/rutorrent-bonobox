@@ -145,11 +145,26 @@ service nginx restart
 function FONCRTCONF ()
 {
 echo "
-        location /$USERMAJ {
+        location /$1 {
             include scgi_params;
-            scgi_pass 127.0.0.1:$PORT; #ou socket : unix:/home/username/.session/username.socket
+            scgi_pass 127.0.0.1:$2; #ou socket : unix:/home/username/.session/username.socket
             auth_basic \"seedbox\";
-            auth_basic_user_file \"/etc/nginx/passwd/rutorrent_passwd_$USER\";
+            auth_basic_user_file \"$NGINXPASS/rutorrent_passwd_$3\";
         }
 }">> "$NGINXENABLE"/rutorrent.conf
 }
+
+function FONCPHPCONF ()
+{
+touch "$RUTORRENT"/conf/users/"$USER"/config.php 
+echo "<?php
+\$pathToExternals = array(
+    "curl"  => '/usr/bin/curl',
+    "stat"  => '/usr/bin/stat',
+    );
+\$topDirectory = '/home/$1';
+\$scgi_port = $2;
+\$scgi_host = '127.0.0.1';
+\$XMLRPCMountPoint = '/$3';" > "$RUTORRENT"/conf/users/"$USER"/config.php 
+}
+
