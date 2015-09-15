@@ -159,8 +159,8 @@ function FONCPHPCONF ()
 touch "$RUTORRENT"/conf/users/"$USER"/config.php 
 echo "<?php
 \$pathToExternals = array(
-    "curl"  => '/usr/bin/curl',
-    "stat"  => '/usr/bin/stat',
+    \"curl\"  => '/usr/bin/curl',
+    \"stat\"  => '/usr/bin/stat',
     );
 \$topDirectory = '/home/$1';
 \$scgi_port = $2;
