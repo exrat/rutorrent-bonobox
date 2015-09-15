@@ -548,11 +548,8 @@ chmod 755 /home/"$USER"
 service ssh restart
 echo "" ; set "166" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
-# .rtorrent.rc conf
-cp -f "$FILES"/rutorrent/rtorrent.rc /home/"$USER"/.rtorrent.rc
-sed -i "s/@USER@/$USER/g;" /home/"$USER"/.rtorrent.rc
-sed -i "s/@PORT@/$PORT/g;" /home/"$USER"/.rtorrent.rc
-sed -i "s|@RUTORRENT@|$RUTORRENT|;" /home/"$USER"/.rtorrent.rc
+# config .rtorrent.rc
+ FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
 
 # config user rutorrent.conf
 FONCRTCONF "$USERMAJ"  "$PORT" "$USER"
@@ -565,12 +562,8 @@ FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 cp "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
 
 # script rtorrent
-cp "$FILES"/rutorrent/init.conf /etc/init.d/"$USER"-rtorrent
-sed -i "s/@USER@/$USER/g;" /etc/init.d/"$USER"-rtorrent
-
-# configuration script rtorrent
-chmod +x /etc/init.d/"$USER"-rtorrent
-update-rc.d "$USER"-rtorrent defaults
+FONCSCRIPTRT "$USER" 
+service "$USER"-rtorrent start
 
 # write out current crontab
 crontab -l > rtorrentdem
@@ -583,14 +576,9 @@ echo "$UPGEOIP 2 9 * * sh $SCRIPT/updateGeoIP.sh > /dev/null 2>&1
 crontab rtorrentdem
 rm rtorrentdem
 
-# démarrage de rtorrent
-/etc/init.d/"$USER"-rtorrent start
-
 # htpasswd
-htpasswd -cbs "$NGINXPASS"/rutorrent_passwd "$USER" "${PASSNGINX}"
-htpasswd -cbs "$NGINXPASS"/rutorrent_passwd_"$USER" "$USER" "${PASSNGINX}"
-chmod 640 "$NGINXPASS"/*
-chown -c www-data:www-data "$NGINXPASS"/*
+ FONCHTPASSWD "$USER"
+
 echo "" ; set "168" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # conf fail2ban
@@ -789,10 +777,7 @@ PORT=$(( 5001+HISTO ))
 FONCMUNIN "$USER" "$PORT"
 
 # config .rtorrent.rc
-cp "$FILES"/rutorrent/rtorrent.rc /home/"$USER"/.rtorrent.rc
-sed -i "s/@USER@/$USER/g;" /home/"$USER"/.rtorrent.rc
-sed -i "s/@PORT@/$PORT/g;" /home/"$USER"/.rtorrent.rc
-sed -i "s|@RUTORRENT@|$RUTORRENT|;" /home/"$USER"/.rtorrent.rc
+ FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
 
 # config user rutorrent.conf
 sed -i '$d' "$NGINXENABLE"/rutorrent.conf
@@ -834,15 +819,11 @@ chown root:"$USER" /home/"$USER"
 chmod 755 /home/"$USER"
 
 # script rtorrent
-cp "$FILES"/rutorrent/init.conf /etc/init.d/"$USER"-rtorrent
-sed -i "s/@USER@/$USER/g;" /etc/init.d/"$USER"-rtorrent
-chmod +x /etc/init.d/"$USER"-rtorrent
-update-rc.d "$USER"-rtorrent defaults
-
+FONCSCRIPTRT "$USER" 
 service "$USER"-rtorrent start
 
 # htpasswd
-FONCHTPASSWD
+FONCHTPASSWD "$USER"
 
 # configuration page index munin
 FONCGRAPH "$USER"
@@ -973,10 +954,7 @@ PORT=$(( 5001+HISTO ))
 FONCMUNIN "$USER" "$PORT"
 
 # config .rtorrent.rc
-cp "$FILES"/rutorrent/rtorrent.rc /home/"$USER"/.rtorrent.rc
-sed -i "s/@USER@/$USER/g;" /home/"$USER"/.rtorrent.rc
-sed -i "s/@PORT@/$PORT/g;" /home/"$USER"/.rtorrent.rc
-sed -i "s|@RUTORRENT@|$RUTORRENT|;" /home/"$USER"/.rtorrent.rc
+ FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
 
 # config user rutorrent.conf
 sed -i '$d' "$NGINXENABLE"/rutorrent.conf
@@ -1008,15 +986,11 @@ chown root:"$USER" /home/"$USER"
 chmod 755 /home/"$USER"
 
 # script rtorrent
-cp "$FILES"/rutorrent/init.conf  /etc/init.d/"$USER"-rtorrent
-sed -i "s/@USER@/$USER/g;" /etc/init.d/"$USER"-rtorrent
-chmod +x /etc/init.d/"$USER"-rtorrent
-update-rc.d "$USER"-rtorrent defaults
-
+FONCSCRIPTRT "$USER" 
 service "$USER"-rtorrent start
 
 # htpasswd
-FONCHTPASSWD
+FONCHTPASSWD "$USER"
 
 # seedbox-manager conf user
 cd "$SBM"/conf/users || exit
@@ -1128,10 +1102,7 @@ echo "" ; set "270" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}" ; echo ""
 update-rc.d "$USER"-rtorrent remove
 
 # script rtorrent
-cp "$FILES"/rutorrent/init.conf /etc/init.d/"$USER"-rtorrent
-sed -i "s/@USER@/$USER/g;" /etc/init.d/"$USER"-rtorrent
-chmod +x /etc/init.d/"$USER"-rtorrent
-update-rc.d "$USER"-rtorrent defaults
+FONCSCRIPTRT "$USER" 
 
 # start user
  rm /home/"$USER"/.session/rtorrent.lock
@@ -1170,7 +1141,7 @@ PASSNGINX=${USERPWD}
 echo "${USER}:${USERPWD}" | chpasswd
 
 # htpasswd
-FONCHTPASSWD
+FONCHTPASSWD "$USER"
 
 echo "" ; set "278" "280" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
 echo

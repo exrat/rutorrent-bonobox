@@ -135,8 +135,8 @@ chown -R www-data:www-data "$GRAPH"
 
 function FONCHTPASSWD ()
 {
-htpasswd -bs "$NGINXPASS"/rutorrent_passwd "$USER" "${PASSNGINX}"
-htpasswd -cbs "$NGINXPASS"/rutorrent_passwd_"$USER" "$USER" "${PASSNGINX}"
+htpasswd -bs "$NGINXPASS"/rutorrent_passwd "$1" "${PASSNGINX}"
+htpasswd -cbs "$NGINXPASS"/rutorrent_passwd_"$1" "$1" "${PASSNGINX}"
 chmod 640 "$NGINXPASS"/*
 chown -c www-data:www-data "$NGINXPASS"/*
 service nginx restart
@@ -156,7 +156,7 @@ echo "
 
 function FONCPHPCONF ()
 {
-touch "$RUTORRENT"/conf/users/"$USER"/config.php 
+touch "$RUTORRENT"/conf/users/"$1"/config.php 
 echo "<?php
 \$pathToExternals = array(
     \"curl\"  => '/usr/bin/curl',
@@ -165,6 +165,22 @@ echo "<?php
 \$topDirectory = '/home/$1';
 \$scgi_port = $2;
 \$scgi_host = '127.0.0.1';
-\$XMLRPCMountPoint = '/$3';" > "$RUTORRENT"/conf/users/"$USER"/config.php 
+\$XMLRPCMountPoint = '/$3';" > "$RUTORRENT"/conf/users/"$1"/config.php 
+}
+
+function FONCTORRENTRC ()
+{
+cp -f "$FILES"/rutorrent/rtorrent.rc /home/"$1"/.rtorrent.rc
+sed -i "s/@USER@/$1/g;" /home/"$1"/.rtorrent.rc
+sed -i "s/@PORT@/$2/g;" /home/"$1"/.rtorrent.rc
+sed -i "s|@RUTORRENT@|$3|;" /home/"$1"/.rtorrent.rc
+}
+
+function FONCSCRIPTRT ()
+{
+cp "$FILES"/rutorrent/init.conf /etc/init.d/"$1"-rtorrent
+sed -i "s/@USER@/$1/g;" /etc/init.d/"$1"-rtorrent
+chmod +x /etc/init.d/"$1"-rtorrent
+update-rc.d "$1"-rtorrent defaults
 }
 
