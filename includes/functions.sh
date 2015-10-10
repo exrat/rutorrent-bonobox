@@ -60,6 +60,18 @@ TXT2="$(grep "$2" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
 TXT3="$(grep "$3" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
 }
 
+FONCFSUSER ()
+{
+FSUSER=$(grep /home/"$1" /etc/fstab | cut -c 6-9)
+
+if [ "$FSUSER" = "" ]; then
+	echo
+else
+    tune2fs -m 0 /dev/"$FSUSER"
+    mount -o remount /home/"$1"
+fi
+}
+
 function FONCMUNIN ()
 {
 cp "$MUNIN"/rtom_mem "$MUNIN"/rtom_"$1"_mem
