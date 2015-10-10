@@ -45,10 +45,6 @@ elif [[ $VERSION =~ 8. ]]; then
 DEBNUMBER="Debian_8.0.deb"
 DEBNAME="jessie"
 
-# ouverture root "coucou les poneys"
-sed -i "s/PermitRootLogin no/PermitRootLogin yes/g;" /etc/ssh/sshd_config
-systemctl restart sshd.service
-
 echo "# dépôt dotdeb
 deb http://packages.dotdeb.org $DEBNAME all
 deb-src http://packages.dotdeb.org $DEBNAME all" >> /etc/apt/sources.list.d/dotdeb.list
