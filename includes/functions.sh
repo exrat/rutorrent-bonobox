@@ -12,7 +12,7 @@ function FONCUSER ()
 {
 read -r TESTUSER
 grep -w "$TESTUSER" /etc/passwd &> /dev/null
-if test ${?} -eq 1; then
+if [ $? -eq 1 ]; then
 	if [[ "$TESTUSER" =~ ^[a-z0-9]{3,}$ ]]; then
 		USER="$TESTUSER"
 		break
