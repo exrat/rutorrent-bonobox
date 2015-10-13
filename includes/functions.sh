@@ -11,11 +11,16 @@ fi
 function FONCUSER ()
 {
 read -r TESTUSER
-if [[ "$TESTUSER" =~ ^[a-z0-9]{3,}$ ]];then
-	USER="$TESTUSER"
-	break
+grep -w "$TESTUSER" /etc/passwd &> /dev/null
+if test ${?} -eq 1; then
+	if [[ "$TESTUSER" =~ ^[a-z0-9]{3,}$ ]]; then
+		USER="$TESTUSER"
+		break
+	else
+		echo "" ; set "110" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
+	fi
 else
-	echo "" ; set "110" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
+	echo "" ; set "198" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
 fi
 }
 
@@ -24,7 +29,7 @@ function FONCPASS ()
 read -r REPPWD
 if [ "$REPPWD" = "" ]; then
 	AUTOPWD=$(tr -dc "1-9a-nA-Np-zP-Z" < /dev/urandom | head -c 8)
-	echo "" ; set "118" "120" ; FONCTXT "$1" "$2" ; echo -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$AUTOPWD${CEND} ${CGREEN}$TXT2 ${CEND}"
+	echo "" ; set "118" "120" ; FONCTXT "$1" "$2" ; echo  -n -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$AUTOPWD${CEND} ${CGREEN}$TXT2 ${CEND}"
         read -r REPONSEPWD
         if FONCNO "$REPONSEPWD"; then
 		echo
@@ -34,7 +39,7 @@ if [ "$REPPWD" = "" ]; then
 		fi
 
 else
-	if [[ "$REPPWD" =~ ^[a-zA-Z0-9]{6,}$ ]];then
+	if [[ "$REPPWD" =~ ^[a-zA-Z0-9]{6,}$ ]]; then
 		USERPWD="$REPPWD"
        	break
 	else
@@ -67,8 +72,8 @@ FSUSER=$(grep /home/"$1" /etc/fstab | cut -c 6-9)
 if [ "$FSUSER" = "" ]; then
 	echo
 else
-    tune2fs -m 0 /dev/"$FSUSER"
-    mount -o remount /home/"$1"
+    tune2fs -m 0 /dev/"$FSUSER" &> /dev/null
+    mount -o remount /home/"$1" &> /dev/null
 fi
 }
 

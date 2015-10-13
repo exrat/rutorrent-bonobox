@@ -87,7 +87,7 @@ if [ "$INSTALLMAIL" = "" ]; then
 	break
 
 else
-	if [[ "$INSTALLMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]];then
+	if [[ "$INSTALLMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]]; then
 	EMAIL="$INSTALLMAIL"
 	break
 	else
@@ -105,8 +105,8 @@ FSHOME=$(df -h | grep /home | cut -c 6-9)
 if [ "$FSHOME" = "" ]; then
 	echo
 else
-	tune2fs -m 0 /dev/"$FSHOME"
-	mount -o remount /home
+	tune2fs -m 0 /dev/"$FSHOME" &> /dev/null
+	mount -o remount /home &> /dev/null
 fi
 
 FONCFSUSER "$USER"
@@ -909,7 +909,7 @@ FONCFSUSER "$USER"
 
 # variable email (rétro compatible)
 TESTMAIL=$(sed -n "1 p" "$RUTORRENT"/histo.log)
-if [[ "$TESTMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]];then
+if [[ "$TESTMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]]; then
         EMAIL="$TESTMAIL"
 else
         EMAIL=contact@exemple.com
@@ -1018,7 +1018,7 @@ read -r USER
 
 # variable email (rétro compatible)
 TESTMAIL=$(sed -n "1 p" "$RUTORRENT"/histo.log)
-if [[ "$TESTMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]];then
+if [[ "$TESTMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]]; then
         EMAIL="$TESTMAIL"
 else
         EMAIL=contact@exemple.com
