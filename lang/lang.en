@@ -48,7 +48,7 @@
 192 Generating installation log.
 194 Do you want restart your server to complete installation (y/n):
 196 Logs are available with this url:
-198 #
+198 Error this user already exists
 199 #
 200 Consider manually restart your server before use it !
 202 You will be able to login to ruTorrent:

@@ -48,7 +48,7 @@
 192 Génération du log d'installation.
 194 Voulez vous redémarrer pour finaliser votre installation (o/n):
 196 Le log de l'installation est visible à cette adresse:
-198 #
+198 Erreur cet utilisateur existe déjà
 199 #
 200 Pensez à redémarrer manuellement votre serveur avant utilisation !
 202 Vous pourrez ensuite vous connecter sur ruTorrent:
