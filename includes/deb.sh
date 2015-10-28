@@ -23,12 +23,13 @@ apt-key add nginx_signing.key
 
 function FONCDEPNGINX ()
 {
-apt-get install -y nginx=1.9.5-1~"$1"
+apt-get install -y nginx=1.9.6-1~"$1"
 echo "# dépôt nginx
 deb http://nginx.org/packages/debian/ $1 nginx
 deb-src http://nginx.org/packages/debian/ $1 nginx" > /etc/apt/sources.list.d/nginx.list
 }
 
+# ajout depots
 cd /tmp || exit
 
 if [[ $VERSION =~ 7. ]]; then
