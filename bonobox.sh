@@ -311,6 +311,9 @@ git clone https://github.com/rMX666/rutorrent-seeding-view.git rutorrent-seeding
 # linkproxy
 cp -R "$BONOBOX"/plugins/linkproxy "$RUTORRENT"/plugins/
 
+# linklogs
+cp -R "$BONOBOX"/plugins/linklogs "$RUTORRENT"/plugins/
+
 # nfo
 cp -R "$BONOBOX"/plugins/nfo "$RUTORRENT"/plugins/nfo
 
@@ -817,6 +820,8 @@ sed -i "s/contact@mail.com/$EMAIL/g;" "$SBM"/conf/users/"$USER"/config.ini
 
 # plugin.ini
 cp "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+echo "[linklogs]
+enabled = no" >> "$RUTORRENT"/conf/users/"$USER"/plugins.ini
 
 # permission
 chown -R www-data:www-data "$SBM"/conf/users
@@ -972,6 +977,8 @@ FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 # plugin.ini
 cp "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+echo "[linklogs]
+enabled = no" >> "$RUTORRENT"/conf/users/"$USER"/plugins.ini
 
 # chroot user supplémentaire
 echo "Match User $USER

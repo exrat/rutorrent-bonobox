@@ -79,8 +79,11 @@ div#webuiUpdateToggle.resume:hover { background: transparent url(./images/playui
 div#webuiRefresh { background: transparent url(./images/refreshui.png) no-repeat; }
 div#webuiRefresh:hover { background: transparent url(./images/refreshuih.png) no-repeat; }
 
-div#proxy {	background: transparent url(./images/proxy.png) no-repeat; }
-div#proxy:hover { background: transparent url(./images/proxyh.png) no-repeat; }
+div#linkproxy {	background: transparent url(./images/proxy.png) no-repeat; }
+div#linkproxy:hover { background: transparent url(./images/proxyh.png) no-repeat; }
+
+div#linklogs {	background: transparent url(./images/linklogs.png) no-repeat; }
+div#linklogs:hover { background: transparent url(./images/linklogsh.png) no-repeat; }
 
 div#linkseedboxmanager { background: transparent url(./images/seedboxmanager.png) no-repeat; }
 div#linkseedboxmanager:hover { background: transparent url(./images/seedboxmanagerh.png) no-repeat; }

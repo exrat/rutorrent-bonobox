@@ -1,0 +1,7 @@
+plugin.description: Log web plugin
+plugin.author: tomcdj71
+plugin.runlevel: 11
+plugin.version: 1.00
+rtorrent.remote: error
+need_rtorrent: 0
+plugin.help: http://mondedie.fr
