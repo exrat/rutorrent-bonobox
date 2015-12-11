@@ -4,13 +4,13 @@
 104         Le premier utilisateur sera l'administrateur de Seedbox-Manager,
 106      vous pourrez ajouter d'autres utilisateurs à la fin de l'installation.
 108 Entrez le nom du premier utilisateur (en minuscule):
-110 Le nom de votre utilisateur doit être en minuscule,\nde plus de 3 lettres et sans caratères spéciaux.
+110 Le nom de votre utilisateur doit être en minuscule,\nde plus de 3 lettres et sans caractères spéciaux.
 112 Entrez le mot de passe pour cet utilisateur, ou appuyez sur "
 114 Entrée
 116 "\npour en générer un automatiquement:
 118 Voulez vous utiliser
 120 comme mot de passe ? (o/n):
-122 Le mot de passe ne doit pas contenir de caratères spéciaux\net faire plus de 5 chiffres ou lettres.
+122 Le mot de passe ne doit pas contenir de caractères spéciaux\net doit faire plus de 5 chiffres ou lettres.
 124 Entrez l'email de contact qui apparaîtra dans Seedbox-Manager:
 126 L'adresse mail n'est pas valide, merci de corrigez ou laissez vide.
 128 Voulez vous installer un serveur FTP (o/n):
