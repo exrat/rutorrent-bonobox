@@ -215,6 +215,7 @@ fi
 
 # installation XMLRPC LibTorrent rTorrent
 cd /tmp || exit
+# svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/advanced xmlrpc-c
 svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
 if [ ! -d /tmp/xmlrpc-c ]; then
 	wget http://bonobox.net/script/xmlrpc-c.tar.gz
@@ -539,6 +540,9 @@ sed -i "s/UsePAM/#UsePAM/g;" /etc/ssh/sshd_config
 echo "Match User $USER
 ChrootDirectory /home/$USER">> /etc/ssh/sshd_config
 
+# config .rtorrent.rc
+ FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
+
 # permissions
 chown -R "$USER":"$USER" /home/"$USER"
 chown root:"$USER" /home/"$USER"
@@ -546,9 +550,6 @@ chmod 755 /home/"$USER"
 
 service ssh restart
 echo "" ; set "166" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
-
-# config .rtorrent.rc
- FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
 
 # config user rutorrent.conf
 FONCRTCONF "$USERMAJ"  "$PORT" "$USER"
