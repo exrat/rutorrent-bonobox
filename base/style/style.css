@@ -50,7 +50,7 @@ body
     -webkit-transform:rotate(-90deg);
     -ms-transform:rotate(-90deg);
     margin-left: -10%;
-    margin-top: auto;
+    margin-top: -10%;
     margin-bottom:auto;
 }
 

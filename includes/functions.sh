@@ -65,7 +65,7 @@ TXT2="$(grep "$2" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
 TXT3="$(grep "$3" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
 }
 
-FONCFSUSER ()
+function FONCFSUSER ()
 {
 FSUSER=$(grep /home/"$1" /etc/fstab | cut -c 6-9)
 
