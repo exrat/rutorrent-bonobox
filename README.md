@@ -1,5 +1,7 @@
 # Script d'installation ruTorrent / Nginx
 
+![logo](https://raw.github.com/exrat/rutorrent-bonobox/master/files/bonobox.png)
+
 * Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur.
 * Français, English, German, Pусский
 * Nécessite Debian 7 ou 8 (32/64 bits) & un serveur fraîchement installé
@@ -34,6 +36,7 @@ git clone https://github.com/exrat/rutorrent-bonobox
 cd rutorrent-bonobox
 chmod a+x bonobox.sh && ./bonobox.sh
 ```
+![caps1](https://raw.github.com/exrat/rutorrent-bonobox/master/files/caps_script01.png)
 
 **Vous pouvez aussi forcer la langue de votre choix:**
 ```
@@ -51,6 +54,15 @@ chmod a+x bonobox.sh && ./bonobox.sh --de
 ```
 
 Pour gérer vos utilisateurs ultérieurement, il vous suffit de relancer le script
+
+![caps2](https://raw.github.com/exrat/rutorrent-bonobox/master/files/caps_script02.png)
+
+### Disclaimer
+Ce script est proposé à des fins d'expérimentation uniquement, le téléchargement d’oeuvre copyrightées est illégal.
+
+Merci de vous conformer à la législation en vigueur en fonction de vos pays respectifs en faisant vos tests sur des fichiers libres de droit.
+
+De plus, aucun animal n’a été maltraité durant la laborieuse phase de dévellopement !
 
 ### License
 This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
