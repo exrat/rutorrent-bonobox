@@ -145,7 +145,7 @@ fi
 
 # bind9 & dhcp
 if [ ! -d /etc/bind ]; then
-	rm /etc/init.d/bind9
+	rm /etc/init.d/bind9 &> /dev/null
 	apt-get install -y bind9
 fi
 
@@ -326,8 +326,8 @@ cp -R "$BONOBOX"/plugins/filemanager "$RUTORRENT"/plugins/filemanager
 cp -f "$FILES"/rutorrent/filemanager.conf "$RUTORRENT"/plugins/filemanager/conf.php
 
 # configuration du plugin create
-sed -i "s#$(useExternal) = false;#$(useExternal) = 'buildtorrent';#" "$RUTORRENT"/plugins/create/conf.php
-sed -i "s#$(pathToCreatetorrent) = '';#$(pathToCreatetorrent) = '/usr/bin/buildtorrent';#" "$RUTORRENT"/plugins/create/conf.php
+sed -i "s#$useExternal = false;#$useExternal = 'buildtorrent';#" "$RUTORRENT"/plugins/create/conf.php
+sed -i "s#$pathToCreatetorrent = '';#$pathToCreatetorrent = '/usr/bin/buildtorrent';#" "$RUTORRENT"/plugins/create/conf.php
 
 # fileshare
 cd "$RUTORRENT"/plugins || exit
@@ -467,8 +467,8 @@ wtf.org
 contact@wtf.org
 EOF
 
-rm -R /var/www/html
-rm "$NGINXENABLE"/default
+rm -R /var/www/html &> /dev/null
+rm "$NGINXENABLE"/default &> /dev/null
 
 # installation Seedbox-Manager
 
