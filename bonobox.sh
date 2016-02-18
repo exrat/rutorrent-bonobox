@@ -831,6 +831,7 @@ FONCHTPASSWD "$USER"
 
 # configuration page index munin
 FONCGRAPH "$USER"
+service nginx restart
 
 # log users
 echo "userlog">> "$RUTORRENT"/histo.log
@@ -1004,6 +1005,7 @@ chown -R www-data:www-data "$SBM"/conf/users
 
 # configuration page index munin
 FONCGRAPH "$USER"
+service nginx restart
 
 # log users
 echo "userlog">> "$RUTORRENT"/histo.log
