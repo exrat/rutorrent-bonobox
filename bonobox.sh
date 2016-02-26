@@ -481,10 +481,10 @@ echo "" ; set "156" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 
 ## nodejs
 cd /tmp || exit
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v"$NVM"/install.sh | bash
 # shellcheck source=/dev/null
 source ~/.bashrc
-nvm install v5.3.0
+nvm install v"$NODE"
 echo "" ; set "158" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 ## bower

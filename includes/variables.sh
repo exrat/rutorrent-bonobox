@@ -11,6 +11,8 @@ CBLUE="${CSI}1;34m"
 LIBTORRENT="0.13.6"
 RTORRENT="0.9.6"
 MULTIMEDIA="deb-multimedia-keyring_2015.6.1_all.deb"
+NVM="0.31.0"
+NODE="5.3.0"
 
 RUTORRENT="/var/www/rutorrent"
 BONOBOX="/tmp/rutorrent-bonobox"
