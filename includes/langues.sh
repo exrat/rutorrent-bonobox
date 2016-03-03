@@ -28,3 +28,6 @@ while true; do
 			GENLANG="en" ; fi ; break ;;
 	esac
 done
+
+# fix langue shell root
+echo "export LANG=$LANG" >> /root/.bashrc
