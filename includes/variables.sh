@@ -10,7 +10,7 @@ CBLUE="${CSI}1;34m"
 
 LIBTORRENT="0.13.6"
 RTORRENT="0.9.6"
-MULTIMEDIA="deb-multimedia-keyring_2015.6.1_all.deb"
+MULTIMEDIA="deb-multimedia-keyring_2016.3.7_all.deb"
 NVM="0.31.0"
 NODE="5.3.0"
 
