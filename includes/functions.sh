@@ -85,6 +85,16 @@ TXT2="$(grep "$2" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
 TXT3="$(grep "$3" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
 }
 
+# FONCSERVICE $1 start/stop/...  $2 nom
+function FONCSERVICE ()
+{
+if [[ $VERSION =~ 7. ]]; then
+	service "$2" "$1"
+elif [[ $VERSION =~ 8. ]]; then
+	systemctl "$1" "$2".service
+fi
+}
+
 function FONCFSUSER ()
 {
 FSUSER=$(grep /home/"$1" /etc/fstab | cut -c 6-9)
@@ -122,7 +132,7 @@ env.category @USER@">> /etc/munin/plugin-conf.d/munin-node
 sed -i "s/@USER@/$1/g;" /etc/munin/plugin-conf.d/munin-node
 sed -i "s/@PORT@/$2/g;" /etc/munin/plugin-conf.d/munin-node
 
-service munin-node restart
+FONCSERVICE restart munin-node
 
 echo "
 rtom_@USER@_peers.graph_width 700
@@ -218,15 +228,5 @@ cp "$FILES"/rutorrent/init.conf /etc/init.d/"$1"-rtorrent
 sed -i "s/@USER@/$1/g;" /etc/init.d/"$1"-rtorrent
 chmod +x /etc/init.d/"$1"-rtorrent
 update-rc.d "$1"-rtorrent defaults
-}
-
-# FONCSERVICE $1 start/stop/...  $2 nom
-function FONCSERVICE ()
-{
-if [[ $VERSION =~ 7. ]]; then
-	service "$2" "$1"
-elif [[ $VERSION =~ 8. ]]; then
-	systemctl "$1" "$2".service
-fi
 }
 
