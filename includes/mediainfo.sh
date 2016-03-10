@@ -25,7 +25,7 @@ elif [[ $(uname -m) == x86_64 ]]; then
 fi
 
 if [[ $VERSION =~ 7. ]]; then
-	apt-get install -y libtinyxml2-0.0.0  libglib2.0-0  libmms0
+	apt-get install -y libtinyxml2-0.0.0 libglib2.0-0 libmms0
 	FONCMEDIAINFO
 
 elif [[ $VERSION =~ 8. ]]; then

@@ -1,15 +1,12 @@
 #!/bin/bash
 
-# contrôle version debian & function
-VERSION=$(cat /etc/debian_version)
-
 function FONCDEP ()
 {
-echo "#depot paquet propriétaire
+echo "#dépôt paquet propriétaire
 deb http://ftp2.fr.debian.org/debian/ $1 main non-free
 deb-src http://ftp2.fr.debian.org/debian/ $1 main non-free" >> /etc/apt/sources.list.d/non-free.list
 
-echo "# depot nginx
+echo "# dépôt nginx
 deb http://nginx.org/packages/mainline/debian/ $1 nginx
 deb-src http://nginx.org/packages/mainline/debian/ $1 nginx" >> /etc/apt/sources.list.d/nginx.list
 
@@ -30,7 +27,7 @@ deb http://nginx.org/packages/debian/ $1 nginx
 deb-src http://nginx.org/packages/debian/ $1 nginx" > /etc/apt/sources.list.d/nginx.list
 }
 
-# ajout depots
+# ajout dépôts
 cd /tmp || exit
 
 if [[ $VERSION =~ 7. ]]; then
@@ -38,7 +35,7 @@ if [[ $VERSION =~ 7. ]]; then
 DEBNUMBER="Debian_7.0.deb"
 DEBNAME="wheezy"
 
-echo "# depot dotdeb php 5.6
+echo "# dépôt dotdeb php 5.6
 deb http://packages.dotdeb.org $DEBNAME-php56 all
 deb-src http://packages.dotdeb.org $DEBNAME-php56 all" >> /etc/apt/sources.list.d/dotdeb-php56.list
 
@@ -47,21 +44,22 @@ elif [[ $VERSION =~ 8. ]]; then
 DEBNUMBER="Debian_8.0.deb"
 DEBNAME="jessie"
 
-echo "# depot dotdeb
+echo "# dépôt dotdeb
 deb http://packages.dotdeb.org $DEBNAME all
 deb-src http://packages.dotdeb.org $DEBNAME all" >> /etc/apt/sources.list.d/dotdeb.list
 
-echo "# depot multimedia
+echo "# dépôt multimedia
 deb http://www.deb-multimedia.org $DEBNAME main non-free" >> /etc/apt/sources.list.d/multimedia.list
 
 # clé ffmpeg
-wget http://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/"$MULTIMEDIA"
-dpkg -i "$MULTIMEDIA"
+wget http://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_"$DEBMULTIMEDIA"_all.deb
+dpkg -i deb-multimedia-keyring_"$DEBMULTIMEDIA"_all.deb
 
 else
 	set "130" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
 	exit 1
 fi
 
-# depots standard
+# dépôts standard
 FONCDEP "$DEBNAME"
+

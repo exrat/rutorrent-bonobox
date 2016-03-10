@@ -19,7 +19,7 @@ Tiré du tutoriel de Magicalex pour mondedie.fr disponible ici:
 
 Merci Aliochka & Meister pour les conf de munin et VsFTPd
 
-à Albaret pour le coup de main sur la gestion d'users et
+à Albaret pour le coup de main sur la gestion d'users, LetsGo67 pour ses rectifs et
 
 Jedediah pour avoir joué avec le html/css du thème.
 
