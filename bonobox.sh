@@ -175,9 +175,9 @@ wget -T 10 -t 3 http://www.bonobox.net/script/favicon.tar.gz || wget -T 10 -t 3 
 tar xzfv favicon.tar.gz
 
 # création fichiers couleurs nano
-cp  "$FILES"/nano/ini.nanorc /usr/share/nano/ini.nanorc
-cp  "$FILES"/nano/conf.nanorc /usr/share/nano/conf.nanorc
-cp  "$FILES"/nano/xorg.nanorc /usr/share/nano/xorg.nanorc
+cp -f "$FILES"/nano/ini.nanorc /usr/share/nano/ini.nanorc
+cp -f "$FILES"/nano/conf.nanorc /usr/share/nano/conf.nanorc
+cp -f "$FILES"/nano/xorg.nanorc /usr/share/nano/xorg.nanorc
 
 # édition conf nano
 echo "
@@ -194,7 +194,7 @@ echo "" ; set "138" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 # Config ntp & réglage heure fr
 if [ "$BASELANG" = "fr" ]; then
 echo "Europe/Paris" > /etc/timezone
-cp /usr/share/zoneinfo/Europe/Paris /etc/localtime
+cp -f /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 sed -i "s/server 0/#server 0/g;" /etc/ntp.conf
 sed -i "s/server 1/#server 1/g;" /etc/ntp.conf
@@ -298,7 +298,9 @@ sed -i "s/http:\/\/seedbox-manager.ndd.tld/\/\/'. \$host .'\/seedbox-manager\//g
 cp -f "$FILES"/rutorrent/filemanager.conf "$RUPLUGINS"/filemanager/conf.php
 
 # configuration create
+# shellcheck disable=SC2154
 sed -i "s#$useExternal = false;#$useExternal = 'buildtorrent';#" "$RUPLUGINS"/create/conf.php
+# shellcheck disable=SC2154
 sed -i "s#$pathToCreatetorrent = '';#$pathToCreatetorrent = '/usr/bin/buildtorrent';#" "$RUPLUGINS"/create/conf.php
 
 # configuration fileshare
@@ -314,6 +316,7 @@ sed -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
 
 # mediainfo
 cd "$BONOBOX" || exit
+# shellcheck source=/dev/null
 . "$INCLUDES"/mediainfo.sh
 
 # script mise à jour mensuel geoip et complément plugin city
@@ -326,15 +329,15 @@ MINIMUM=1
 UPGEOIP=$((MINIMUM+RANDOM*(1+MAXIMUM-MINIMUM)/32767))
 
 cd "$SCRIPT" || exit
-cp "$FILES"/scripts/updateGeoIP.sh "$SCRIPT"/updateGeoIP.sh
+cp -f "$FILES"/scripts/updateGeoIP.sh "$SCRIPT"/updateGeoIP.sh
 chmod a+x updateGeoIP.sh
 sh updateGeoIP.sh
 
 # favicons trackers
-cp /tmp/favicon/*.png "$RUPLUGINS"/tracklabels/trackers/
+cp -f /tmp/favicon/*.png "$RUPLUGINS"/tracklabels/trackers/
 
 # ajout thèmes
-rm -r "$RUPLUGINS"/theme/themes/Blue
+rm -R "$RUPLUGINS"/theme/themes/Blue
 cp -R "$BONOBOX"/theme/ru/Blue "$RUPLUGINS"/theme/themes/Blue
 cp -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUPLUGINS"/theme/themes/SpiritOfBonobo
 
@@ -377,11 +380,11 @@ chmod 640 "$NGINXPASS"/rutorrent_passwd
 # configuration serveur web
 mkdir "$NGINXENABLE"
 cp -f "$FILES"/nginx/nginx.conf "$NGINX"/nginx.conf
-cp "$FILES"/nginx/php.conf "$NGINXCONFD"/php.conf
-cp "$FILES"/nginx/cache.conf "$NGINXCONFD"/cache.conf
-cp "$FILES"/nginx/ciphers.conf "$NGINXCONFD"/ciphers.conf
+cp -f "$FILES"/nginx/php.conf "$NGINXCONFD"/php.conf
+cp -f "$FILES"/nginx/cache.conf "$NGINXCONFD"/cache.conf
+cp -f "$FILES"/nginx/ciphers.conf "$NGINXCONFD"/ciphers.conf
 
-cp "$FILES"/rutorrent/rutorrent.conf "$NGINXENABLE"/rutorrent.conf
+cp -f "$FILES"/rutorrent/rutorrent.conf "$NGINXENABLE"/rutorrent.conf
 for VAR in "${!NGINXCONFD@}" "${!NGINXBASE@}" "${!NGINXSSL@}" "${!NGINXPASS@}" "${!NGINXWEB@}" "${!SBM@}"; do
 sed -i "s|@${VAR}@|${!VAR}|g;" "$NGINXENABLE"/rutorrent.conf; done
 
@@ -457,7 +460,7 @@ cd source-reboot-rtorrent || exit
 chmod +x install.sh
 ./install.sh
 
-cp "$FILES"/nginx/php-manager.conf "$NGINXCONFD"/php-manager.conf
+cp -f "$FILES"/nginx/php-manager.conf "$NGINXCONFD"/php-manager.conf
 sed -i "s|@SBM@|$SBM|g;" "$NGINXCONFD"/php-manager.conf
 
 ## conf user
@@ -482,7 +485,7 @@ cp -f "$FILES"/nginx/logrotate /etc/logrotate.d/nginx
 # script logs html ccze
 mkdir "$RUTORRENT"/logserver
 cd "$SCRIPT" || exit
-cp "$FILES"/scripts/logserver.sh "$SCRIPT"/logserver.sh
+cp -f "$FILES"/scripts/logserver.sh "$SCRIPT"/logserver.sh
 sed -i "s/@USERMAJ@/$USERMAJ/g;" "$SCRIPT"/logserver.sh
 sed -i "s|@RUTORRENT@|$RUTORRENT|;" "$SCRIPT"/logserver.sh
 chmod +x logserver.sh
@@ -515,7 +518,7 @@ mkdir "$RUTORRENT"/conf/users/"$USER"
 FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 # plugin.ini
-cp "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+cp -f "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
 
 # script rtorrent
 FONCSCRIPTRT "$USER" 
@@ -538,10 +541,10 @@ rm rtorrentdem
 echo "" ; set "168" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # conf fail2ban
-cp "$FILES"/fail2ban/nginx-auth.conf /etc/fail2ban/filter.d/nginx-auth.conf
-cp "$FILES"/fail2ban/nginx-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf
+cp -f "$FILES"/fail2ban/nginx-auth.conf /etc/fail2ban/filter.d/nginx-auth.conf
+cp -f "$FILES"/fail2ban/nginx-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf
 
-cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+cp -f /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 sed  -i "/ssh/,+6d" /etc/fail2ban/jail.local
 
 echo "
@@ -611,7 +614,7 @@ echo "" ; set "172" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 fi
 
 # déplacement clé 2048
-cp /tmp/dhparams.pem "$NGINXSSL"/dhparams.pem
+cp -f /tmp/dhparams.pem "$NGINXSSL"/dhparams.pem
 chmod 600 "$NGINXSSL"/dhparams.pem
 FONCSERVICE restart nginx
 # Contrôle
@@ -652,7 +655,7 @@ if FONCNO "$REPONSE"; then
 
 	# fin d'installation
 	echo "" ; set "192" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
-	cp /tmp/install.log "$RUTORRENT"/install.log
+	cp -f /tmp/install.log "$RUTORRENT"/install.log
 	sh "$SCRIPT"/logserver.sh
 	ccze -h < "$RUTORRENT"/install.log > "$RUTORRENT"/install.html
 	> /var/log/nginx/rutorrent-error.log
@@ -765,7 +768,7 @@ sed -i "s/RPC1/$USERMAJ/g;" "$SBM"/conf/users/"$USER"/config.ini
 sed -i "s/contact@mail.com/$EMAIL/g;" "$SBM"/conf/users/"$USER"/config.ini
 
 # plugin.ini
-cp "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+cp -f "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
 echo "[linklogs]
 enabled = no" >> "$RUTORRENT"/conf/users/"$USER"/plugins.ini
 
@@ -919,7 +922,7 @@ mkdir "$RUTORRENT"/conf/users/"$USER"
 FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 # plugin.ini
-cp "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+cp -f "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
 echo "[linklogs]
 enabled = no" >> "$RUTORRENT"/conf/users/"$USER"/plugins.ini
 
@@ -1003,18 +1006,18 @@ if [ ! -f "$NGINXBASE"/aide/contact.html ]; then
 	cd /tmp || exit
 	wget http://www.bonobox.net/script/contact.tar.gz
 	tar xzfv contact.tar.gz
-	cp /tmp/contact/contact.html "$NGINXBASE"/aide/contact.html
-	cp /tmp/contact/style/style.css "$NGINXBASE"/aide/style/style.css
+	cp -f /tmp/contact/contact.html "$NGINXBASE"/aide/contact.html
+	cp -f /tmp/contact/style/style.css "$NGINXBASE"/aide/style/style.css
 fi
 
 # page support
-cp "$NGINXBASE"/aide/contact.html "$NGINXBASE"/"$USER".html
+cp -f "$NGINXBASE"/aide/contact.html "$NGINXBASE"/"$USER".html
 sed -i "s/@USER@/$USER/g;" "$NGINXBASE"/"$USER".html
 chown -R www-data:www-data "$NGINXBASE"/"$USER".html
 
 # Seedbox-Manager service minimum
 mv "$SBM"/conf/users/"$USER"/config.ini "$SBM"/conf/users/"$USER"/config.bak
-cp "$FILES"/sbm/config-mini.ini "$SBM"/conf/users/"$USER"/config.ini
+cp -f "$FILES"/sbm/config-mini.ini "$SBM"/conf/users/"$USER"/config.ini
 
 sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBM"/conf/users/"$USER"/config.ini
 sed -i "s/https:\/\/rutorrent.domaine.fr/..\/$USER.html/g;" "$SBM"/conf/users/"$USER"/config.ini

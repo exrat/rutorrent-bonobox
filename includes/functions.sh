@@ -15,6 +15,7 @@ grep -w "$TESTUSER" /etc/passwd &> /dev/null
 if [ $? -eq 1 ]; then
 	if [[ "$TESTUSER" =~ ^[a-z0-9]{3,}$ ]]; then
 		USER="$TESTUSER"
+		# shellcheck disable=SC2104
 		break
 	else
 		echo "" ; set "110" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
@@ -35,12 +36,15 @@ if [ "$REPPWD" = "" ]; then
 		echo
         else
 			USERPWD="$AUTOPWD"
+			# shellcheck disable=SC2104
 			break
 		fi
 
 else
 	if [[ "$REPPWD" =~ ^[a-zA-Z0-9]{6,}$ ]]; then
+		# shellcheck disable=SC2034
 		USERPWD="$REPPWD"
+		# shellcheck disable=SC2104
        	break
 	else
 		echo "" ; set "122" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
@@ -65,6 +69,7 @@ fi
 function FONCPORT ()
 {
 HISTO=$(wc -l < "$RUTORRENT"/histo.log)
+# shellcheck disable=SC2034
 PORT=$(( 5001+HISTO ))
 }
 
@@ -82,6 +87,7 @@ function FONCTXT ()
 {
 TXT1="$(grep "$1" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
 TXT2="$(grep "$2" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
+# shellcheck disable=SC2034
 TXT3="$(grep "$3" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
 }
 
@@ -109,10 +115,10 @@ fi
 
 function FONCMUNIN ()
 {
-cp "$MUNIN"/rtom_mem "$MUNIN"/rtom_"$1"_mem
-cp "$MUNIN"/rtom_peers "$MUNIN"/rtom_"$1"_peers
-cp "$MUNIN"/rtom_spdd "$MUNIN"/rtom_"$1"_spdd
-cp "$MUNIN"/rtom_vol "$MUNIN"/rtom_"$1"_vol
+cp -f "$MUNIN"/rtom_mem "$MUNIN"/rtom_"$1"_mem
+cp -f "$MUNIN"/rtom_peers "$MUNIN"/rtom_"$1"_peers
+cp -f "$MUNIN"/rtom_spdd "$MUNIN"/rtom_"$1"_spdd
+cp -f "$MUNIN"/rtom_vol "$MUNIN"/rtom_"$1"_vol
 
 chmod 755 "$MUNIN"/rtom_*
 
@@ -149,10 +155,10 @@ sed -i "s/@USER@/$1/g;" /etc/munin/munin.conf
 
 function FONCGRAPH ()
 {
-for PICS in 'mem-day' 'mem-week' 'mem-month'; do cp "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-for PICS in 'peers-day' 'peers-week' 'peers-month'; do cp "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-for PICS in 'spdd-day' 'spdd-week' 'spdd-month'; do cp "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-for PICS in 'vol-day' 'vol-week' 'vol-month'; do cp "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
+for PICS in 'mem-day' 'mem-week' 'mem-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
+for PICS in 'peers-day' 'peers-week' 'peers-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
+for PICS in 'spdd-day' 'spdd-week' 'spdd-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
+for PICS in 'vol-day' 'vol-week' 'vol-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
 
 chown munin:munin "$MUNINROUTE"/rtom_"$1"_* && chmod 644 "$MUNINROUTE"/rtom_"$1"_*
 
@@ -172,7 +178,7 @@ ln -s "$MUNINROUTE"/rtom_"$1"_vol-day.png "$GRAPH"/img/rtom_"$1"_vol-day.png
 ln -s "$MUNINROUTE"/rtom_"$1"_vol-week.png "$GRAPH"/img/rtom_"$1"_vol-week.png
 ln -s "$MUNINROUTE"/rtom_"$1"_vol-month.png "$GRAPH"/img/rtom_"$1"_vol-month.png
 
-cp "$GRAPH"/user.php "$GRAPH"/"$1".php
+cp -f "$GRAPH"/user.php "$GRAPH"/"$1".php
 
 sed -i "s/@USER@/$1/g;" "$GRAPH"/"$1".php
 sed -i "s/@RTOM@/rtom_$1/g;" "$GRAPH"/"$1".php
@@ -224,7 +230,7 @@ sed -i "s|@RUTORRENT@|$3|;" /home/"$1"/.rtorrent.rc
 
 function FONCSCRIPTRT ()
 {
-cp "$FILES"/rutorrent/init.conf /etc/init.d/"$1"-rtorrent
+cp -f "$FILES"/rutorrent/init.conf /etc/init.d/"$1"-rtorrent
 sed -i "s/@USER@/$1/g;" /etc/init.d/"$1"-rtorrent
 chmod +x /etc/init.d/"$1"-rtorrent
 update-rc.d "$1"-rtorrent defaults

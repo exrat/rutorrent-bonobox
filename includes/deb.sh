@@ -40,7 +40,7 @@ deb http://packages.dotdeb.org $DEBNAME-php56 all
 deb-src http://packages.dotdeb.org $DEBNAME-php56 all" >> /etc/apt/sources.list.d/dotdeb-php56.list
 
 elif [[ $VERSION =~ 8. ]]; then
-
+# shellcheck disable=SC2034
 DEBNUMBER="Debian_8.0.deb"
 DEBNAME="jessie"
 
