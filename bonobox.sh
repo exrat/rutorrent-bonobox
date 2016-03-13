@@ -14,7 +14,7 @@
 # Aide, support & plus si affinités à la même adresse ! http://mondedie.fr/
 #
 # Merci Aliochka & Meister pour les conf de Munin et VsFTPd
-# à Albaret pour le coup de main sur la gestion d'users,
+# à Albaret pour le coup de main sur la gestion d'users, LetsGo67 pour ses rectifs et
 # Jedediah pour avoir joué avec le html/css du thème.
 # Aux traducteurs: Sophie, Spectre, Hardware, Zarev.
 #
@@ -284,58 +284,33 @@ git clone https://github.com/Novik/ruTorrent.git "$RUTORRENT"
 echo "" ; set "146" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # installation des Plugins
-cd "$RUTORRENT"/plugins || exit
+cd "$RUPLUGINS" || exit
 
-# logoff
-cp -R "$BONOBOX"/plugins/logoff "$RUTORRENT"/plugins/logoff
-#svn co http://rutorrent-logoff.googlecode.com/svn/trunk/ logoff
+for PLUGINS in 'logoff' 'chat' 'lbll-suite' 'linkproxy' 'linklogs' 'nfo' 'filemanager' 'fileshare' 'ratiocolor' 'pausewebui'; do
+cp -R "$BONOBOX"/plugins/"$PLUGINS" "$RUPLUGINS"/; done
 
-# chat
-cp -R "$BONOBOX"/plugins/chat "$RUTORRENT"/plugins/chat
-#svn co http://rutorrent-chat.googlecode.com/svn/trunk/ chat
+# plugin seedbox-manager
+git clone https://github.com/Hydrog3n/linkseedboxmanager.git
+sed -i "2i\$host = \$_SERVER['HTTP_HOST'];\n" "$RUPLUGINS"/linkseedboxmanager/conf.php
+sed -i "s/http:\/\/seedbox-manager.ndd.tld/\/\/'. \$host .'\/seedbox-manager\//g;" "$RUPLUGINS"/linkseedboxmanager/conf.php
 
-# tadd-labels
-cp -R "$BONOBOX"/plugins/lbll-suite "$RUTORRENT"/plugins/lbll-suite
-#wget http://rutorrent-tadd-labels.googlecode.com/files/lbll-suite_0.8.1.tar.gz
-#tar zxfv lbll-suite_0.8.1.tar.gz
-#rm lbll-suite_0.8.1.tar.gz
+# configuration filemanager
+cp -f "$FILES"/rutorrent/filemanager.conf "$RUPLUGINS"/filemanager/conf.php
 
-# ruTorrentMobile
-git clone https://github.com/xombiemp/rutorrentMobile.git mobile
+# configuration create
+sed -i "s#$useExternal = false;#$useExternal = 'buildtorrent';#" "$RUPLUGINS"/create/conf.php
+sed -i "s#$pathToCreatetorrent = '';#$pathToCreatetorrent = '/usr/bin/buildtorrent';#" "$RUPLUGINS"/create/conf.php
 
-# rutorrent-seeding-view
-# git clone https://github.com/rMX666/rutorrent-seeding-view.git rutorrent-seeding-view
-
-# linkproxy
-cp -R "$BONOBOX"/plugins/linkproxy "$RUTORRENT"/plugins/
-
-# linklogs
-cp -R "$BONOBOX"/plugins/linklogs "$RUTORRENT"/plugins/
-
-# nfo
-cp -R "$BONOBOX"/plugins/nfo "$RUTORRENT"/plugins/nfo
-
-# filemanager
-cp -R "$BONOBOX"/plugins/filemanager "$RUTORRENT"/plugins/filemanager
-#svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
-
-# filemanager config
-cp -f "$FILES"/rutorrent/filemanager.conf "$RUTORRENT"/plugins/filemanager/conf.php
-
-# configuration du plugin create
-sed -i "s#$useExternal = false;#$useExternal = 'buildtorrent';#" "$RUTORRENT"/plugins/create/conf.php
-sed -i "s#$pathToCreatetorrent = '';#$pathToCreatetorrent = '/usr/bin/buildtorrent';#" "$RUTORRENT"/plugins/create/conf.php
-
-# fileshare
-cd "$RUTORRENT"/plugins || exit
-cp -R "$BONOBOX"/plugins/fileshare "$RUTORRENT"/plugins/fileshare
-#svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileshare
-chown -R www-data:www-data "$RUTORRENT"/plugins/fileshare
-ln -s "$RUTORRENT"/plugins/fileshare/share.php "$NGINXBASE"/share.php
+# configuration fileshare
+chown -R www-data:www-data "$RUPLUGINS"/fileshare
+ln -s "$RUPLUGINS"/fileshare/share.php "$NGINXBASE"/share.php
 
 # configuration share.php
-cp -f "$FILES"/rutorrent/fileshare.conf "$RUTORRENT"/plugins/fileshare/conf.php
-sed -i "s/@IP@/$IP/g;" "$RUTORRENT"/plugins/fileshare/conf.php
+cp -f "$FILES"/rutorrent/fileshare.conf "$RUPLUGINS"/fileshare/conf.php
+sed -i "s/@IP@/$IP/g;" "$RUPLUGINS"/fileshare/conf.php
+
+# configuration logoff
+sed -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
 
 # mediainfo
 cd "$BONOBOX" || exit
@@ -356,39 +331,22 @@ chmod a+x updateGeoIP.sh
 sh updateGeoIP.sh
 
 # favicons trackers
-cp /tmp/favicon/*.png "$RUTORRENT"/plugins/tracklabels/trackers/
-
-# ratiocolor
-cp -R "$BONOBOX"/plugins/ratiocolor "$RUTORRENT"/plugins/ratiocolor
-
-# pausewebui
-cp -R "$BONOBOX"/plugins/pausewebui "$RUTORRENT"/plugins/pausewebui
-#cd "$RUTORRENT"/plugins
-#svn co http://rutorrent-pausewebui.googlecode.com/svn/trunk/ pausewebui
-
-# plugin seedbox-manager
-cd "$RUTORRENT"/plugins || exit
-git clone https://github.com/Hydrog3n/linkseedboxmanager.git
-sed -i "2i\$host = \$_SERVER['HTTP_HOST'];\n" "$RUTORRENT"/plugins/linkseedboxmanager/conf.php
-sed -i "s/http:\/\/seedbox-manager.ndd.tld/\/\/'. \$host .'\/seedbox-manager\//g;" "$RUTORRENT"/plugins/linkseedboxmanager/conf.php
-
-# configuration logoff
-sed -i "s/scars,user1,user2/$USER/g;" "$RUTORRENT"/plugins/logoff/conf.php
+cp /tmp/favicon/*.png "$RUPLUGINS"/tracklabels/trackers/
 
 # ajout thèmes
-rm -r "$RUTORRENT"/plugins/theme/themes/Blue
-cp -R "$BONOBOX"/theme/ru/Blue "$RUTORRENT"/plugins/theme/themes/Blue
-cp -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUTORRENT"/plugins/theme/themes/SpiritOfBonobo
+rm -r "$RUPLUGINS"/theme/themes/Blue
+cp -R "$BONOBOX"/theme/ru/Blue "$RUPLUGINS"/theme/themes/Blue
+cp -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUPLUGINS"/theme/themes/SpiritOfBonobo
 
 # configuration thème
-sed -i "s/defaultTheme = \"\"/defaultTheme = \"SpiritOfBonobo\"/g;" "$RUTORRENT"/plugins/theme/conf.php
+sed -i "s/defaultTheme = \"\"/defaultTheme = \"SpiritOfBonobo\"/g;" "$RUPLUGINS"/theme/conf.php
 
 echo "" ; set "148" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # liens symboliques et permissions
 ldconfig
 chown -R www-data:www-data "$RUTORRENT"
-chmod -R 777 "$RUTORRENT"/plugins/filemanager/scripts
+chmod -R 777 "$RUPLUGINS"/filemanager/scripts
 chown -R www-data:www-data "$NGINXBASE"
 chown -R www-data:www-data "$NGINXWEB"/proxy
 
@@ -422,13 +380,16 @@ cp -f "$FILES"/nginx/nginx.conf "$NGINX"/nginx.conf
 cp "$FILES"/nginx/php.conf "$NGINXCONFD"/php.conf
 cp "$FILES"/nginx/cache.conf "$NGINXCONFD"/cache.conf
 cp "$FILES"/nginx/ciphers.conf "$NGINXCONFD"/ciphers.conf
+
 cp "$FILES"/rutorrent/rutorrent.conf "$NGINXENABLE"/rutorrent.conf
+for VAR in "${!NGINXCONFD@}" "${!NGINXBASE@}" "${!NGINXSSL@}" "${!NGINXPASS@}" "${!NGINXWEB@}" "${!SBM@}"; do
+sed -i "s|@${VAR}@|${!VAR}|g;" "$NGINXENABLE"/rutorrent.conf; done
 
 echo "" ; set "152" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # installation munin
 sed -i "s/#dbdir[[:blank:]]\/var\/lib\/munin/dbdir \/var\/lib\/munin/g;" /etc/munin/munin.conf
-sed -i "s/#htmldir[[:blank:]]\/var\/cache\/munin\/www/htmldir \/var\/www\/monitoring/g;" /etc/munin/munin.conf
+sed -i "s|#htmldir[[:blank:]]\/var\/cache\/munin\/www|htmldir $NGINXWEB\/monitoring|g;" /etc/munin/munin.conf
 sed -i "s/#logdir[[:blank:]]\/var\/log\/munin/logdir \/var\/log\/munin/g;" /etc/munin/munin.conf
 sed -i "s/#rundir[[:blank:]][[:blank:]]\/var\/run\/munin/rundir \/var\/run\/munin/g;" /etc/munin/munin.conf
 sed -i "s/#max_size_x[[:blank:]]4000/max_size_x 5000/g;" /etc/munin/munin.conf
@@ -438,11 +399,8 @@ mkdir -p "$MUNINROUTE"
 chown -R munin:munin "$NGINXWEB"/monitoring
 
 cd "$MUNIN" || exit
-
-wget https://raw.github.com/munin-monitoring/contrib/master/plugins/rtorrent/rtom_mem
-wget https://raw.github.com/munin-monitoring/contrib/master/plugins/rtorrent/rtom_peers
-wget https://raw.github.com/munin-monitoring/contrib/master/plugins/rtorrent/rtom_spdd
-wget https://raw.github.com/munin-monitoring/contrib/master/plugins/rtorrent/rtom_vol
+for RTOM in 'rtom_mem' 'rtom_peers' 'rtom_spdd' 'rtom_vol'; do
+wget https://raw.github.com/munin-monitoring/contrib/master/plugins/rtorrent/"$RTOM"; done
 
 FONCMUNIN "$USER" "$PORT"
 
@@ -500,6 +458,7 @@ chmod +x install.sh
 ./install.sh
 
 cp "$FILES"/nginx/php-manager.conf "$NGINXCONFD"/php-manager.conf
+sed -i "s|@SBM@|$SBM|g;" "$NGINXCONFD"/php-manager.conf
 
 ## conf user
 cd "$SBM"/conf/users || exit

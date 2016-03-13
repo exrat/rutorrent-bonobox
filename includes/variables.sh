@@ -16,6 +16,7 @@ NVM="0.31.0"
 NODE="5.3.0"
 
 RUTORRENT="/var/www/rutorrent"
+RUPLUGINS="/var/www/rutorrent/plugins"
 BONOBOX="/tmp/rutorrent-bonobox"
 GRAPH="/var/www/graph"
 MUNIN="/usr/share/munin/plugins"
