@@ -160,7 +160,7 @@ FONCSERVICE restart bind9
 apt-get update && apt-get upgrade -y
 echo "" ; set "132" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
-apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim nano ccze screen subversion apache2-utils curl php5 php5-cli php5-fpm php5-curl php5-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude dnsutils
+apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim nano ccze screen subversion apache2-utils curl php5 php5-cli php5-fpm php5-curl php5-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude dnsutils irssi  libarchive-zip-perl  libjson-perl libjson-xs-perl libxml-libxslt-perl
 
 # installation nginx et passage sur depot stable
 FONCDEPNGINX "$DEBNAME"
@@ -304,7 +304,7 @@ sed -i "s#$useExternal = false;#$useExternal = 'buildtorrent';#" "$RUPLUGINS"/cr
 sed -i "s#$pathToCreatetorrent = '';#$pathToCreatetorrent = '/usr/bin/buildtorrent';#" "$RUPLUGINS"/create/conf.php
 
 # configuration fileshare
-chown -R www-data:www-data "$RUPLUGINS"/fileshare
+chown -R "$WDATA" "$RUPLUGINS"/fileshare
 ln -s "$RUPLUGINS"/fileshare/share.php "$NGINXBASE"/share.php
 
 # configuration share.php
@@ -313,6 +313,11 @@ sed -i "s/@IP@/$IP/g;" "$RUPLUGINS"/fileshare/conf.php
 
 # configuration logoff
 sed -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
+
+# configuration autodl-irssi
+git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi
+cp -f autodl-irssi/_conf.php autodl-irssi/conf.php
+FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
 # mediainfo
 cd "$BONOBOX" || exit
@@ -337,7 +342,7 @@ sh updateGeoIP.sh
 cp -f /tmp/favicon/*.png "$RUPLUGINS"/tracklabels/trackers/
 
 # ajout thèmes
-rm -R "$RUPLUGINS"/theme/themes/Blue
+rm -R "${RUPLUGINS:?}"/theme/themes/Blue
 cp -R "$BONOBOX"/theme/ru/Blue "$RUPLUGINS"/theme/themes/Blue
 cp -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUPLUGINS"/theme/themes/SpiritOfBonobo
 git clone git://github.com/exrat/ruTorrent-MaterialDesign.git "$RUPLUGINS"/theme/themes/MaterialDesign
@@ -349,10 +354,10 @@ echo "" ; set "148" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 
 # liens symboliques et permissions
 ldconfig
-chown -R www-data:www-data "$RUTORRENT"
+chown -R "$WDATA" "$RUTORRENT"
 chmod -R 777 "$RUPLUGINS"/filemanager/scripts
-chown -R www-data:www-data "$NGINXBASE"
-chown -R www-data:www-data "$NGINXWEB"/proxy
+chown -R "$WDATA" "$NGINXBASE"
+chown -R "$WDATA" "$NGINXWEB"/proxy
 
 # php
 sed -i "s/2M/10M/g;" /etc/php5/fpm/php.ini
@@ -426,7 +431,7 @@ wtf.org
 contact@wtf.org
 EOF
 
-rm -R "$NGINXWEB"/html &> /dev/null
+rm -R "${NGINXWEB:?}"/html &> /dev/null
 rm "$NGINXENABLE"/default &> /dev/null
 
 # installation Seedbox-Manager
@@ -455,7 +460,7 @@ cd "$NGINXWEB" || exit
 composer create-project magicalex/seedbox-manager
 cd seedbox-manager || exit
 bower install --allow-root --config.interactive=false
-chown -R www-data:www-data "$SBM"
+chown -R "$WDATA" "$SBM"
 ## conf app
 cd source-reboot-rtorrent || exit
 chmod +x install.sh
@@ -465,19 +470,19 @@ cp -f "$FILES"/nginx/php-manager.conf "$NGINXCONFD"/php-manager.conf
 sed -i "s|@SBM@|$SBM|g;" "$NGINXCONFD"/php-manager.conf
 
 ## conf user
-cd "$SBM"/conf/users || exit
+cd "$SBMCONFUSER" || exit
 mkdir "$USER"
-cp -f "$FILES"/sbm/config-root.ini "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/https:\/\/graph.domaine.fr/..\/graph\/$USER.php/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/RPC1/$USERMAJ/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/contact@mail.com/$EMAIL/g;" "$SBM"/conf/users/"$USER"/config.ini
+cp -f "$FILES"/sbm/config-root.ini "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/https:\/\/graph.domaine.fr/..\/graph\/$USER.php/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/RPC1/$USERMAJ/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/contact@mail.com/$EMAIL/g;" "$SBMCONFUSER"/"$USER"/config.ini
 
 # verrouillage option parametre seedbox-manager
 cp -f "$FILES"/sbm/header.html "$SBM"/public/themes/default/template/header.html
 
-chown -R www-data:www-data "$SBM"/conf/users
-chown -R www-data:www-data "$SBM"/public/themes/default/template/header.html
+chown -R "$WDATA" "$SBMCONFUSER"
+chown -R "$WDATA" "$SBM"/public/themes/default/template/header.html
 echo "" ; set "162" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # logrotate
@@ -515,11 +520,10 @@ echo "" ; set "166" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 FONCRTCONF "$USERMAJ"  "$PORT" "$USER"
 
 # config.php
-mkdir "$RUTORRENT"/conf/users/"$USER"
 FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 # plugin.ini
-cp -f "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
 
 # script rtorrent
 FONCSCRIPTRT "$USER" 
@@ -750,7 +754,7 @@ sed -i "s/@USERMAJ@/$USERMAJ/g;" "$SCRIPT"/logserver.sh
 echo "ccze -h < /tmp/access.log > $RUTORRENT/logserver/access.html" >> "$SCRIPT"/logserver.sh
 
 # config.php
-mkdir "$RUTORRENT"/conf/users/"$USER"
+mkdir "$RUCONFUSER"/"$USER"
 FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 # chroot user supplèmentaire
@@ -760,22 +764,25 @@ ChrootDirectory /home/$USER">> /etc/ssh/sshd_config
 FONCSERVICE restart ssh
 
 ## conf user seedbox-manager
-cd "$SBM"/conf/users || exit
+cd "$SBMCONFUSER" || exit
 mkdir "$USER"
-cp -f "$FILES"/sbm/config-user.ini "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/https:\/\/graph.domaine.fr/..\/graph\/$USER.php/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/RPC1/$USERMAJ/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/contact@mail.com/$EMAIL/g;" "$SBM"/conf/users/"$USER"/config.ini
+cp -f "$FILES"/sbm/config-user.ini "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/https:\/\/graph.domaine.fr/..\/graph\/$USER.php/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/RPC1/$USERMAJ/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/contact@mail.com/$EMAIL/g;" "$SBMCONFUSER"/"$USER"/config.ini
 
 # plugin.ini
-cp -f "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
 echo "[linklogs]
-enabled = no" >> "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+enabled = no" >> "$RUCONFUSER"/"$USER"/plugins.ini
+
+# configuration autodl-irssi
+FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
 # permission
-chown -R www-data:www-data "$SBM"/conf/users
-chown -R www-data:www-data "$RUTORRENT"
+chown -R "$WDATA" "$SBMCONFUSER"
+chown -R "$WDATA" "$RUTORRENT"
 chown -R "$USER":"$USER" /home/"$USER"
 chown root:"$USER" /home/"$USER"
 chmod 755 /home/"$USER"
@@ -919,13 +926,16 @@ sed -i "s/@USERMAJ@/$USERMAJ/g;" "$SCRIPT"/logserver.sh
 echo "ccze -h < /tmp/access.log > $RUTORRENT/logserver/access.html" >> "$SCRIPT"/logserver.sh
 
 # config.php
-mkdir "$RUTORRENT"/conf/users/"$USER"
+mkdir "$RUCONFUSER"/"$USER"
 FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 # plugin.ini
-cp -f "$FILES"/rutorrent/plugins.ini "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
 echo "[linklogs]
-enabled = no" >> "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+enabled = no" >> "$RUCONFUSER"/"$USER"/plugins.ini
+
+# configuration autodl-irssi
+FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
 # chroot user supplémentaire
 echo "Match User $USER
@@ -934,28 +944,27 @@ ChrootDirectory /home/$USER">> /etc/ssh/sshd_config
 FONCSERVICE restart ssh
 
 # permission
-chown -R www-data:www-data "$RUTORRENT"
+chown -R "$WDATA" "$RUTORRENT"
 chown -R "$USER":"$USER" /home/"$USER"
 chown root:"$USER" /home/"$USER"
 chmod 755 /home/"$USER"
 
 # script rtorrent
 FONCSCRIPTRT "$USER" 
-#FONCSERVICE start "$USER"-rtorrent
 
 # htpasswd
 FONCHTPASSWD "$USER"
 
 # seedbox-manager conf user
-cd "$SBM"/conf/users || exit
+cd "$SBMCONFUSER" || exit
 mkdir "$USER"
-cp -f "$FILES"/sbm/config-user.ini "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/https:\/\/graph.domaine.fr/..\/graph\/$USER.php/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/RPC1/$USERMAJ/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/contact@mail.com/$EMAIL/g;" "$SBM"/conf/users/"$USER"/config.ini
+cp -f "$FILES"/sbm/config-user.ini "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/https:\/\/graph.domaine.fr/..\/graph\/$USER.php/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/RPC1/$USERMAJ/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/contact@mail.com/$EMAIL/g;" "$SBMCONFUSER"/"$USER"/config.ini
 
-chown -R www-data:www-data "$SBM"/conf/users
+chown -R "$WDATA" "$SBMCONFUSER"
 
 # configuration page index munin
 FONCGRAPH "$USER"
@@ -1014,24 +1023,24 @@ fi
 # page support
 cp -f "$NGINXBASE"/aide/contact.html "$NGINXBASE"/"$USER".html
 sed -i "s/@USER@/$USER/g;" "$NGINXBASE"/"$USER".html
-chown -R www-data:www-data "$NGINXBASE"/"$USER".html
+chown -R "$WDATA" "$NGINXBASE"/"$USER".html
 
 # Seedbox-Manager service minimum
-mv "$SBM"/conf/users/"$USER"/config.ini "$SBM"/conf/users/"$USER"/config.bak
-cp -f "$FILES"/sbm/config-mini.ini "$SBM"/conf/users/"$USER"/config.ini
+mv "$SBMCONFUSER"/"$USER"/config.ini "$SBMCONFUSER"/"$USER"/config.bak
+cp -f "$FILES"/sbm/config-mini.ini "$SBMCONFUSER"/"$USER"/config.ini
 
-sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/https:\/\/rutorrent.domaine.fr/..\/$USER.html/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/https:\/\/proxy.domaine.fr/..\/$USER.html/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/https:\/\/graph.domaine.fr/..\/$USER.html/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/RPC1/$USERMAJ/g;" "$SBM"/conf/users/"$USER"/config.ini
-sed -i "s/contact@mail.com/$EMAIL/g;" "$SBM"/conf/users/"$USER"/config.ini
+sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/https:\/\/rutorrent.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/https:\/\/proxy.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/https:\/\/graph.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/RPC1/$USERMAJ/g;" "$SBMCONFUSER"/"$USER"/config.ini
+sed -i "s/contact@mail.com/$EMAIL/g;" "$SBMCONFUSER"/"$USER"/config.ini
 
-chown -R www-data:www-data "$SBM"/conf/users
+chown -R "$WDATA" "$SBMCONFUSER"
 
 # blocage proxy
 echo "[linkproxy]
-enabled = no">> "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+enabled = no">> "$RUCONFUSER"/"$USER"/plugins.ini
 
 # stop user
 FONCSERVICE stop "$USER"-rtorrent
@@ -1058,17 +1067,17 @@ FONCSCRIPTRT "$USER"
 
 # start user
  rm /home/"$USER"/.session/rtorrent.lock
- #su --command='screen -dmS "$USER"-rtorrent rtorrent' "$USER"
 su --command="screen -dmS $USER-rtorrent rtorrent" "$USER"
+/bin/su "$USER" -c "/usr/bin/screen -dmS irc_logger /usr/bin/irssi"
 usermod -U "$USER"
 
 # retablisement proxy
-sed -i '/linkproxy/,+1d' "$RUTORRENT"/conf/users/"$USER"/plugins.ini
+sed -i '/linkproxy/,+1d' "$RUCONFUSER"/"$USER"/plugins.ini
 
 # Seedbox-Manager service normal
-rm "$SBM"/conf/users/"$USER"/config.ini
-mv "$SBM"/conf/users/"$USER"/config.bak "$SBM"/conf/users/"$USER"/config.ini
-chown -R www-data:www-data "$SBM"/conf/users
+rm "$SBMCONFUSER"/"$USER"/config.ini
+mv "$SBMCONFUSER"/"$USER"/config.bak "$SBMCONFUSER"/"$USER"/config.ini
+chown -R "$WDATA" "$SBMCONFUSER"
 rm "$NGINXBASE"/"$USER".html
 
 echo "" ; set "264" "272" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
@@ -1151,8 +1160,8 @@ else
 	update-rc.d "$USER"-rtorrent remove
 
 	# suppression conf rutorrent
-	rm -R "$RUTORRENT"/conf/users/"$USER"
-	rm -R "$RUTORRENT"/share/users/"$USER"
+	rm -R "${RUCONFUSER:?}"/"$USER"
+	rm -R "${RUTORRENT:?}"/share/users/"$USER"
 
 	# suppression pass
 	sed -i "/^$USER/d" "$NGINXPASS"/rutorrent_passwd
@@ -1163,9 +1172,10 @@ else
 	FONCSERVICE restart nginx
 
 	# suppression seebbox-manager
-	rm -R "$SBM"/conf/users/"$USER"
+	rm -R "${SBMCONFUSER:?}"/"$USER"
 
-	# suppression user
+	# suppression user & rc.local
+	sed -i "/$USER/d" /etc/rc.local
 	deluser "$USER" --remove-home
 
 	echo "" ; set "264" "288" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
@@ -1201,3 +1211,4 @@ esac
 done
 fi
 fi
+

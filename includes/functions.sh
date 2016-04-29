@@ -183,7 +183,7 @@ cp -f "$GRAPH"/user.php "$GRAPH"/"$1".php
 sed -i "s/@USER@/$1/g;" "$GRAPH"/"$1".php
 sed -i "s/@RTOM@/rtom_$1/g;" "$GRAPH"/"$1".php
 
-chown -R www-data:www-data "$GRAPH"
+chown -R "$WDATA" "$GRAPH"
 }
 
 function FONCHTPASSWD ()
@@ -191,7 +191,7 @@ function FONCHTPASSWD ()
 htpasswd -bs "$NGINXPASS"/rutorrent_passwd "$1" "${PASSNGINX}"
 htpasswd -cbs "$NGINXPASS"/rutorrent_passwd_"$1" "$1" "${PASSNGINX}"
 chmod 640 "$NGINXPASS"/*
-chown -c www-data:www-data "$NGINXPASS"/*
+chown -c "$WDATA" "$NGINXPASS"/*
 }
 
 function FONCRTCONF ()
@@ -208,7 +208,7 @@ echo "
 
 function FONCPHPCONF ()
 {
-touch "$RUTORRENT"/conf/users/"$1"/config.php 
+touch "$RUCONFUSER"/"$1"/config.php 
 echo "<?php
 \$pathToExternals = array(
     \"curl\"  => '/usr/bin/curl',
@@ -217,7 +217,7 @@ echo "<?php
 \$topDirectory = '/home/$1';
 \$scgi_port = $2;
 \$scgi_host = '127.0.0.1';
-\$XMLRPCMountPoint = '/$3';" > "$RUTORRENT"/conf/users/"$1"/config.php 
+\$XMLRPCMountPoint = '/$3';" > "$RUCONFUSER"/"$1"/config.php 
 }
 
 function FONCTORRENTRC ()
@@ -234,5 +234,27 @@ cp -f "$FILES"/rutorrent/init.conf /etc/init.d/"$1"-rtorrent
 sed -i "s/@USER@/$1/g;" /etc/init.d/"$1"-rtorrent
 chmod +x /etc/init.d/"$1"-rtorrent
 update-rc.d "$1"-rtorrent defaults
+}
+
+function FONCIRSSI ()
+{
+IRSSIPORT=1"$2"
+mkdir -p /home/"$1"/.irssi/scripts/autorun
+cd /home/"$1"/.irssi/scripts || exit
+curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
+unzip -o autodl-irssi.zip
+rm autodl-irssi.zip
+cp -f /home/"$1"/.irssi/scripts/autodl-irssi.pl /home/"$1"/.irssi/scripts/autorun
+mkdir -p /home/"$1"/.autodl
+echo "[options]
+gui-server-port = $IRSSIPORT
+gui-server-password = $3" > /home/"$1"/.autodl/autodl.cfg
+mkdir -p  "$RUCONFUSER"/"$1"/plugins/autodl-irssi
+echo "<?php
+\$autodlPort = $IRSSIPORT;
+\$autodlPassword = \"$3\";
+?>" >> "$RUCONFUSER"/"$1"/plugins/autodl-irssi/conf.php
+sed -i "/# By default this script does nothing./a\/bin/su $1 -c \"/usr/bin/screen -dmS irc_logger /usr/bin/irssi\"" /etc/rc.local
+/etc/rc.local &
 }
 
