@@ -345,7 +345,7 @@ cp -f /tmp/favicon/*.png "$RUPLUGINS"/tracklabels/trackers/
 rm -R "${RUPLUGINS:?}"/theme/themes/Blue
 cp -R "$BONOBOX"/theme/ru/Blue "$RUPLUGINS"/theme/themes/Blue
 cp -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUPLUGINS"/theme/themes/SpiritOfBonobo
-git clone git://github.com/exrat/ruTorrent-MaterialDesign.git "$RUPLUGINS"/theme/themes/MaterialDesign
+git clone git://github.com/Phlooo/ruTorrent-MaterialDesign.git "$RUPLUGINS"/theme/themes/MaterialDesign
 
 # configuration thème
 sed -i "s/defaultTheme = \"\"/defaultTheme = \"SpiritOfBonobo\"/g;" "$RUPLUGINS"/theme/conf.php
