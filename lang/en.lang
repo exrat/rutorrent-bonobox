@@ -1,0 +1,108 @@
+## Anglais ##
+100                     This script must be run as administrator.
+102                   Welcome to installation wizard of ruTorrent
+104                 The first user will be Seedbox-Manager's owner,
+106     when the installation is complete you should be able to add more users.
+108 Enter the login account name of the first user (in lowercase):
+110 The login account name must be lowercase, contain more than\nthree letters and without special characters.
+112 Please enter a valid password or press "
+114 Enter
+116 " to generate it automatically:
+118 Do you use
+120 as password ? (y/n):
+122 The password must not contain special chars and contain more than\nfive numbers or letters.
+124 Enter email address which will appear in Seedbox-Manager:
+126 The email address is not valid, fix it or leave blank.
+128 Do you want to install an FTP server (y/n):
+130                   This script must be run on Debian 7/8 only.
+132 Updating server
+134      Done !
+136 Installing core packages
+138 Nano - Configuration of syntax highlighting
+140 Installing XMLRPC
+142 Installing libTorrent
+144 Installing rTorrent
+146 Installing ruTorrent
+148 Installing plugins
+150 Configuration of PHP
+152 Configuration of Nginx
+154 Configuration of Munin
+156 Installing Composer
+158 Installing Nodejs
+160 Installing Bower
+162 Installing Seedbox-Manager
+164 Configuration of Logrotate
+166 Configuration SSH
+168 Configuration of ruTorrent's user
+170 Configuration Fail2Ban
+172 Installing VsFTPd
+174 Creating Diffie-Hellman parameters with a length of 2048 bits
+176 Please be patient while server computing DH parameters !
+178 Computation
+180 Installation is complete !
+182 Keep this information:
+184 Username:
+186 Password:
+188 They will enable you to login to ruTorrent, Seedbox-Manager\nand FTP if selected during installation.
+190 Do you want to add another user (y/n):
+192 Generating installation log.
+194 Do you want restart your server to complete installation (y/n):
+196 Logs are available with this url:
+198 Error this user already exists
+199 #
+200 Consider manually restart your server before use it !
+202 You will be able to login to ruTorrent:
+204 #
+206 And in the "Administration" section of Seedbox-Manager to adjust some settings:
+208 #
+210                           See you soon on mondedie.fr
+212 #
+214 Enter username (in lowercase):
+216 #
+218 Adding user account done !
+220       Your installation is not compatible with this version of the script.
+222                    You will find help on http://mondedie.fr !
+224                       ruTorrent - User Management Utility
+226           Warning, if you have modified the content of rutorrent.conf
+228                  since the end of the installation, the script
+230                    may not operate normally. Do it manually !
+232 Do you want to continue (y/n):
+234 Select an option.
+236 1
+238 2
+240 3
+242 4
+244 5
+246 6
+248 : Add user
+250 : Suspend user
+252 : Restore user
+254 : Change password
+256 : Remove user
+258 : Quit
+260 Number:
+262 Suspension of user.
+264 This user
+266 #
+268 has been suspended.
+270 Restoring user.
+272 has been restored.
+274 Please enter the new password or press "
+276 Changing the user password.
+278 The password of
+280 has been changed.
+282 Do you really want remove the account of
+284  (y/n):
+286 Removing user account.
+288 has been removed.
+290 Do you want restart your server to complete user actions (y/n):
+292 Invalid option
+294 #
+296 #
+298          The first user will be Seedbox-Manager's owner (if installed),
+300 Do you want to install Seedbox-Manager (y/n):
+302 And In the "Administration" section of Seedbox-Manager to adjust some settings:
+304 Choose your installation:
+306 Full
+308 Light
+

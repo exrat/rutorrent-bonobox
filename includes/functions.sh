@@ -75,20 +75,20 @@ PORT=$(( 5001+HISTO ))
 
 function FONCYES ()
 {
-[ "$1" = "y" ] || [ "$1" = "Y" ] || [ "$1" = "o" ] || [ "$1" = "O" ] || [ "$1" = "j" ] || [ "$1" = "J" ] || [ "$1" = "д" ]
+[ "$1" = "y" ] || [ "$1" = "Y" ] || [ "$1" = "o" ] || [ "$1" = "O" ] || [ "$1" = "j" ] || [ "$1" = "J" ] || [ "$1" = "д" ] || [ "$1" = "s" ] || [ "$1" = "S" ]
 }
 
 function FONCNO ()
 {
-[ "$1" = "n" ] || [ "$1" = "N" ] || [ "$1" = "H" ]
+[ "$1" = "n" ] || [ "$1" = "N" ] || [ "$1" = "h" ] || [ "$1" = "H" ]
 }
 
 function FONCTXT ()
 {
-TXT1="$(grep "$1" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
-TXT2="$(grep "$2" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
+TXT1="$(grep "$1" "$BONOBOX"/lang/"$GENLANG".lang | cut -c5-)"
+TXT2="$(grep "$2" "$BONOBOX"/lang/"$GENLANG".lang | cut -c5-)"
 # shellcheck disable=SC2034
-TXT3="$(grep "$3" "$BONOBOX"/lang/lang."$GENLANG" | cut -c5-)"
+TXT3="$(grep "$3" "$BONOBOX"/lang/"$GENLANG".lang | cut -c5-)"
 }
 
 # FONCSERVICE $1 start/stop/...  $2 nom

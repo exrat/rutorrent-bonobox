@@ -1,0 +1,108 @@
+## Français ##
+100                       Ce script doit être exécuté en root.
+102           Bienvenue dans cette installation automatique de ruTorrent
+104         Le premier utilisateur sera l'administrateur de Seedbox-Manager,
+106      vous pourrez ajouter d'autres utilisateurs à la fin de l'installation.
+108 Entrez le nom du premier utilisateur (en minuscule):
+110 Le nom de votre utilisateur doit être en minuscule,\nde plus de 3 lettres et sans caractères spéciaux.
+112 Entrez le mot de passe pour cet utilisateur, ou appuyez sur "
+114 Entrée
+116 "\npour en générer un automatiquement:
+118 Voulez vous utiliser
+120 comme mot de passe ? (o/n):
+122 Le mot de passe ne doit pas contenir de caractères spéciaux\net doit faire plus de 5 chiffres ou lettres.
+124 Entrez l'email de contact qui apparaîtra dans Seedbox-Manager:
+126 L'adresse mail n'est pas valide, merci de corrigez ou laissez vide.
+128 Voulez vous installer un serveur FTP (o/n):
+130          Ce script doit être exécuté sur Debian 7 ou 8 exclusivement.
+132 Mise à jour du serveur
+134      Fait !
+136 Installation des paquets essentiels
+138 Configuration couleurs Nano
+140 Installation XMLRPC
+142 Installation libTorrent
+144 Installation rTorrent
+146 Installation ruTorrent
+148 Installation des plugins
+150 Configuration PHP
+152 Configuration Nginx
+154 Configuration Munin
+156 Installation de Composer
+158 Installation de Nodejs
+160 Installation de Bower
+162 Installation de Seedbox-Manager
+164 Configuration Logs html et Logrotate
+166 Configuration SSH
+168 Configuration utilisateur ruTorrent
+170 Configuration Fail2Ban
+172 Installation VsFTPd
+174 Création des paramètres Diffie-Hellman de 2048 bits
+176 L'attente peut durer plus de 10 minutes, soyez patient !
+178 Création certificat
+180 Installation terminée !
+182 Gardez bien ces informations:
+184 Nom d'utilisateur:
+186 Mot de passe:
+188 Elles vous permettront de vous connecter sur ruTorrent,\nSeedbox-Manager et en FTP si choisi à l'installation.
+190 Voulez vous ajouter un autre utilisateur (o/n):
+192 Génération du log d'installation.
+194 Voulez vous redémarrer pour finaliser votre installation (o/n):
+196 Le log de l'installation est visible à cette adresse:
+198 Erreur cet utilisateur existe déjà
+199 #
+200 Pensez à redémarrer manuellement votre serveur avant utilisation !
+202 Vous pourrez ensuite vous connecter sur ruTorrent:
+204 #
+206 Et dans la partie "Administration" de Seedbox-Manager\npour ajuster certains réglages:
+208 #
+210            Bon download, restez en seed et à bientôt sur mondedie.fr
+212 #
+214 Entrez le nom de l'utilisateur (en minuscule):
+216 #
+218 Ajout de l'utilisateur terminé !
+220      Votre installation n'est pas compatible avec cette version du script.
+222                Vous trouverez de l'aide sur http://mondedie.fr !
+224                   Utilitaire de gestion utilisateur ruTorrent
+226          Attention, si vous avez modifié votre fichier rutorrent.conf
+228          depuis la fin de l'installation automatique, le script peut
+230          ne pas fonctionner normalement. Faites le manuellement !
+232 Voulez vous continuer? (o/n):
+234 Choisissez une option.
+236 1
+238 2
+240 3
+242 4
+244 5
+246 6
+248 : Ajouter un utilisateur
+250 : Suspendre un utilisateur
+252 : Rétablir un utilisateur
+254 : Modifier un mot de passe
+256 : Supprimer un utilisateur
+258 : Sortir
+260 Numéro:
+262 Suspension de l'utilisateur.
+264 L'utilisateur
+266 #
+268 a bien été suspendu.
+270 Rétablissement de l'utilisateur.
+272 a bien été rétabli.
+274 Entrez le nouveau mot de passe pour cet utilisateur,\nou appuyez sur "
+276 Modification du mot de passe de l'utilisateur.
+278 Le mot de passe utilisateur de
+280 a bien été modifié.
+282 Voulez vous vraiment supprimer l'utilisateur 
+284  (o/n):
+286 Suppression de l'utilisateur.
+288 a bien été supprimé.
+290 Voulez vous redémarrer pour finaliser la gestion utilisateur (o/n):
+292 Option invalide
+294 #
+296 #
+298   Le premier utilisateur sera l'administrateur de Seedbox-Manager si installé,
+300 Voulez vous installer Seedbox-Manager (o/n):
+302 Et dans la partie "Administration" de Seedbox-Manager\npour ajuster certains réglages si installé:
+304 Choisissez votre installation:
+306 Full
+308 Light
+

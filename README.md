@@ -2,8 +2,8 @@
 
 ![logo](https://raw.github.com/exrat/rutorrent-bonobox/master/files/bonobox.png)
 
-* Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur.
-* Français, English, German, Pусский
+* Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur
+* Français, English, German, Pусский,  Español
 * Nécessite Debian 7 ou 8 (32/64 bits) & un serveur fraîchement installé
 
 * Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh) & Proxy php
@@ -23,7 +23,7 @@ Merci Aliochka & Meister pour les conf de munin et VsFTPd
 
 Jedediah pour avoir joué avec le html/css du thème.
 
-Aux traducteurs: Sophie, Spectre, Hardware, Zarev.
+Aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato.
 
 ## Installation:
 Multilingue automatique
@@ -51,6 +51,9 @@ chmod a+x bonobox.sh && ./bonobox.sh --ru
 
 # German
 chmod a+x bonobox.sh && ./bonobox.sh --de
+
+# Español
+chmod a+x bonobox.sh && ./bonobox.sh --es
 ```
 
 Pour gérer vos utilisateurs ultérieurement, il vous suffit de relancer le script
