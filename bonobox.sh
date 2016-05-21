@@ -528,6 +528,7 @@ cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
 # script rtorrent
 FONCSCRIPTRT "$USER" 
 FONCSERVICE start "$USER"-rtorrent
+FONCSERVICE start "$USER"-irssi
 
 # write out current crontab
 crontab -l > rtorrentdem
@@ -790,6 +791,7 @@ chmod 755 /home/"$USER"
 # script rtorrent
 FONCSCRIPTRT "$USER" 
 FONCSERVICE start "$USER"-rtorrent
+FONCSERVICE start "$USER"-irssi
 
 # htpasswd
 FONCHTPASSWD "$USER"
@@ -969,6 +971,7 @@ chown -R "$WDATA" "$SBMCONFUSER"
 # configuration page index munin
 FONCGRAPH "$USER"
 FONCSERVICE start "$USER"-rtorrent
+FONCSERVICE start "$USER"-irssi
 
 # log users
 echo "userlog">> "$RUTORRENT"/histo.log
@@ -1044,6 +1047,7 @@ enabled = no">> "$RUCONFUSER"/"$USER"/plugins.ini
 
 # stop user
 FONCSERVICE stop "$USER"-rtorrent
+FONCSERVICE stop "$USER"-irssi
 killall --user "$USER" rtorrent
 killall --user "$USER" screen
 
@@ -1067,8 +1071,8 @@ FONCSCRIPTRT "$USER"
 
 # start user
  rm /home/"$USER"/.session/rtorrent.lock
-su --command="screen -dmS $USER-rtorrent rtorrent" "$USER"
-/bin/su "$USER" -c "/usr/bin/screen -dmS irc_logger /usr/bin/irssi"
+FONCSERVICE start "$USER"-rtorrent
+FONCSERVICE start "$USER"-irssi
 usermod -U "$USER"
 
 # retablisement proxy
@@ -1152,12 +1156,18 @@ else
 
 	# stop user
 	FONCSERVICE stop "$USER"-rtorrent
+	FONCSERVICE stop "$USER"-irssi
 	killall --user "$USER" rtorrent
 	killall --user "$USER" screen
 
 	# suppression script
 	rm /etc/init.d/"$USER"-rtorrent
+	rm /etc/init.d/"$USER"-irssi
 	update-rc.d "$USER"-rtorrent remove
+	update-rc.d "$USER"-irssi remove
+
+	# supression rc.local (pour retro-compatibilité)
+	sed -i "/$USER/d" /etc/rc.local
 
 	# suppression conf rutorrent
 	rm -R "${RUCONFUSER:?}"/"$USER"
@@ -1174,8 +1184,7 @@ else
 	# suppression seebbox-manager
 	rm -R "${SBMCONFUSER:?}"/"$USER"
 
-	# suppression user & rc.local
-	sed -i "/$USER/d" /etc/rc.local
+	# suppression user
 	deluser "$USER" --remove-home
 
 	echo "" ; set "264" "288" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"

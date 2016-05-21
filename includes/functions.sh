@@ -254,7 +254,9 @@ echo "<?php
 \$autodlPort = $IRSSIPORT;
 \$autodlPassword = \"$3\";
 ?>" >> "$RUCONFUSER"/"$1"/plugins/autodl-irssi/conf.php
-sed -i "/# By default this script does nothing./a\/bin/su $1 -c \"/usr/bin/screen -dmS irc_logger /usr/bin/irssi\"" /etc/rc.local
-/etc/rc.local &
+cp -f "$FILES"/rutorrent/irssi.conf /etc/init.d/"$1"-irssi
+sed -i "s/@USER@/$1/g;" /etc/init.d/"$1"-irssi
+chmod +x /etc/init.d/"$1"-irssi
+update-rc.d "$1"-irssi defaults
 }
 
