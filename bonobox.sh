@@ -160,7 +160,7 @@ FONCSERVICE restart bind9
 apt-get update && apt-get upgrade -y
 echo "" ; set "132" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
-apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim nano ccze screen subversion apache2-utils curl php5 php5-cli php5-fpm php5-curl php5-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude dnsutils irssi  libarchive-zip-perl  libjson-perl libjson-xs-perl libxml-libxslt-perl
+apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim nano ccze screen subversion apache2-utils curl "$PHPNAME" "$PHPNAME"-cli "$PHPNAME"-fpm "$PHPNAME"-curl "$PHPNAME"-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude dnsutils irssi  libarchive-zip-perl  libjson-perl libjson-xs-perl libxml-libxslt-perl
 
 # installation nginx et passage sur depot stable
 FONCDEPNGINX "$DEBNAME"
@@ -360,23 +360,23 @@ chown -R "$WDATA" "$NGINXBASE"
 chown -R "$WDATA" "$NGINXWEB"/proxy
 
 # php
-sed -i "s/2M/10M/g;" /etc/php5/fpm/php.ini
-sed -i "s/8M/10M/g;" /etc/php5/fpm/php.ini
-sed -i "s/expose_php = On/expose_php = Off/g;" /etc/php5/fpm/php.ini
+sed -i "s/2M/10M/g;" "$PHPPATH"/fpm/php.ini
+sed -i "s/8M/10M/g;" "$PHPPATH"/fpm/php.ini
+sed -i "s/expose_php = On/expose_php = Off/g;" "$PHPPATH"/fpm/php.ini
 
 if [ "$BASELANG" = "fr" ]; then
-	sed -i "s/^;date.timezone =/date.timezone = Europe\/Paris/g;" /etc/php5/fpm/php.ini
-	sed -i "s/^;date.timezone =/date.timezone = Europe\/Paris/g;" /etc/php5/cli/php.ini
+	sed -i "s/^;date.timezone =/date.timezone = Europe\/Paris/g;" "$PHPPATH"/fpm/php.ini
+	sed -i "s/^;date.timezone =/date.timezone = Europe\/Paris/g;" "$PHPPATH"/cli/php.ini
 else
-	sed -i "s/^;date.timezone =/date.timezone = UTC/g;" /etc/php5/fpm/php.ini
-	sed -i "s/^;date.timezone =/date.timezone = UTC/g;" /etc/php5/cli/php.ini
+	sed -i "s/^;date.timezone =/date.timezone = UTC/g;" "$PHPPATH"/fpm/php.ini
+	sed -i "s/^;date.timezone =/date.timezone = UTC/g;" "$PHPPATH"/cli/php.ini
 fi
 
-sed -i "s/^;listen.owner = www-data/listen.owner = www-data/g;" /etc/php5/fpm/pool.d/www.conf
-sed -i "s/^;listen.group = www-data/listen.group = www-data/g;" /etc/php5/fpm/pool.d/www.conf
-sed -i "s/^;listen.mode = 0660/listen.mode = 0660/g;" /etc/php5/fpm/pool.d/www.conf
+sed -i "s/^;listen.owner = www-data/listen.owner = www-data/g;" "$PHPPATH"/fpm/pool.d/www.conf
+sed -i "s/^;listen.group = www-data/listen.group = www-data/g;" "$PHPPATH"/fpm/pool.d/www.conf
+sed -i "s/^;listen.mode = 0660/listen.mode = 0660/g;" "$PHPPATH"/fpm/pool.d/www.conf
 
-FONCSERVICE restart php5-fpm
+FONCSERVICE restart "$PHPNAME"-fpm
 echo "" ; set "150" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 mkdir -p "$NGINXPASS" "$NGINXSSL"
@@ -387,6 +387,7 @@ chmod 640 "$NGINXPASS"/rutorrent_passwd
 mkdir "$NGINXENABLE"
 cp -f "$FILES"/nginx/nginx.conf "$NGINX"/nginx.conf
 cp -f "$FILES"/nginx/php.conf "$NGINXCONFD"/php.conf
+sed -i "s|@PHPSOCK@|$PHPSOCK|g;" "$NGINXCONFD"/php.conf
 cp -f "$FILES"/nginx/cache.conf "$NGINXCONFD"/cache.conf
 cp -f "$FILES"/nginx/ciphers.conf "$NGINXCONFD"/ciphers.conf
 
@@ -468,6 +469,7 @@ chmod +x install.sh
 
 cp -f "$FILES"/nginx/php-manager.conf "$NGINXCONFD"/php-manager.conf
 sed -i "s|@SBM@|$SBM|g;" "$NGINXCONFD"/php-manager.conf
+sed -i "s|@PHPSOCK@|$PHPSOCK|g;" "$NGINXCONFD"/php-manager.conf
 
 ## conf user
 cd "$SBMCONFUSER" || exit
