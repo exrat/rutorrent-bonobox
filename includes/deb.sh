@@ -36,7 +36,7 @@ DEBNUMBER="Debian_7.0.deb"
 DEBNAME="wheezy"
 PHPPATH="/etc/php5"
 PHPNAME="php5"
-PHPSOCK="php5-fpm.sock"
+PHPSOCK="/var/run/php5-fpm.sock"
 
 echo "# dépôt dotdeb php 5.6
 deb http://packages.dotdeb.org $DEBNAME-php56 all
@@ -48,7 +48,7 @@ DEBNUMBER="Debian_8.0.deb"
 DEBNAME="jessie"
 PHPPATH="/etc/php/7.0"
 PHPNAME="php7.0"
-PHPSOCK="php/php7.0-fpm.sock"
+PHPSOCK="/run/php/php7.0-fpm.sock"
 
 echo "# dépôt dotdeb
 deb http://packages.dotdeb.org $DEBNAME all
