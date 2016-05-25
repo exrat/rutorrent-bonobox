@@ -7,8 +7,8 @@ deb http://ftp2.fr.debian.org/debian/ $1 main non-free
 deb-src http://ftp2.fr.debian.org/debian/ $1 main non-free" > "$SOURCES"/non-free.list
 
 echo "# dépôt nginx
-deb http://nginx.org/packages/mainline/debian/ $1 nginx
-deb-src http://nginx.org/packages/mainline/debian/ $1 nginx" > "$SOURCES"/nginx.list
+deb http://nginx.org/packages/debian/ $1 nginx
+deb-src http://nginx.org/packages/debian/ $1 nginx" > "$SOURCES"/nginx.list
 
 # clés
 wget http://www.dotdeb.org/dotdeb.gpg
@@ -16,15 +16,6 @@ apt-key add dotdeb.gpg
 
 wget http://nginx.org/keys/nginx_signing.key
 apt-key add nginx_signing.key
-}
-
-function FONCDEPNGINX ()
-{
-#apt-get install -y nginx=1.9.6-1~"$1"
-apt-get install -y nginx
-echo "# dépôt nginx
-deb http://nginx.org/packages/debian/ $1 nginx
-deb-src http://nginx.org/packages/debian/ $1 nginx" > "$SOURCES"/nginx.list
 }
 
 # ajout dépôts

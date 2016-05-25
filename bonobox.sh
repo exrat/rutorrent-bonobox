@@ -160,10 +160,7 @@ FONCSERVICE restart bind9
 apt-get update && apt-get upgrade -y
 echo "" ; set "132" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
-apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim nano ccze screen subversion apache2-utils curl "$PHPNAME" "$PHPNAME"-cli "$PHPNAME"-fpm "$PHPNAME"-curl "$PHPNAME"-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude dnsutils irssi  libarchive-zip-perl  libjson-perl libjson-xs-perl libxml-libxslt-perl
-
-# installation nginx et passage sur depot stable
-FONCDEPNGINX "$DEBNAME"
+apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim nano ccze screen subversion apache2-utils curl "$PHPNAME" "$PHPNAME"-cli "$PHPNAME"-fpm "$PHPNAME"-curl "$PHPNAME"-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude dnsutils irssi  libarchive-zip-perl  libjson-perl libjson-xs-perl libxml-libxslt-perl nginx
 
 echo "" ; set "136" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
