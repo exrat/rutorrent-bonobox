@@ -162,6 +162,10 @@ echo "" ; set "132" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 
 apt-get install -y htop openssl apt-utils python build-essential  libssl-dev pkg-config automake libcppunit-dev libtool whois libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim nano ccze screen subversion apache2-utils curl "$PHPNAME" "$PHPNAME"-cli "$PHPNAME"-fpm "$PHPNAME"-curl "$PHPNAME"-geoip unrar rar zip buildtorrent fail2ban ntp ntpdate munin ffmpeg aptitude dnsutils irssi  libarchive-zip-perl  libjson-perl libjson-xs-perl libxml-libxslt-perl nginx
 
+if [[ $VERSION =~ 8. ]]; then
+apt-get install -y "$PHPNAME"-xml
+fi
+
 echo "" ; set "136" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # génération clé 2048 bits
@@ -314,6 +318,8 @@ sed -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
 # configuration autodl-irssi
 git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi
 cp -f autodl-irssi/_conf.php autodl-irssi/conf.php
+cp -f autodl-irssi/css/oblivion.css spiritofbonobo.css
+cp -f autodl-irssi/css/oblivion.min.css spiritofbonobo.min.css
 FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
 # mediainfo
