@@ -37,9 +37,12 @@ elif [[ $VERSION =~ 8. ]]; then
 # shellcheck disable=SC2034
 DEBNUMBER="Debian_8.0.deb"
 DEBNAME="jessie"
-PHPPATH="/etc/php/7.0"
-PHPNAME="php7.0"
-PHPSOCK="/run/php/php7.0-fpm.sock"
+#PHPPATH="/etc/php/7.0"
+#PHPNAME="php7.0"
+#PHPSOCK="/run/php/php7.0-fpm.sock"
+PHPPATH="/etc/php5"
+PHPNAME="php5"
+PHPSOCK="/var/run/php5-fpm.sock"
 
 echo "# dépôt dotdeb
 deb http://packages.dotdeb.org $DEBNAME all
