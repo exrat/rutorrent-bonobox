@@ -320,6 +320,8 @@ git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi
 cp -f autodl-irssi/_conf.php autodl-irssi/conf.php
 cp -f autodl-irssi/css/oblivion.css autodl-irssi/css/spiritofbonobo.css
 cp -f autodl-irssi/css/oblivion.min.css autodl-irssi/css/spiritofbonobo.min.css
+touch autodl-irssi/css/materialdesign.css
+touch autodl-irssi/css/materialdesign.min.css
 FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
 # mediainfo
@@ -349,8 +351,6 @@ rm -R "${RUPLUGINS:?}"/theme/themes/Blue
 cp -R "$BONOBOX"/theme/ru/Blue "$RUPLUGINS"/theme/themes/Blue
 cp -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUPLUGINS"/theme/themes/SpiritOfBonobo
 git clone git://github.com/Phlooo/ruTorrent-MaterialDesign.git "$RUPLUGINS"/theme/themes/MaterialDesign
-touch "$RUPLUGINS"/autodl-irssi/css/materialdesign.css
-touch "$RUPLUGINS"/autodl-irssi/css/materialdesign.min.css
 
 # configuration thème
 sed -i "s/defaultTheme = \"\"/defaultTheme = \"SpiritOfBonobo\"/g;" "$RUPLUGINS"/theme/conf.php
