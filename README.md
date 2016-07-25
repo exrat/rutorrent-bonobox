@@ -21,9 +21,9 @@ Merci Aliochka & Meister pour les conf de munin et VsFTPd
 
 à Albaret pour le coup de main sur la gestion d'users, LetsGo67 pour ses rectifs et
 
-Jedediah pour avoir joué avec le html/css du thème.
+Jedediah pour avoir joué avec le html/css du thème
 
-Aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato.
+Aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam
 
 ## Installation:
 Multilingue automatique
@@ -54,6 +54,9 @@ chmod a+x bonobox.sh && ./bonobox.sh --de
 
 # Español
 chmod a+x bonobox.sh && ./bonobox.sh --es
+
+# Português
+chmod a+x bonobox.sh && ./bonobox.sh --pt
 ```
 
 Pour gérer vos utilisateurs ultérieurement, il vous suffit de relancer le script

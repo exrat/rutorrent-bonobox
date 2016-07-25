@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # langues
-OPTS=$(getopt -o vhns: --long en,fr,it,de,es,ru,sr: -n 'parse-options' -- "$@")
+OPTS=$(getopt -o vhns: --long en,fr,it,de,ru,es,pt -n 'parse-options' -- "$@")
 eval set -- "$OPTS"
 while true; do
   case "$1" in
@@ -10,6 +10,7 @@ while true; do
 	--de) GENLANG="de" ; break ;;
 	--ru) GENLANG="ru" ; break ;;
 	--es) GENLANG="es" ; break ;;
+	--pt) GENLANG="pt" ; break ;;
 	*|\?)
 		BASELANG="${LANG:0:2}"
 		# detection auto
@@ -18,6 +19,7 @@ while true; do
 		elif [ "$BASELANG" = "de" ]; then GENLANG="de"
 		elif [ "$BASELANG" = "ru" ]; then GENLANG="ru"
 		elif [ "$BASELANG" = "es" ]; then GENLANG="es"
+		elif [ "$BASELANG" = "pt" ]; then GENLANG="pt"
 		else
 			GENLANG="en" ; fi ; break ;;
 	esac
