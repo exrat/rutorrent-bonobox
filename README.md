@@ -3,7 +3,7 @@
 ![logo](https://raw.github.com/exrat/rutorrent-bonobox/master/files/bonobox.png)
 
 * Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur
-* Français, English, German, Pусский,  Español
+* Français, English, German, Pусский,  Español, Português
 * Nécessite Debian 7 ou 8 (32/64 bits) & un serveur fraîchement installé
 
 * Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh) & Proxy php
