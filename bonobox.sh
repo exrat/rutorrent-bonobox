@@ -353,7 +353,7 @@ cp -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUPLUGINS"/theme/themes/SpiritOfBonob
 git clone git://github.com/Phlooo/ruTorrent-MaterialDesign.git "$RUPLUGINS"/theme/themes/MaterialDesign
 
 # configuration thème
-sed -i "s/defaultTheme = \"\"/defaultTheme = \"SpiritOfBonobo\"/g;" "$RUPLUGINS"/theme/conf.php
+sed -i "s/defaultTheme = \"\"/defaultTheme = \"MaterialDesign\"/g;" "$RUPLUGINS"/theme/conf.php
 
 echo "" ; set "148" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
@@ -463,7 +463,7 @@ echo "" ; set "160" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 
 ## app
 cd "$NGINXWEB" || exit
-composer create-project magicalex/seedbox-manager
+composer create-project clegall/seedbox-manager
 cd seedbox-manager || exit
 bower install --allow-root --config.interactive=false
 chown -R "$WDATA" "$SBM"
@@ -684,7 +684,7 @@ if FONCNO "$REPONSE"; then
 		echo "" ; set "206" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
 		echo -e "${CYELLOW}https://$IP/seedbox-manager/${CEND}"
 		echo "" ; echo "" ; set "210" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
-		echo -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}" ; echo ""
+		echo -e "${CBLUE}                          Kolgate - http://www.kolgate.xyz${CEND}" ; echo ""
 		break
 	fi
 
@@ -696,7 +696,7 @@ if FONCNO "$REPONSE"; then
 		echo "" ; set "206" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
 		echo -e "${CYELLOW}https://$IP/seedbox-manager/${CEND}"
 		echo "" ; echo "" ; set "210" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
-		echo -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}" ; echo ""
+		echo -e "${CBLUE}                          Kolgate - http://www.kolgate.xyz${CEND}" ; echo ""
 		reboot
 		break
 	fi
@@ -848,7 +848,7 @@ read -r VALIDE
 
 if FONCNO "$VALIDE"; then
 	echo "" ; set "210" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}"
-	echo -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}" ; echo ""
+	echo -e "${CBLUE}                          Kolgate - http://www.kolgate.xyz${CEND}" ; echo ""
 	exit 1
 fi
 
@@ -891,7 +891,7 @@ TESTMAIL=$(sed -n "1 p" "$RUTORRENT"/histo.log)
 if [[ "$TESTMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]]; then
         EMAIL="$TESTMAIL"
 else
-        EMAIL=contact@exemple.com
+        EMAIL=contact@kolgate.xyz
 fi
 
 # variable passe nginx
@@ -1006,7 +1006,7 @@ TESTMAIL=$(sed -n "1 p" "$RUTORRENT"/histo.log)
 if [[ "$TESTMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]]; then
         EMAIL="$TESTMAIL"
 else
-        EMAIL=contact@exemple.com
+        EMAIL=contact@kolgate.xyz
 fi
 
 #récupération ip serveur
