@@ -6,7 +6,7 @@
 * Français, English, German, Pусский,  Español, Português
 * Nécessite Debian 7 ou 8 (32/64 bits) & un serveur fraîchement installé
 
-* Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh) & Proxy php
+* Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh)
 * Seedbox-Manager, Auteurs: Magicalex, Hydrog3n et Backtoback
 
 Tiré du tutoriel de Magicalex pour mondedie.fr disponible ici:
@@ -66,9 +66,7 @@ Pour gérer vos utilisateurs ultérieurement, il vous suffit de relancer le scri
 ### Disclaimer
 Ce script est proposé à des fins d'expérimentation uniquement, le téléchargement d’oeuvre copyrightées est illégal.
 
-Merci de vous conformer à la législation en vigueur en fonction de vos pays respectifs en faisant vos tests sur des fichiers libres de droit.
-
-De plus, aucun animal n’a été maltraité durant la laborieuse phase de dévellopement !
+Merci de vous conformer à la législation en vigueur en fonction de vos pays respectifs en faisant vos tests sur des fichiers libres de droits.
 
 ### License
 This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)

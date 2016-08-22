@@ -6,17 +6,16 @@
 # Nécessite Debian 7 ou 8 (32/64 bits) & un serveur fraîchement installé
 #
 # Multi-utilisateurs
-# Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh) & Proxy php
+# Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh)
 # Seedbox-Manager, Auteurs: Magicalex, Hydrog3n et Backtoback
 #
 # Tiré du tutoriel de Magicalex pour mondedie.fr disponible ici:
 # http://mondedie.fr/viewtopic.php?id=5302
-# Aide, support & plus si affinités à la même adresse ! http://mondedie.fr/
 #
 # Merci Aliochka & Meister pour les conf de Munin et VsFTPd
 # à Albaret pour le coup de main sur la gestion d'users, LetsGo67 pour ses rectifs et
 # Jedediah pour avoir joué avec le html/css du thème.
-# Aux traducteurs: Sophie, Spectre, Hardware, Zarev.
+# Aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam.
 #
 # Installation:
 #
@@ -277,9 +276,6 @@ mkdir "$SCRIPT"
 mkdir -p "$NGINXWEB"
 cp -R "$BONOBOX"/base "$NGINXBASE"
 
-# déplacement proxy
-cp -R "$BONOBOX"/proxy "$NGINXWEB"/proxy
-
 # téléchargement et déplacement de rutorrent
 git clone https://github.com/Novik/ruTorrent.git "$RUTORRENT"
 echo "" ; set "146" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
@@ -287,7 +283,7 @@ echo "" ; set "146" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 # installation des Plugins
 cd "$RUPLUGINS" || exit
 
-for PLUGINS in 'logoff' 'chat' 'lbll-suite' 'linkproxy' 'linklogs' 'nfo' 'filemanager' 'fileshare' 'ratiocolor' 'pausewebui'; do
+for PLUGINS in 'logoff' 'chat' 'lbll-suite' 'linklogs' 'nfo' 'filemanager' 'fileshare' 'ratiocolor' 'pausewebui'; do
 cp -R "$BONOBOX"/plugins/"$PLUGINS" "$RUPLUGINS"/; done
 
 # plugin seedbox-manager
@@ -362,7 +358,6 @@ ldconfig
 chown -R "$WDATA" "$RUTORRENT"
 chmod -R 777 "$RUPLUGINS"/filemanager/scripts
 chown -R "$WDATA" "$NGINXBASE"
-chown -R "$WDATA" "$NGINXWEB"/proxy
 
 # php
 sed -i "s/2M/10M/g;" "$PHPPATH"/fpm/php.ini
@@ -1045,16 +1040,11 @@ cp -f "$FILES"/sbm/config-mini.ini "$SBMCONFUSER"/"$USER"/config.ini
 
 sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
 sed -i "s/https:\/\/rutorrent.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
-sed -i "s/https:\/\/proxy.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
 sed -i "s/https:\/\/graph.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
 sed -i "s/RPC1/$USERMAJ/g;" "$SBMCONFUSER"/"$USER"/config.ini
 sed -i "s/contact@mail.com/$EMAIL/g;" "$SBMCONFUSER"/"$USER"/config.ini
 
 chown -R "$WDATA" "$SBMCONFUSER"
-
-# blocage proxy
-echo "[linkproxy]
-enabled = no">> "$RUCONFUSER"/"$USER"/plugins.ini
 
 # stop user
 FONCSERVICE stop "$USER"-rtorrent
@@ -1089,9 +1079,6 @@ if [ -f "/etc/irssi.conf" ]; then
 	FONCSERVICE start "$USER"-irssi
 fi
 usermod -U "$USER"
-
-# retablisement proxy
-sed -i '/linkproxy/,+1d' "$RUCONFUSER"/"$USER"/plugins.ini
 
 # Seedbox-Manager service normal
 rm "$SBMCONFUSER"/"$USER"/config.ini
