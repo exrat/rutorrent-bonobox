@@ -283,7 +283,7 @@ echo "" ; set "146" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${C
 # installation des Plugins
 cd "$RUPLUGINS" || exit
 
-for PLUGINS in 'logoff' 'chat' 'lbll-suite' 'linklogs' 'nfo' 'filemanager' 'fileshare' 'ratiocolor' 'pausewebui'; do
+for PLUGINS in 'logoff' 'chat' 'lbll-suite' 'linklogs' 'nfo' 'titlebar' 'filemanager' 'fileshare' 'ratiocolor' 'pausewebui'; do
 cp -R "$BONOBOX"/plugins/"$PLUGINS" "$RUPLUGINS"/; done
 
 # plugin seedbox-manager

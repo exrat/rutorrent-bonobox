@@ -1,0 +1,4 @@
+plugin.description: Personal text to titlebar.
+plugin.author: ex_rat
+plugin.version: 1.0
+plugin.runlevel 11
