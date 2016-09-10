@@ -12,7 +12,7 @@ VERSION=$(cat /etc/debian_version)
 LIBTORRENT="0.13.6"
 RTORRENT="0.9.6"
 #DEBMULTIMEDIA="2016.8.1"
-NVM="0.31.6"
+NVM="0.31.7"
 NODE="6.5.0"
 
 RUTORRENT="/var/www/rutorrent"

@@ -314,9 +314,8 @@ sed -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
 # configuration autodl-irssi
 git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi
 cp -f autodl-irssi/_conf.php autodl-irssi/conf.php
-cp -f autodl-irssi/css/oblivion.css autodl-irssi/css/spiritofbonobo.css
 cp -f autodl-irssi/css/oblivion.min.css autodl-irssi/css/spiritofbonobo.min.css
-touch autodl-irssi/css/materialdesign.css
+cp -f autodl-irssi/css/oblivion.min.css.map autodl-irssi/css/spiritofbonobo.min.css.map
 touch autodl-irssi/css/materialdesign.min.css
 FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
