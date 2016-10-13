@@ -13,7 +13,7 @@ LIBTORRENT="0.13.6"
 RTORRENT="0.9.6"
 #DEBMULTIMEDIA="2016.8.1"
 NVM="0.32.0"
-NODE="6.6.0"
+NODE="6.8.0"
 
 RUTORRENT="/var/www/rutorrent"
 RUPLUGINS="/var/www/rutorrent/plugins"
