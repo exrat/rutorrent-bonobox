@@ -59,7 +59,7 @@ chmod a+x bonobox.sh && ./bonobox.sh --es
 chmod a+x bonobox.sh && ./bonobox.sh --pt
 
 # Português do Brasil
-chmod a+x essential.sh && ./essential.sh --ptbr
+chmod a+x bonobox.sh && ./bonobox.sh --ptbr
 ```
 
 Pour gérer vos utilisateurs ultérieurement, il vous suffit de relancer le script
