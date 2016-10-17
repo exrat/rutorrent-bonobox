@@ -11,6 +11,7 @@ while true; do
 	--ru) GENLANG="ru" ; break ;;
 	--es) GENLANG="es" ; break ;;
 	--pt) GENLANG="pt" ; break ;;
+	--ptbr) GENLANG="ptbr" ; break ;;
 	*|\?)
 		BASELANG="${LANG:0:2}"
 		# detection auto
@@ -20,6 +21,7 @@ while true; do
 		elif [ "$BASELANG" = "ru" ]; then GENLANG="ru"
 		elif [ "$BASELANG" = "es" ]; then GENLANG="es"
 		elif [ "$BASELANG" = "pt" ]; then GENLANG="pt"
+		elif [ "$BASELANG" = "pt_BR" ]; then GENLANG="ptbr"
 		else
 			GENLANG="en" ; fi ; break ;;
 	esac
