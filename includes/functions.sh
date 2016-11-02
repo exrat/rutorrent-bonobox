@@ -1,9 +1,14 @@
 #!/bin/bash
 
-function FONCROOT ()
+function FONCCONTROL ()
 {
-if [ "$(id -u)" -ne 0 ]; then
-	echo "" ; set "100" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" 1>&2 ; echo ""
+if [[ "$VERSION" =~ 7.* ]] || [[ "$VERSION" =~ 8.* ]]; then
+	if [ "$(id -u)" -ne 0 ]; then
+		echo "" ; set "100" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" 1>&2 ; echo ""
+		exit 1
+	fi
+else
+		echo "" ; set "130" ; FONCTXT "$1" ; echo -e "${CRED}$TXT1${CEND}" ; echo ""
 	exit 1
 fi
 }
@@ -208,7 +213,7 @@ echo "
 
 function FONCPHPCONF ()
 {
-touch "$RUCONFUSER"/"$1"/config.php 
+touch "$RUCONFUSER"/"$1"/config.php
 echo "<?php
 \$pathToExternals = array(
     \"curl\"  => '/usr/bin/curl',
@@ -217,7 +222,7 @@ echo "<?php
 \$topDirectory = '/home/$1';
 \$scgi_port = $2;
 \$scgi_host = '127.0.0.1';
-\$XMLRPCMountPoint = '/$3';" > "$RUCONFUSER"/"$1"/config.php 
+\$XMLRPCMountPoint = '/$3';" > "$RUCONFUSER"/"$1"/config.php
 }
 
 function FONCTORRENTRC ()

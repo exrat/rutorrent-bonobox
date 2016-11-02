@@ -41,8 +41,8 @@ INCLUDES="includes"
 # shellcheck source=/dev/null
 . "$INCLUDES"/functions.sh
 
-# contrôle droits utilisateur
-FONCROOT
+# contrôle droits utilisateur & OS
+FONCCONTROL
 clear
 
 # Contrôle installation
@@ -527,7 +527,7 @@ FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
 
 # script rtorrent
-FONCSCRIPTRT "$USER" 
+FONCSCRIPTRT "$USER"
 FONCSERVICE start "$USER"-rtorrent
 FONCSERVICE start "$USER"-irssi
 
@@ -790,7 +790,7 @@ chown root:"$USER" /home/"$USER"
 chmod 755 /home/"$USER"
 
 # script rtorrent
-FONCSCRIPTRT "$USER" 
+FONCSCRIPTRT "$USER"
 FONCSERVICE start "$USER"-rtorrent
 FONCSERVICE start "$USER"-irssi
 
@@ -955,7 +955,7 @@ chown root:"$USER" /home/"$USER"
 chmod 755 /home/"$USER"
 
 # script rtorrent
-FONCSCRIPTRT "$USER" 
+FONCSCRIPTRT "$USER"
 
 # htpasswd
 FONCHTPASSWD "$USER"
@@ -1069,7 +1069,7 @@ echo "" ; set "270" ; FONCTXT "$1" ; echo -e "${CBLUE}$TXT1${CEND}" ; echo ""
 update-rc.d "$USER"-rtorrent remove
 
 # script rtorrent
-FONCSCRIPTRT "$USER" 
+FONCSCRIPTRT "$USER"
 
 # start user
  rm /home/"$USER"/.session/rtorrent.lock
