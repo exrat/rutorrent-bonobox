@@ -152,8 +152,9 @@ div#stg-header { background: #181818 url(./images/dlg-toolbars.gif) no-repeat 0p
 div#stg .lm { background-color: #181818; border: 1px solid #333333; }
 div#dlgHelp-header,div#dlgHelp div.dlg-header { background: #181818 url(./images/dlg-toolbars.gif) no-repeat 0px -96px; text-shadow: 0px -1px 0px #000; }
 
-div#tadd { margin: 5px; }
+div#tadd {display: none; width: 395px; height: 325px; left: 100px; top: 100px; position: absolute; margin: 0 auto; }
 div#tadd-header { background: #181818 url(./images/dlg-toolbars.gif) no-repeat 0px 0px; border-bottom: 1px solid #333333; text-shadow: 0px -1px 0px #000; }
+#tadd_label_select { margin-top: 5px; margin-left: 100px; }
 
 div.tab { background-color: #181818; }
 
@@ -200,5 +201,4 @@ div#lcont div.std:nth-child(2n+1) { background: #181818 url(./images/headers.png
 span#ds,span#dl { color: #178FD1; }
 span#ra { color: #F70000; }
 span#us,span#ul { color: #AACF27; }
-span.det { color: #fff; }
-
+span.det { color: #fff;  { width: 130px; }
