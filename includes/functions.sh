@@ -120,10 +120,10 @@ fi
 
 function FONCMUNIN ()
 {
-cp -f "$MUNIN"/rtom_mem "$MUNIN"/rtom_"$1"_mem
-cp -f "$MUNIN"/rtom_peers "$MUNIN"/rtom_"$1"_peers
-cp -f "$MUNIN"/rtom_spdd "$MUNIN"/rtom_"$1"_spdd
-cp -f "$MUNIN"/rtom_vol "$MUNIN"/rtom_"$1"_vol
+\cp -f "$MUNIN"/rtom_mem "$MUNIN"/rtom_"$1"_mem
+\cp -f "$MUNIN"/rtom_peers "$MUNIN"/rtom_"$1"_peers
+\cp -f "$MUNIN"/rtom_spdd "$MUNIN"/rtom_"$1"_spdd
+\cp -f "$MUNIN"/rtom_vol "$MUNIN"/rtom_"$1"_vol
 
 chmod 755 "$MUNIN"/rtom_*
 
@@ -160,10 +160,10 @@ sed -i "s/@USER@/$1/g;" /etc/munin/munin.conf
 
 function FONCGRAPH ()
 {
-for PICS in 'mem-day' 'mem-week' 'mem-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-for PICS in 'peers-day' 'peers-week' 'peers-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-for PICS in 'spdd-day' 'spdd-week' 'spdd-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-for PICS in 'vol-day' 'vol-week' 'vol-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
+for PICS in 'mem-day' 'mem-week' 'mem-month'; do \cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
+for PICS in 'peers-day' 'peers-week' 'peers-month'; do \cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
+for PICS in 'spdd-day' 'spdd-week' 'spdd-month'; do \cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
+for PICS in 'vol-day' 'vol-week' 'vol-month'; do \cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
 
 chown munin:munin "$MUNINROUTE"/rtom_"$1"_* && chmod 644 "$MUNINROUTE"/rtom_"$1"_*
 
@@ -183,7 +183,7 @@ ln -s "$MUNINROUTE"/rtom_"$1"_vol-day.png "$GRAPH"/img/rtom_"$1"_vol-day.png
 ln -s "$MUNINROUTE"/rtom_"$1"_vol-week.png "$GRAPH"/img/rtom_"$1"_vol-week.png
 ln -s "$MUNINROUTE"/rtom_"$1"_vol-month.png "$GRAPH"/img/rtom_"$1"_vol-month.png
 
-cp -f "$GRAPH"/user.php "$GRAPH"/"$1".php
+\cp -f "$GRAPH"/user.php "$GRAPH"/"$1".php
 
 sed -i "s/@USER@/$1/g;" "$GRAPH"/"$1".php
 sed -i "s/@RTOM@/rtom_$1/g;" "$GRAPH"/"$1".php
@@ -227,7 +227,7 @@ echo "<?php
 
 function FONCTORRENTRC ()
 {
-cp -f "$FILES"/rutorrent/rtorrent.rc /home/"$1"/.rtorrent.rc
+\cp -f "$FILES"/rutorrent/rtorrent.rc /home/"$1"/.rtorrent.rc
 sed -i "s/@USER@/$1/g;" /home/"$1"/.rtorrent.rc
 sed -i "s/@PORT@/$2/g;" /home/"$1"/.rtorrent.rc
 sed -i "s|@RUTORRENT@|$3|;" /home/"$1"/.rtorrent.rc
@@ -235,7 +235,7 @@ sed -i "s|@RUTORRENT@|$3|;" /home/"$1"/.rtorrent.rc
 
 function FONCSCRIPTRT ()
 {
-cp -f "$FILES"/rutorrent/init.conf /etc/init.d/"$1"-rtorrent
+\cp -f "$FILES"/rutorrent/init.conf /etc/init.d/"$1"-rtorrent
 sed -i "s/@USER@/$1/g;" /etc/init.d/"$1"-rtorrent
 chmod +x /etc/init.d/"$1"-rtorrent
 update-rc.d "$1"-rtorrent defaults
@@ -248,8 +248,8 @@ mkdir -p /home/"$1"/.irssi/scripts/autorun
 cd /home/"$1"/.irssi/scripts || exit
 curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
 unzip -o autodl-irssi.zip
-rm autodl-irssi.zip
-cp -f /home/"$1"/.irssi/scripts/autodl-irssi.pl /home/"$1"/.irssi/scripts/autorun
+\rm autodl-irssi.zip
+\cp -f /home/"$1"/.irssi/scripts/autodl-irssi.pl /home/"$1"/.irssi/scripts/autorun
 mkdir -p /home/"$1"/.autodl
 echo "[options]
 gui-server-port = $IRSSIPORT
@@ -259,9 +259,8 @@ echo "<?php
 \$autodlPort = $IRSSIPORT;
 \$autodlPassword = \"$3\";
 ?>" >> "$RUCONFUSER"/"$1"/plugins/autodl-irssi/conf.php
-cp -f "$FILES"/rutorrent/irssi.conf /etc/init.d/"$1"-irssi
+\cp -f "$FILES"/rutorrent/irssi.conf /etc/init.d/"$1"-irssi
 sed -i "s/@USER@/$1/g;" /etc/init.d/"$1"-irssi
 chmod +x /etc/init.d/"$1"-irssi
 update-rc.d "$1"-irssi defaults
 }
-
