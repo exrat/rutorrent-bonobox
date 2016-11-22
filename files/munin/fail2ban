@@ -1,0 +1,20 @@
+#! /bin/bash
+
+PROGNAME=fail2ban
+STATEDIR=/var/lib/munin/plugin-state
+LISTJAIL=$(fail2ban-client status | grep " Jail list:" | sed 's/`- Jail list:\t\t//g' | sed 's/,//g')
+
+if [ "$1" = "config" ] ; then
+	echo 'system.type ABSOLUTE'
+	echo 'graph_title Fail2ban'
+	echo 'graph_vlabel Number of ban'
+	echo 'graph_category Security'
+	for f  in $LISTJAIL; do
+		echo "$f.label $f"
+	done
+	exit 0
+fi
+
+for f  in $LISTJAIL; do
+	echo "$f.value $(fail2ban-client status $f | grep " Currently banned:" | sed 's/   |- Currently banned:\t//g')"
+done

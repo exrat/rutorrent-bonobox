@@ -211,7 +211,7 @@ function FONCRTCONF ()
 echo "
         location /$1 {
             include scgi_params;
-            scgi_pass 127.0.0.1:$2; #ou socket : unix:/home/username/.session/username.socket
+            scgi_pass 127.0.0.1:$2;
             auth_basic \"seedbox\";
             auth_basic_user_file \"$NGINXPASS/rutorrent_passwd_$3\";
         }
