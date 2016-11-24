@@ -29,4 +29,3 @@ done
 
 # fix langue shell root
 echo "export LANG=$LANG" >> /root/.bashrc
-

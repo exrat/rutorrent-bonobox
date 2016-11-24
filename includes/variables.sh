@@ -35,4 +35,3 @@ NGINXSSL="/etc/nginx/ssl"
 NGINXCONFD="/etc/nginx/conf.d"
 SOURCES="/etc/apt/sources.list.d"
 WDATA="www-data:www-data"
-

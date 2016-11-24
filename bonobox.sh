@@ -181,15 +181,17 @@ cp -f "$FILES"/nano/conf.nanorc /usr/share/nano/conf.nanorc
 cp -f "$FILES"/nano/xorg.nanorc /usr/share/nano/xorg.nanorc
 
 # édition conf nano
-echo "
+cat <<- EOF >> /etc/nanorc
+
 ## Config Files (.ini)
-include \"/usr/share/nano/ini.nanorc\"
+include "/usr/share/nano/ini.nanorc"
 
 ## Config Files (.conf)
-include \"/usr/share/nano/conf.nanorc\"
+include "/usr/share/nano/conf.nanorc"
 
 ## Xorg.conf
-include \"/usr/share/nano/xorg.nanorc\"">> /etc/nanorc
+include "/usr/share/nano/xorg.nanorc"
+EOF
 echo "" ; set "138" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # Config ntp & réglage heure fr
@@ -202,11 +204,13 @@ sed -i "s/server 1/#server 1/g;" /etc/ntp.conf
 sed -i "s/server 2/#server 2/g;" /etc/ntp.conf
 sed -i "s/server 3/#server 3/g;" /etc/ntp.conf
 
-echo "
+cat <<- EOF >> /etc/ntp.conf
+
 server 0.fr.pool.ntp.org
 server 1.fr.pool.ntp.org
 server 2.fr.pool.ntp.org
-server 3.fr.pool.ntp.org">> /etc/ntp.conf
+server 3.fr.pool.ntp.org
+EOF
 
 ntpdate -d 0.fr.pool.ntp.org
 fi
@@ -268,7 +272,7 @@ ldconfig
 echo "" ; set "144" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1 $RTORRENT${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # création des dossiers
-su "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session '
+su "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session ~/.backup-session'
 
 # création dossier scripts perso
 mkdir "$SCRIPT"
@@ -338,6 +342,11 @@ cd "$SCRIPT" || exit
 cp -f "$FILES"/scripts/updateGeoIP.sh "$SCRIPT"/updateGeoIP.sh
 chmod a+x updateGeoIP.sh
 sh updateGeoIP.sh
+
+# script backup .session
+cp -f "$FILES"/scripts/backup-session.sh "$SCRIPT"/backup-session.sh
+chmod a+x backup-session.sh
+FONCBAKSESSION
 
 # favicons trackers
 cp -f /tmp/favicon/*.png "$RUPLUGINS"/tracklabels/trackers/
@@ -419,10 +428,7 @@ cp -R "$BONOBOX"/graph "$GRAPH"
 echo "" ; set "154" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
 
 # ssl configuration #
-
-#!/bin/bash
-
-openssl req -new -x509 -days 3658 -nodes -newkey rsa:2048 -out "$NGINXSSL"/server.crt -keyout "$NGINXSSL"/server.key<<EOF
+openssl req -new -x509 -days 3658 -nodes -newkey rsa:2048 -out "$NGINXSSL"/server.crt -keyout "$NGINXSSL"/server.key <<-EOF
 RU
 Russia
 Moskva
@@ -505,8 +511,10 @@ sed -i "s/Subsystem[[:blank:]]sftp[[:blank:]]\/usr\/lib\/openssh\/sftp-server/Su
 sed -i "s/UsePAM/#UsePAM/g;" /etc/ssh/sshd_config
 
 # chroot user
-echo "Match User $USER
-ChrootDirectory /home/$USER">> /etc/ssh/sshd_config
+cat <<- EOF >> /etc/ssh/sshd_config
+Match User $USER
+ChrootDirectory /home/$USER
+EOF
 
 # config .rtorrent.rc
 FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
@@ -541,8 +549,11 @@ FONCSERVICE start "$USER"-irssi
 crontab -l > rtorrentdem
 
 # echo new cron into cron file
-echo "$UPGEOIP 2 9 * * sh $SCRIPT/updateGeoIP.sh > /dev/null 2>&1
-0 */2 * * * sh $SCRIPT/logserver.sh > /dev/null 2>&1" >> rtorrentdem
+cat <<- EOF >> rtorrentdem
+$UPGEOIP 2 9 * * sh $SCRIPT/updateGeoIP.sh > /dev/null 2>&1
+0 */2 * * * sh $SCRIPT/logserver.sh > /dev/null 2>&1
+0 5 * * * sh $SCRIPT/backup-session.sh > /dev/null 2>&1
+EOF
 
 # install new cron file
 crontab rtorrentdem
@@ -560,7 +571,8 @@ cp -f "$FILES"/fail2ban/nginx-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.
 cp -f /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 sed  -i "/ssh/,+6d" /etc/fail2ban/jail.local
 
-echo "
+cat <<- EOF >> /etc/fail2ban/jail.local
+
 [ssh]
 enabled  = true
 port     = ssh
@@ -583,7 +595,8 @@ port  = http,https
 filter = nginx-badbots
 logpath = /var/log/nginx/*access.log
 banaction = iptables-multiport
-maxretry = 5" >> /etc/fail2ban/jail.local
+maxretry = 5
+EOF
 
 FONCSERVICE restart fail2ban
 
@@ -596,9 +609,11 @@ cp "$FILES"/munin/"$PLUGINS" "$MUNIN"/"$PLUGINS"
 chmod 755 "$MUNIN"/"$PLUGINS"
 ln -s "$MUNIN"/"$PLUGINS" /etc/munin/plugins/"$PLUGINS"; done
 
-echo "
+cat <<- EOF >> /etc/munin/plugin-conf.d/munin-node
+
 [nginx*]
-env.url http://localhost/nginx_status">> /etc/munin/plugin-conf.d/munin-node
+env.url http://localhost/nginx_status
+EOF
 
 FONCSERVICE restart munin-node
 echo "" ; set "170" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
@@ -623,9 +638,9 @@ FONCSERVICE restart vsftpd
 
 sed  -i "/vsftpd/,+10d" /etc/fail2ban/jail.local
 
-echo "
-[vsftpd]
+cat <<- EOF >> /etc/fail2ban/jail.local
 
+[vsftpd]
 enabled  = true
 port     = ftp,ftp-data,ftps,ftps-data
 filter   = vsftpd
@@ -635,7 +650,8 @@ banaction = iptables-multiport
 # logpath = /var/log/auth.log
 # if you want to rely on PAM failed login attempts
 # vsftpd's failregex should match both of those formats
-maxretry = 5" >> /etc/fail2ban/jail.local
+maxretry = 5
+EOF
 
 FONCSERVICE restart fail2ban
 echo "" ; set "172" "134" ; FONCTXT "$1" "$2" ; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}" ; echo ""
@@ -755,7 +771,7 @@ USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
 EMAIL=$(sed -n "1 p" "$RUTORRENT"/histo.log)
 
 # création de dossier
-su "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session '
+su "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session ~/.backup-session'
 
 # calcul port
 FONCPORT
@@ -776,13 +792,18 @@ echo "sed -i '/@USERMAJ@\ HTTP/d' access.log" >> "$SCRIPT"/logserver.sh
 sed -i "s/@USERMAJ@/$USERMAJ/g;" "$SCRIPT"/logserver.sh
 echo "ccze -h < /tmp/access.log > $RUTORRENT/logserver/access.html" >> "$SCRIPT"/logserver.sh
 
+# conf script bakup .session
+FONCBAKSESSION
+
 # config.php
 mkdir "$RUCONFUSER"/"$USER"
 FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 # chroot user supplèmentaire
-echo "Match User $USER
-ChrootDirectory /home/$USER">> /etc/ssh/sshd_config
+cat <<- EOF >> /etc/ssh/sshd_config
+Match User $USER
+ChrootDirectory /home/$USER
+EOF
 
 FONCSERVICE restart ssh
 
@@ -797,8 +818,10 @@ sed -i "s/contact@mail.com/$EMAIL/g;" "$SBMCONFUSER"/"$USER"/config.ini
 
 # plugin.ini
 cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
-echo "[linklogs]
-enabled = no" >> "$RUCONFUSER"/"$USER"/plugins.ini
+cat <<- EOF >> "$RUCONFUSER"/"$USER"/plugins.ini
+[linklogs]
+enabled = no
+EOF
 
 # configuration autodl-irssi
 FONCIRSSI "$USER" "$PORT" "$USERPWD"
@@ -928,7 +951,7 @@ USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
 # récupération ip serveur
 FONCIP
 
-su "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session '
+su "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session ~/.backup-session'
 
 # calcul port
 FONCPORT
@@ -949,14 +972,21 @@ echo "sed -i '/@USERMAJ@\ HTTP/d' access.log" >> "$SCRIPT"/logserver.sh
 sed -i "s/@USERMAJ@/$USERMAJ/g;" "$SCRIPT"/logserver.sh
 echo "ccze -h < /tmp/access.log > $RUTORRENT/logserver/access.html" >> "$SCRIPT"/logserver.sh
 
+# conf script backup .session (rétro-compatibilité)
+if [ -f "$SCRIPT"/backup-session.sh ]; then
+	FONCBAKSESSION
+fi
+
 # config.php
 mkdir "$RUCONFUSER"/"$USER"
 FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 # plugin.ini
 cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
-echo "[linklogs]
-enabled = no" >> "$RUCONFUSER"/"$USER"/plugins.ini
+cat <<- EOF >> "$RUCONFUSER"/"$USER"/plugins.ini
+[linklogs]
+enabled = no
+EOF
 
 # configuration autodl-irssi
 if [ -f "/etc/irssi.conf" ]; then
@@ -964,8 +994,10 @@ FONCIRSSI "$USER" "$PORT" "$USERPWD"
 fi
 
 # chroot user supplémentaire
-echo "Match User $USER
-ChrootDirectory /home/$USER">> /etc/ssh/sshd_config
+cat <<- EOF >> /etc/ssh/sshd_config
+Match User $USER
+ChrootDirectory /home/$USER
+EOF
 
 FONCSERVICE restart ssh
 
@@ -1155,7 +1187,6 @@ else
 
 	# variable utilisateur majuscule
 	USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
-	#echo -e "$USERMAJ"
 
 	# suppression conf munin
 	rm "$GRAPH"/img/rtom_"$USER"_*
@@ -1209,6 +1240,11 @@ else
 
 	# suppression seebbox-manager
 	rm -R "${SBMCONFUSER:?}"/"$USER"
+
+	# suppression backup .session (rétro-compatibilité)
+	if [ -f "$SCRIPT"/backup-session.sh ]; then
+	sed -i "/backup $USER/d" "$SCRIPT"/backup-session.sh
+	fi
 
 	# suppression user
 	deluser "$USER" --remove-home
