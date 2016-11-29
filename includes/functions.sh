@@ -38,7 +38,7 @@ FONCPASS () {
 	read -r REPPWD
 	if [ "$REPPWD" = "" ]; then
 		AUTOPWD=$(tr -dc "1-9a-nA-Np-zP-Z" < /dev/urandom | head -c 8)
-		echo ""; set "118" "120" ; FONCTXT "$1" "$2"; echo  -n -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$AUTOPWD${CEND} ${CGREEN}$TXT2 ${CEND}"
+		echo ""; set "118" "120"; FONCTXT "$1" "$2"; echo  -n -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$AUTOPWD${CEND} ${CGREEN}$TXT2 ${CEND}"
 		read -r REPONSEPWD
 		if FONCNO "$REPONSEPWD"; then
 			echo
@@ -197,10 +197,10 @@ FONCRTCONF () {
 	cat <<- EOF >> "$NGINXENABLE"/rutorrent.conf
 
 		        location /$1 {
-		            include scgi_params;
-		            scgi_pass 127.0.0.1:$2;
-		            auth_basic "seedbox";
-		            auth_basic_user_file "$NGINXPASS/rutorrent_passwd_$3";
+		                include scgi_params;
+		                scgi_pass 127.0.0.1:$2;
+		                auth_basic "seedbox";
+		                auth_basic_user_file "$NGINXPASS/rutorrent_passwd_$3";
 		        }
 		}
 	EOF
@@ -274,4 +274,15 @@ FONCBAKSESSION () {
 		FONCBACKUP $USER
 		exit 0
 	EOF
+}
+
+FONCMEDIAINFO () {
+	cd /tmp || exit
+	wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/libzen0_"$LIBZEN0"-1_"$SYS"."$DEBNUMBER"
+	wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS"."$DEBNUMBER"
+	wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_"$SYS"."$DEBNUMBER"
+
+	dpkg -i libzen0_"$LIBZEN0"-1_"$SYS"."$DEBNUMBER"
+	dpkg -i libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS"."$DEBNUMBER"
+	dpkg -i mediainfo_"$MEDIAINFO"-1_"$SYS"."$DEBNUMBER"
 }

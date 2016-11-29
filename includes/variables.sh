@@ -9,11 +9,38 @@ CYELLOW="${CSI}1;33m"
 CBLUE="${CSI}1;34m"
 
 VERSION=$(cat /etc/debian_version)
+
+if [[ $VERSION =~ 7. ]]; then
+	DEBNUMBER="Debian_7.0.deb"
+	DEBNAME="wheezy"
+	PHPPATH="/etc/php5"
+	PHPNAME="php5"
+	PHPSOCK="/var/run/php5-fpm.sock"
+elif [[ $VERSION =~ 8. ]]; then
+	DEBNUMBER="Debian_8.0.deb"
+	DEBNAME="jessie"
+	# PHPPATH="/etc/php/7.0"
+	# PHPNAME="php7.0"
+	# PHPSOCK="/run/php/php7.0-fpm.sock"
+	PHPPATH="/etc/php5"
+	PHPNAME="php5"
+	PHPSOCK="/var/run/php5-fpm.sock"
+fi
+
+if [[ $(uname -m) == i686 ]]; then
+	SYS="i386"
+elif [[ $(uname -m) == x86_64 ]]; then
+	SYS="amd64"
+fi
+
 LIBTORRENT="0.13.6"
 RTORRENT="0.9.6"
 # DEBMULTIMEDIA="2016.8.1"
 NVM="0.32.1"
 NODE="7.0.0"
+LIBZEN0="0.4.33"
+LIBMEDIAINFO0="0.7.90"
+MEDIAINFO="0.7.90"
 
 RUTORRENT="/var/www/rutorrent"
 RUPLUGINS="/var/www/rutorrent/plugins"

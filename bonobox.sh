@@ -201,13 +201,19 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		libjson-xs-perl \
 		libxml-libxslt-perl \
 		libwww-perl \
-		nginx
+		nginx \
+		libmms0
 
-	# if [[ $VERSION =~ 8. ]]; then
-	# 	apt-get install -y \
-	# 		"$PHPNAME"-xml \
-	# 		"$PHPNAME"-mbstring
-	# fi
+		if [[ $VERSION =~ 7. ]]; then
+			apt-get install -y \
+				libtinyxml2-0.0.0 \
+				libglib2.0-0
+		elif [[ $VERSION =~ 8. ]]; then
+			apt-get install -y \
+				libtinyxml2-2
+				# "$PHPNAME"-xml
+				# "$PHPNAME"-mbstring
+		fi
 
 	echo ""; set "136" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
 
@@ -370,9 +376,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
 	# installation mediainfo
-	cd "$BONOBOX" || exit
-	# shellcheck source=/dev/null
-	. "$INCLUDES"/mediainfo.sh
+	FONCMEDIAINFO
 
 	# script mise à jour mensuel geoip et complément plugin city
 	mkdir /usr/share/GeoIP
