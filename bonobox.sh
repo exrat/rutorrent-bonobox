@@ -187,7 +187,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		unrar \
 		rar \
 		zip \
-		buildtorrent \
+		mktorrent \
 		fail2ban \
 		ntp \
 		ntpdate \
@@ -352,9 +352,9 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# configuration create
 	# shellcheck disable=SC2154
-	sed -i "s#$useExternal = false;#$useExternal = 'buildtorrent';#" "$RUPLUGINS"/create/conf.php
+	sed -i "s#$useExternal = false;#$useExternal = 'mktorrent';#" "$RUPLUGINS"/create/conf.php
 	# shellcheck disable=SC2154
-	sed -i "s#$pathToCreatetorrent = '';#$pathToCreatetorrent = '/usr/bin/buildtorrent';#" "$RUPLUGINS"/create/conf.php
+	sed -i "s#$pathToCreatetorrent = '';#$pathToCreatetorrent = '/usr/bin/mktorrent';#" "$RUPLUGINS"/create/conf.php
 
 	# configuration fileshare
 	chown -R "$WDATA" "$RUPLUGINS"/fileshare
