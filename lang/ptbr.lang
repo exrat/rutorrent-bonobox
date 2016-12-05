@@ -67,13 +67,13 @@
 228                 depois da instalação automatica, o script poderá
 230                 não funcionar corretamente. Faça-o manualmente!
 232 Deseja continuar? (s/n):
-234 Escolha uma opção.
-236 1
-238 2
-240 3
-242 4
-244 5
-246 6
+234 Escolha uma opção
+236  1
+238  2
+240  3
+242  4
+244  5
+246  6
 248 : Adicionar usuário
 250 : Suspender usuário
 252 : Reativar usuário
@@ -91,7 +91,7 @@
 276 Alteração da senha.
 278 A senha do usuário
 280 foi alterada com sucesso.
-282 Tem certeza que deseja apagar o usuário 
+282 Tem certeza que deseja apagar o usuário
 284  (s/n):
 286 Apagar o usuário.
 288 foi apagado com sucesso.

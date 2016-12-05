@@ -41,7 +41,7 @@
 176 Die Wartezeit kann länger als 10 Minuten sein, bitte die Geduld nicht verlieren !
 178 Erstellung Zertifikat
 180 Einrichtung durchgeführt !
-182 Merken Sie Sich bitte folgende Angaben: 
+182 Merken Sie Sich bitte folgende Angaben:
 184 User Name:
 186 Passwort:
 188 Sie benötigen diese Angaben damit Sie Sich bei ruTorrent,\nSeedbox-Manager und in FTP, wenn Ausgewählt, anmelden möchten.
@@ -68,13 +68,13 @@
 228                 geändert haben, könnte es sein, dass der Skript
 230                nicht normal funktionieren. Bitte manuell starten !
 232 Möchten Sie weiter machen? (j/n):
-234 Bitte eine Option wählen.
-236 1
-238 2
-240 3
-242 4
-244 5
-246 6
+234 Bitte eine Option wählen
+236  1
+238  2
+240  3
+242  4
+244  5
+246  6
 248 : Anfügen neuer User
 250 : Sperren von User
 252 : Reaktivieren von user

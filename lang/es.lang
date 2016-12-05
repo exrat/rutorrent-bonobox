@@ -67,13 +67,13 @@
 228                   desde el final de la instalación, el script
 230            puede no funcionar correctamente. Hazlo de forma manual !
 232 Quieres continuar (s/n):
-234 Selecciona una opción.
-236 1
-238 2
-240 3
-242 4
-244 5
-246 6
+234 Selecciona una opción
+236  1
+238  2
+240  3
+242  4
+244  5
+246  6
 248 : Añadir usuario
 250 : Suspender usuario
 252 : Restaurar usuario
@@ -91,7 +91,7 @@
 276 Cambio de la contraseña de usuario.
 278 La contraseña de
 280 ha sido cambiada.
-282 Seguro que quieres eliminar la cuenta de 
+282 Seguro que quieres eliminar la cuenta de
 284  (s/n):
 286 Eliminando usuario.
 288 ha sido eliminado.

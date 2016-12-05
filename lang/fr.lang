@@ -67,13 +67,13 @@
 228          depuis la fin de l'installation automatique, le script peut
 230          ne pas fonctionner normalement. Faites le manuellement !
 232 Voulez vous continuer? (o/n):
-234 Choisissez une option.
-236 1
-238 2
-240 3
-242 4
-244 5
-246 6
+234 Choisissez une option
+236  1
+238  2
+240  3
+242  4
+244  5
+246  6
 248 : Ajouter un utilisateur
 250 : Suspendre un utilisateur
 252 : Rétablir un utilisateur
@@ -91,7 +91,7 @@
 276 Modification du mot de passe de l'utilisateur.
 278 Le mot de passe utilisateur de
 280 a bien été modifié.
-282 Voulez vous vraiment supprimer l'utilisateur 
+282 Voulez vous vraiment supprimer l'utilisateur
 284  (o/n):
 286 Suppression de l'utilisateur.
 288 a bien été supprimé.
