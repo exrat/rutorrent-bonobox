@@ -49,7 +49,7 @@
 194 Voulez vous redémarrer pour finaliser votre installation (o/n):
 196 Le log de l'installation est visible à cette adresse:
 198 Erreur cet utilisateur existe déjà
-199 #
+199 Erreur cet utilisateur n'existe pas
 200 Pensez à redémarrer manuellement votre serveur avant utilisation !
 202 Vous pourrez ensuite vous connecter sur ruTorrent:
 204 #
@@ -83,7 +83,7 @@
 260 Numéro:
 262 Suspension de l'utilisateur.
 264 L'utilisateur
-266 #
+266 Debug
 268 a bien été suspendu.
 270 Rétablissement de l'utilisateur.
 272 a bien été rétabli.
@@ -97,12 +97,11 @@
 288 a bien été supprimé.
 290 Voulez vous redémarrer pour finaliser la gestion utilisateur (o/n):
 292 Option invalide
-294 #
-296 #
+294  7
+296 : Debug
 298   Le premier utilisateur sera l'administrateur de Seedbox-Manager si installé,
 300 Voulez vous installer Seedbox-Manager (o/n):
 302 Et dans la partie "Administration" de Seedbox-Manager\npour ajuster certains réglages si installé:
 304 Choisissez votre installation:
 306 Full
 308 Light
-

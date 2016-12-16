@@ -49,7 +49,7 @@
 194 Deseja reiniciar para terminar a instalação? (s/n):
 196 O log de instalação está disponivel nesta URL:
 198 Erro, este usuário já existe
-199 #
+199 Este usuário não existe
 200 Deve reiniciar o servidor antes da sua utilização!
 202 Poderá se conectar no ruTorrent:
 204 #
@@ -83,7 +83,7 @@
 260 Número:
 262 Suspensão do usuário.
 264 A conta do usuário
-266 #
+266 Debug
 268 foi suspensa com sucesso.
 270 Reativar o usuário.
 272 foi reativada com sucesso.
@@ -97,8 +97,8 @@
 288 foi apagado com sucesso.
 290 Deseja reiniciar para ternimar a gestão de usuários (s/n):
 292 Opção inválida
-294 #
-296 #
+294  7
+296 : Debug
 298     O primeiro utilizador será o administrador do Seedbox-Manager instalado,
 300 Deseja instalar o Seedbox-Manager (s/n):
 302 E na parte "Administrativa" do Seedbox-Manager\npara alterar alguns parametros:

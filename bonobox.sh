@@ -202,7 +202,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		libxml-libxslt-perl \
 		libwww-perl \
 		nginx \
-		libmms0
+		libmms0 \
+		pastebinit
 
 		if [[ $VERSION =~ 7. ]]; then
 			apt-get install -y \
@@ -387,13 +388,14 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	UPGEOIP=$((MINIMUM+RANDOM*(1+MAXIMUM-MINIMUM)/32767))
 
 	cd "$SCRIPT" || exit
-	cp -f "$FILES"/scripts/updateGeoIP.sh "$SCRIPT"/updateGeoIP.sh
-	chmod a+x updateGeoIP.sh
-	sh updateGeoIP.sh
 
-	# script backup .session
-	cp -f "$FILES"/scripts/backup-session.sh "$SCRIPT"/backup-session.sh
-	chmod a+x backup-session.sh
+	for COPY in 'updateGeoIP.sh' 'backup-session.sh'
+	do
+		cp -f "$FILES"/scripts/"$COPY" "$SCRIPT"/"$COPY"
+		chmod a+x "$COPY"
+	done
+
+	sh updateGeoIP.sh
 	FONCBAKSESSION
 
 	# copie favicons trackers

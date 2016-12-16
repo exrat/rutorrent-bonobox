@@ -49,7 +49,7 @@
 194 Quieres reiniciar el servidor para completar la instalación? (s/n):
 196 El log esta disponible en la siguiente url:
 198 Error este usuario ya existe
-199 #
+199 Error de este usuario no existe
 200 Considera reiniciar manualmente el servidor antes de usarlo !
 202 Ya puedes conectarte a ruTorrent:
 204 #
@@ -83,7 +83,7 @@
 260 Número:
 262 Suspensión de usuario.
 264 El usuario
-266 #
+266 Debug
 268 ha sido suspendido.
 270 Restaurando usuario.
 272 ha sido restaurado.
@@ -97,12 +97,11 @@
 288 ha sido eliminado.
 290 Quieres reiniciar el servidor para completar las acciones de usuario (s/n):
 292 Opción inválida
-294 #
-296 #
+294  7
+296 : Debug
 298   El primer usuario será el administrador de SBM's owner (si está instalado),
 300 Quieres instalar Seedbox-Manager (s/n):
 302 Y en la sección "Administración" de Seedbox-Manager\npara ajustar algunas opciones (si está instalado):
 304 Selecciona la instalación:
 306 Completa
 308 Ligera
-

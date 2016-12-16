@@ -50,7 +50,7 @@
 194 Möchten Sie neu starten um die installation zu beenden (j/n):
 196 Der Logfile der Einspielung ist sichtbar unter dieser Adresse:
 198 Irrtum existiert dieser Benutzer schon
-199 #
+199 Fehler dieser Benutzer existiert nicht
 200 Betrachten sie manuell ihren Server neu Starten, bevor nutzung !
 202 Sie können Sich jetzt auf ruTorrent einloggen:
 204 #
@@ -84,7 +84,7 @@
 260 Anzahl:
 262 User sperren.
 264 Der User
-266 #
+266 Debug
 268 wurde gesperrt.
 270 Wiederherstellung von einem User.
 272 wurde wieder aktiviert.
@@ -98,13 +98,11 @@
 288 wurde gelöscht.
 290 Möchten Sie Sich wieder einloggen um die Änderung in\nder User Verwaltung zu beenden (j/n):
 292 Wahl ungültig
-294 #
-296 #
+294  7
+296 : Debug
 298  Der erste erfasste User ist der Administrator von SB-Manager wenn installiert,
 300 Möchten Sie Seedbox-Manager installieren (j/n):
 302 Und im teil "Administration" von Seedbox-Manager um\nzusatzeinstellungen wenn installiert:
 304 Ihre Installation auswählen:
 306 Full
 308 Light
-
-

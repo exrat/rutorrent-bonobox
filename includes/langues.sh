@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # langues
-OPTS=$(getopt -o vhns: --long en,fr,it,de,ru,es,pt -n 'parse-options' -- "$@")
+OPTS=$(getopt -o vhns: --long en,fr,de,ru,es,pt,ptbr -n 'parse-options' -- "$@")
 eval set -- "$OPTS"
 while true; do
 	case "$1" in

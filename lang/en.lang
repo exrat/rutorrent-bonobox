@@ -49,7 +49,7 @@
 194 Do you want restart your server to complete installation (y/n):
 196 Logs are available with this url:
 198 Error this user already exists
-199 #
+199 Error this user does not exist
 200 Consider manually restart your server before use it !
 202 You will be able to login to ruTorrent:
 204 #
@@ -83,7 +83,7 @@
 260 Number:
 262 Suspension of user.
 264 This user
-266 #
+266 Debug
 268 has been suspended.
 270 Restoring user.
 272 has been restored.
@@ -97,12 +97,11 @@
 288 has been removed.
 290 Do you want restart your server to complete user actions (y/n):
 292 Invalid option
-294 #
-296 #
+294  7
+296 : Debug
 298          The first user will be Seedbox-Manager's owner (if installed),
 300 Do you want to install Seedbox-Manager (y/n):
 302 And In the "Administration" section of Seedbox-Manager to adjust some settings:
 304 Choose your installation:
 306 Full
 308 Light
-

@@ -3,7 +3,7 @@
 FONCCONTROL () {
 	if [[ "$VERSION" =~ 7.* ]] || [[ "$VERSION" =~ 8.* ]]; then
 		if [ "$(id -u)" -ne 0 ]; then
-			echo ""; set "100"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}" 1>&2; echo ""
+			echo ""; set "100"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
 			exit 1
 		fi
 	else
@@ -285,4 +285,129 @@ FONCMEDIAINFO () {
 	dpkg -i libzen0_"$LIBZEN0"-1_"$SYS"."$DEBNUMBER"
 	dpkg -i libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS"."$DEBNUMBER"
 	dpkg -i mediainfo_"$MEDIAINFO"-1_"$SYS"."$DEBNUMBER"
+}
+
+FONCGEN () {
+	if [[ -f $RAPPORT ]]; then
+		rm $RAPPORT
+	fi
+	touch $RAPPORT
+
+	cat <<-EOF >> $RAPPORT
+
+		### Report generated on $DATE ###
+
+		Use ruTorrent --> $USERNAME
+		Debian : $VERSION
+		Kernel : $NOYAU
+		nGinx : $NGINX_VERSION
+		rTorrent : $RTORRENT_VERSION
+		PHP : $PHP_VERSION
+	EOF
+}
+
+FONCCHECKBIN () {
+	if hash "$1" 2>/dev/null; then
+		echo
+	else
+		apt-get -y install "$1"
+		echo ""
+	fi
+}
+
+FONCGENRAPPORT () {
+	LINK=$(/usr/bin/pastebinit -b http://paste.ubuntu.com $RAPPORT)
+	echo -e "${CBLUE}Report link:${CEND} ${CYELLOW}$LINK${CEND}"
+	echo -e "${CBLUE}Report backup:${CEND} ${CYELLOW}$RAPPORT${CEND}"
+}
+
+FONCRAPPORT () {
+	# $1 = Fichier
+	if ! [[ -z $1 ]]; then
+		if [[ -f $1 ]]; then
+			if [[ $(wc -l < "$1") == 0 ]]; then
+				FILE="--> Empty file"
+			else
+				FILE=$(cat "$1")
+			fi
+		else
+			FILE="--> Invalid File"
+		fi
+	else
+		FILE="--> Invalid File"
+	fi
+
+	# $2 = Nom à afficher
+	if [[ -z $2 ]]; then
+		NAME="No name given"
+	else
+		NAME=$2
+	fi
+
+	# $3 = Affichage header
+	if [[ $3 == 1 ]]; then
+		cat <<-EOF >> $RAPPORT
+
+			.......................................................................................................................................
+			## $NAME
+			## File : $1
+			.......................................................................................................................................
+		EOF
+
+		cat <<-EOF >> $RAPPORT
+
+			$FILE
+		EOF
+	fi
+}
+
+FONCTESTRTORRENT () {
+	SCGI="$(sed -n '/^scgi_port/p' /home/"$USERNAME"/.rtorrent.rc | cut -b 23-)"
+	PORT_LISTENING=$(netstat -aultnp | awk '{print $4}' | grep -E ":$SCGI\$" -c)
+	RTORRENT_LISTENING=$(netstat -aultnp | sed -n '/'$SCGI'/p' | grep rtorrent -c)
+
+	cat <<-EOF >> $RAPPORT
+
+		.......................................................................................................................................
+		## Check rTorrent & sgci
+		.......................................................................................................................................
+
+	EOF
+
+	# rTorrent lancé
+	if [[ "$(ps uU "$USERNAME" | grep -e 'rtorrent' -c)" == [0-1] ]]; then
+		echo -e "rTorrent down" >> $RAPPORT
+	else
+		echo -e "rTorrent Up" >> $RAPPORT
+	fi
+
+	# socket
+	if (( PORT_LISTENING >= 1 )); then
+		echo -e "A socket listens on the port $SCGI" >> $RAPPORT
+		if (( RTORRENT_LISTENING >= 1 )); then
+			echo -e "It is well rTorrent that listens on the port $SCGI" >> $RAPPORT
+		else
+			echo -e "It's not rTorrent listening on the port $SCGI" >> $RAPPORT
+		fi
+	else
+		echo -e "No program listening on the port $SCGI" >> $RAPPORT
+	fi
+
+	# ruTorrent
+	if [[ -f $RUTORRENT/conf/users/$USERNAME/config.php ]]; then
+		if [[ $(cat "$RUTORRENT"/conf/users/"$USERNAME"/config.php) =~ "\$scgi_port = $SCGI" ]]; then
+			echo -e "Good SCGI port specified in the config.php file" >> $RAPPORT
+		else
+			echo -e "Wrong SCGI port specified in config.php" >> $RAPPORT
+		fi
+	else
+		echo -e "User directory found but config.php file does not exist" >> $RAPPORT
+	fi
+
+	# nginx
+	if [[ $(cat $NGINXENABLE/rutorrent.conf) =~ $SCGI ]]; then
+		echo -e "The ports nginx and the one indicated match" >> $RAPPORT
+	else
+		echo -e "The nginx ports and the specified ports do not match" >> $RAPPORT
+	fi
 }
