@@ -332,9 +332,14 @@ FONCRAPPORT () {
 				FILE=$(cat "$1")
 				# domain.tld
 				if [[ "$1" = /etc/nginx/sites-enabled/* ]]; then
-					SERVER_NAME=$(grep server_name < "$1" | cut -d';' -f1 | cut -c14-)
+					SERVER_NAME=$(grep server_name < "$1" | cut -d';' -f1 | sed 's/ //' | cut -c13-)
+					LETSENCRYPT=$(grep letsencrypt < "$1" | head -1 | cut -f 5 -d '/')
 					if ! [[ "$SERVER_NAME" = _ ]]; then
-						FILE=$(sed "s/server_name[[:blank:]]${SERVER_NAME};/server_name domain.tld;/g;" "$1")
+						if [ -z "$LETSENCRYPT" ]; then
+							FILE=$(sed "s/server_name[[:blank:]]${SERVER_NAME};/server_name domain.tld;/g;" "$1")
+						else
+							FILE=$(sed "s/server_name[[:blank:]]${SERVER_NAME};/server_name domain.tld;/g; s/$LETSENCRYPT/domain.tld/g;" "$1")
+						fi
 					fi
 				fi
 			fi
