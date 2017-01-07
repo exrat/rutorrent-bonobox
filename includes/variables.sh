@@ -8,6 +8,7 @@ CGREEN="${CSI}1;32m"
 CYELLOW="${CSI}1;33m"
 CBLUE="${CSI}1;34m"
 
+ARG="$*"
 VERSION=$(cat /etc/debian_version)
 
 if [[ $VERSION =~ 7. ]]; then
