@@ -26,18 +26,18 @@ else
 	FONCGEN ruTorrent "$USERNAME"
 	FONCCHECKBIN pastebinit
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## Partition
 		.......................................................................................................................................
 
 	EOF
-	df -h >> $RAPPORT
+	df -h >> "$RAPPORT"
 
 	FONCTESTRTORRENT
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## rTorrent Activity
@@ -45,9 +45,9 @@ else
 
 	EOF
 
-	echo -e "$(/bin/ps uU "$USERNAME" | grep -e rtorrent)" >> $RAPPORT
+	echo -e "$(/bin/ps uU "$USERNAME" | grep -e rtorrent)" >> "$RAPPORT"
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## Irssi Activity
@@ -55,51 +55,51 @@ else
 
 	EOF
 
-	if ! [[ -f "/etc/irssi.conf" ]]; then
-		echo -e "--> Irssi not installed" >> $RAPPORT
+	if ! [[ -f /etc/irssi.conf ]]; then
+		echo -e "--> Irssi not installed" >> "$RAPPORT"
 	else
-		echo -e "$(/bin/ps uU "$USERNAME" | grep -e irssi)" >> $RAPPORT
+		echo -e "$(/bin/ps uU "$USERNAME" | grep -e irssi)" >> "$RAPPORT"
 	fi
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## .rtorrent.rc
 		## File : /home/$USERNAME/.rtorrent.rc
 		.......................................................................................................................................
 	EOF
-	echo "" >> $RAPPORT
+	echo "" >> "$RAPPORT"
 
-	if ! [[ -f "/home/$USERNAME/.rtorrent.rc" ]]; then
-		echo "--> File not found" >> $RAPPORT
+	if ! [[ -f /home/"$USERNAME"/.rtorrent.rc ]]; then
+		echo "--> File not found" >> "$RAPPORT"
 	else
-		cat "/home/$USERNAME/.rtorrent.rc" >> $RAPPORT
+		cat "/home/$USERNAME/.rtorrent.rc" >> "$RAPPORT"
 	fi
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## ruTorrent config.php $USERNAME
 		## File : $RUTORRENT/conf/users/$USERNAME/config.php
 		.......................................................................................................................................
 	EOF
-	echo "" >> $RAPPORT
+	echo "" >> "$RAPPORT"
 
-	if [[ ! -f "$RUTORRENT/conf/users/$USERNAME/config.php" ]]; then
-		echo "--> File not found" >> $RAPPORT
+	if [[ ! -f "$RUTORRENT"/conf/users/"$USERNAME"/config.php ]]; then
+		echo "--> File not found" >> "$RAPPORT"
 	else
-		cat $RUTORRENT/conf/users/"$USERNAME"/config.php >> $RAPPORT
+		cat "$RUTORRENT"/conf/users/"$USERNAME"/config.php >> "$RAPPORT"
 	fi
 
 	FONCRAPPORT /etc/init.d/"$USERNAME"-rtorrent "$USERNAME"-rtorrent 1
 
-	cd $NGINXENABLE || exit
+	cd "$NGINXENABLE" || exit
 	for VHOST in $(ls)
 	do
 		FONCRAPPORT "$NGINXENABLE"/"$VHOST" "$VHOST" 1
 	done
 
-	if [[ -f $NGINXENABLE/cakebox.conf ]]; then
+	if [[ -f "$NGINXENABLE"/cakebox.conf ]]; then
 		FONCRAPPORT /var/www/cakebox/config/"$USERNAME".php cakebox.config.php 1
 	fi
 
@@ -111,39 +111,39 @@ else
 		FONCRAPPORT /etc/nginx/conf.d/"$CONF_D" "$CONF_D" 1
 	done
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## files pass nginx
 		## Dir : /etc/nginx/passwd
 		.......................................................................................................................................
 	EOF
-	echo "" >> $RAPPORT
+	echo "" >> "$RAPPORT"
 
 	cd /etc/nginx/passwd || exit
 	for PASS in $(ls)
 	do
-		echo "$PASS" >> $RAPPORT
+		echo "$PASS" >> "$RAPPORT"
 	done
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## files ssl nginx
 		## Dir : /etc/nginx/ssl
 		.......................................................................................................................................
 	EOF
-	echo "" >> $RAPPORT
+	echo "" >> "$RAPPORT"
 
 	cd /etc/nginx/ssl || exit
 	for SSL in $(ls)
 	do
-		echo "$SSL" >> $RAPPORT
+		echo "$SSL" >> "$RAPPORT"
 	done
 
 	FONCRAPPORT /var/log/nginx/rutorrent-error.log nginx.log 1
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## end
