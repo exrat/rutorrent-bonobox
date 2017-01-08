@@ -49,6 +49,11 @@ FONCBASHRC
 if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	# log de l'installation
 	exec > >(tee "/tmp/install.log") 2>&1
+	# liste users en arguments
+	TESTARG=$(echo "$ARG" | tr -s ' ' '\n' | grep :)
+	if [ ! -z "$TESTARG" ]; then
+		echo "$ARG" | tr -s ' ' '\n' | grep : > "$ARGFILE"
+	fi
 
 	####################################
 	# lancement installation ruTorrent #
@@ -60,24 +65,27 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	# shellcheck source=/dev/null
 	. "$INCLUDES"/logo.sh
 
-	echo ""; set "104"; FONCTXT "$1"; echo -e "${CYELLOW}$TXT1${CEND}"
-	set "106"; FONCTXT "$1"; echo -e "${CYELLOW}$TXT1${CEND}"; echo ""
+	if [ ! -s "$ARGFILE" ]; then
+		echo ""; set "104"; FONCTXT "$1"; echo -e "${CYELLOW}$TXT1${CEND}"
+		set "106"; FONCTXT "$1"; echo -e "${CYELLOW}$TXT1${CEND}"; echo ""
 
-	while :; do # demande nom user
-		set "108"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
-		FONCUSER
-	done
+		while :; do # demande nom user
+			set "108"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
+			FONCUSER
+		done
 
-	echo ""
-	while :; do # demande mot de passe
-		set "112" "114" "116"; FONCTXT "$1" "$2" "$3"; echo -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$TXT2${CEND} ${CGREEN}$TXT3 ${CEND}"
-		FONCPASS
-	done
+		echo ""
+		while :; do # demande mot de passe
+			set "112" "114" "116"; FONCTXT "$1" "$2" "$3"; echo -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$TXT2${CEND} ${CGREEN}$TXT3 ${CEND}"
+			FONCPASS
+		done
+	else
+		FONCARG
+	fi
 
 	PORT=5001
 
 	# email admin seedbox-manager
-	ARGMAIL=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 @)
 	if [ -z "$ARGMAIL" ]; then
 		while :; do
 			echo ""; set "124"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
@@ -99,12 +107,15 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	fi
 
 	# installation vsftpd
-	ARGFTP=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 ftp)
 	if [ -z "$ARGFTP" ]; then
 		echo ""; set "128"; FONCTXT "$1"; echo -n -e "${CGREEN}$TXT1 ${CEND}"
 		read -r SERVFTP
 	else
-		SERVFTP="y"
+		if [ "$ARGFTP" = "ftp-off" ]; then
+			SERVFTP="n"
+		else
+			SERVFTP="y"
+		fi
 	fi
 
 	# récupération 5% root sur /home ou /home/user si présent
@@ -743,16 +754,25 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	sed -i "s/userlog/$USER:5001/g;" "$RUTORRENT"/histo.log
 
 	set "180"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"
-
-	echo ""; set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
-	set "184"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND}"
-	set "186"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
-	set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
+	if [ ! -f "$ARGFILE" ]; then
+		echo ""; set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
+		set "184"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND}"
+		set "186"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
+		set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
+	fi
 
 	# ajout utilisateur supplémentaire
 	while :; do
-		set "190"; FONCTXT "$1"; echo -n -e "${CGREEN}$TXT1 ${CEND}"
-		read -r REPONSE
+		if [ ! -f "$ARGFILE" ]; then
+			set "190"; FONCTXT "$1"; echo -n -e "${CGREEN}$TXT1 ${CEND}"
+			read -r REPONSE
+		else
+			if [ -s "$ARGFILE" ]; then
+				REPONSE="y"
+			else
+				REPONSE="n"
+			fi
+		fi
 
 		if FONCNO "$REPONSE"; then
 			# fin d'installation
@@ -761,8 +781,17 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 			sh "$SCRIPT"/logserver.sh
 			ccze -h < "$RUTORRENT"/install.log > "$RUTORRENT"/install.html
 			true > /var/log/nginx/rutorrent-error.log
-			echo ""; set "194"; FONCTXT "$1"; echo -n -e "${CGREEN}$TXT1 ${CEND}"
-			read -r REBOOT
+			if [ -z "$ARGREBOOT" ]; then
+				echo ""; set "194"; FONCTXT "$1"; echo -n -e "${CGREEN}$TXT1 ${CEND}"
+				read -r REBOOT
+			else
+				if [ "$ARGREBOOT" = "reboot-off" ]; then
+					break
+				else
+					reboot
+					break
+				fi
+			fi
 
 			if FONCNO "$REBOOT"; then
 				echo ""; set "196"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"
@@ -792,17 +821,21 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		fi
 
 		if FONCYES "$REPONSE"; then
-			echo ""
-			while :; do # demande nom user
-				set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
-				FONCUSER
-			done
+			if [ ! -s "$ARGFILE" ]; then
+				echo ""
+				while :; do # demande nom user
+					set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
+					FONCUSER
+				done
 
-			echo ""
-			while :; do # demande mot de passe
-				set "112" "114" "116"; FONCTXT "$1" "$2" "$3"; echo -e "${CGREEN}$TXT1${CEND}${CYELLOW}$TXT2${CEND}${CGREEN}$TXT3 ${CEND}"
-				FONCPASS
-			done
+				echo ""
+				while :; do # demande mot de passe
+					set "112" "114" "116"; FONCTXT "$1" "$2" "$3"; echo -e "${CGREEN}$TXT1${CEND}${CYELLOW}$TXT2${CEND}${CGREEN}$TXT3 ${CEND}"
+					FONCPASS
+				done
+			else
+				FONCARG
+			fi
 
 			# récupération 5% root sur /home/user si présent
 			FONCFSUSER "$USER"
@@ -905,12 +938,13 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 			# log users
 			echo "userlog">> "$RUTORRENT"/histo.log
 			sed -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/histo.log
-
-			echo ""; set "218"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
-			set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
-			set "184"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND}"
-			set "186"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
-			set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
+			if [ ! -f "$ARGFILE" ]; then
+				echo ""; set "218"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
+				set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
+				set "184"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND}"
+				set "186"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
+				set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
+			fi
 		fi
 	done
 else

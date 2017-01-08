@@ -62,6 +62,11 @@ NGINXENABLE="/etc/nginx/sites-enabled"
 NGINXSSL="/etc/nginx/ssl"
 NGINXCONFD="/etc/nginx/conf.d"
 SOURCES="/etc/apt/sources.list.d"
+ARGFILE="/tmp/arg.tmp"
+ARGSBM=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 sbm)
+ARGMAIL=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 @)
+ARGFTP=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 ftp)
+ARGREBOOT=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 reboot)
 WDATA="www-data:www-data"
 
 RAPPORT="/tmp/rapport.txt"

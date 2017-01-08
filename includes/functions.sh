@@ -288,12 +288,12 @@ FONCMEDIAINFO () {
 }
 
 FONCGEN () {
-	if [[ -f $RAPPORT ]]; then
-		rm $RAPPORT
+	if [[ -f "$RAPPORT" ]]; then
+		rm "$RAPPORT"
 	fi
-	touch $RAPPORT
+	touch "$RAPPORT"
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		### Report generated on $DATE ###
 
@@ -317,15 +317,15 @@ FONCCHECKBIN () {
 }
 
 FONCGENRAPPORT () {
-	LINK=$(/usr/bin/pastebinit -b http://paste.ubuntu.com $RAPPORT)
+	LINK=$(/usr/bin/pastebinit -b http://paste.ubuntu.com "$RAPPORT")
 	echo -e "${CBLUE}Report link:${CEND} ${CYELLOW}$LINK${CEND}"
 	echo -e "${CBLUE}Report backup:${CEND} ${CYELLOW}$RAPPORT${CEND}"
 }
 
 FONCRAPPORT () {
 	# $1 = Fichier
-	if ! [[ -z $1 ]]; then
-		if [[ -f $1 ]]; then
+	if ! [[ -z "$1" ]]; then
+		if [[ -f "$1" ]]; then
 			if [[ $(wc -l < "$1") == 0 ]]; then
 				FILE="--> Empty file"
 			else
@@ -359,7 +359,7 @@ FONCRAPPORT () {
 
 	# $3 = Affichage header
 	if [[ $3 == 1 ]]; then
-		cat <<-EOF >> $RAPPORT
+		cat <<-EOF >> "$RAPPORT"
 
 			.......................................................................................................................................
 			## $NAME
@@ -367,7 +367,7 @@ FONCRAPPORT () {
 			.......................................................................................................................................
 		EOF
 
-		cat <<-EOF >> $RAPPORT
+		cat <<-EOF >> "$RAPPORT"
 
 			$FILE
 		EOF
@@ -379,7 +379,7 @@ FONCTESTRTORRENT () {
 	PORT_LISTENING=$(netstat -aultnp | awk '{print $4}' | grep -E ":$SCGI\$" -c)
 	RTORRENT_LISTENING=$(netstat -aultnp | sed -n '/'$SCGI'/p' | grep rtorrent -c)
 
-	cat <<-EOF >> $RAPPORT
+	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## Check rTorrent & sgci
@@ -389,38 +389,44 @@ FONCTESTRTORRENT () {
 
 	# rTorrent lancé
 	if [[ "$(ps uU "$USERNAME" | grep -e 'rtorrent' -c)" == [0-1] ]]; then
-		echo -e "rTorrent down" >> $RAPPORT
+		echo -e "rTorrent down" >> "$RAPPORT"
 	else
-		echo -e "rTorrent Up" >> $RAPPORT
+		echo -e "rTorrent Up" >> "$RAPPORT"
 	fi
 
 	# socket
 	if (( PORT_LISTENING >= 1 )); then
-		echo -e "A socket listens on the port $SCGI" >> $RAPPORT
+		echo -e "A socket listens on the port $SCGI" >> "$RAPPORT"
 		if (( RTORRENT_LISTENING >= 1 )); then
-			echo -e "It is well rTorrent that listens on the port $SCGI" >> $RAPPORT
+			echo -e "It is well rTorrent that listens on the port $SCGI" >> "$RAPPORT"
 		else
-			echo -e "It's not rTorrent listening on the port $SCGI" >> $RAPPORT
+			echo -e "It's not rTorrent listening on the port $SCGI" >> "$RAPPORT"
 		fi
 	else
-		echo -e "No program listening on the port $SCGI" >> $RAPPORT
+		echo -e "No program listening on the port $SCGI" >> "$RAPPORT"
 	fi
 
 	# ruTorrent
-	if [[ -f $RUTORRENT/conf/users/$USERNAME/config.php ]]; then
+	if [[ -f "$RUTORRENT"/conf/users/"$USERNAME"/config.php ]]; then
 		if [[ $(cat "$RUTORRENT"/conf/users/"$USERNAME"/config.php) =~ "\$scgi_port = $SCGI" ]]; then
-			echo -e "Good SCGI port specified in the config.php file" >> $RAPPORT
+			echo -e "Good SCGI port specified in the config.php file" >> "$RAPPORT"
 		else
-			echo -e "Wrong SCGI port specified in config.php" >> $RAPPORT
+			echo -e "Wrong SCGI port specified in config.php" >> "$RAPPORT"
 		fi
 	else
-		echo -e "User directory found but config.php file does not exist" >> $RAPPORT
+		echo -e "User directory found but config.php file does not exist" >> "$RAPPORT"
 	fi
 
 	# nginx
-	if [[ $(cat $NGINXENABLE/rutorrent.conf) =~ $SCGI ]]; then
-		echo -e "The ports nginx and the one indicated match" >> $RAPPORT
+	if [[ $(cat "$NGINXENABLE"/rutorrent.conf) =~ $SCGI ]]; then
+		echo -e "The ports nginx and the one indicated match" >> "$RAPPORT"
 	else
-		echo -e "The nginx ports and the specified ports do not match" >> $RAPPORT
+		echo -e "The nginx ports and the specified ports do not match" >> "$RAPPORT"
 	fi
+}
+
+FONCARG () {
+	USER=$(grep -m 1 : < "$ARGFILE" | cut -f 1 -d ':')
+	USERPWD=$(grep -m 1 : < "$ARGFILE" | cut -d ':' -f2-)
+	sed -i '1d' "$ARGFILE"
 }
