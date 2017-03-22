@@ -537,7 +537,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# app
 	cd "$NGINXWEB" || exit
-	composer create-project magicalex/seedbox-manager
+	composer create-project magicalex/seedbox-manager:"$SBMVERSION"
 	cd seedbox-manager || exit
 	bower install --allow-root --config.interactive=false
 	chown -R "$WDATA" "$SBM"
