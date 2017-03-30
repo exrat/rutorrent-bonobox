@@ -153,7 +153,12 @@ if FONCYES "$VALIDE"; then
 				# seedbox-manager configuration user
 				cd "$SBMCONFUSER" || exit
 				mkdir "$USER"
-				cp -f "$FILES"/sbm/config-user.ini "$SBMCONFUSER"/"$USER"/config.ini
+				if [ ! -f "$SBM"/sbm_v3 ]; then
+					cp -f "$FILES"/sbm_old/config-user.ini "$SBMCONFUSER"/"$USER"/config.ini
+				else
+					cp -f "$FILES"/sbm/config-user.ini "$SBMCONFUSER"/"$USER"/config.ini
+				fi
+
 				sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
 				sed -i "s/https:\/\/graph.domaine.fr/..\/graph\/$USER.php/g;" "$SBMCONFUSER"/"$USER"/config.ini
 				sed -i "s/RPC1/$USERMAJ/g;" "$SBMCONFUSER"/"$USER"/config.ini
@@ -223,7 +228,11 @@ if FONCYES "$VALIDE"; then
 
 				# seedbox-manager service minimum
 				mv "$SBMCONFUSER"/"$USER"/config.ini "$SBMCONFUSER"/"$USER"/config.bak
-				cp -f "$FILES"/sbm/config-mini.ini "$SBMCONFUSER"/"$USER"/config.ini
+				if [ ! -f "$SBM"/sbm_v3 ]; then
+					cp -f "$FILES"/sbm_old/config-mini.ini "$SBMCONFUSER"/"$USER"/config.ini
+				else
+					cp -f "$FILES"/sbm/config-mini.ini "$SBMCONFUSER"/"$USER"/config.ini
+				fi
 
 				sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
 				sed -i "s/https:\/\/rutorrent.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
@@ -240,7 +249,7 @@ if FONCYES "$VALIDE"; then
 				fi
 				killall --user "$USER" rtorrent
 				killall --user "$USER" screen
-
+				mv /home/"$USER"/.rtorrent.rc /home/"$USER"/.rtorrent.rc.bak
 				usermod -L "$USER"
 
 				echo ""; set "264" "268"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
@@ -251,6 +260,7 @@ if FONCYES "$VALIDE"; then
 				read -r USER
 				echo ""; set "270"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
 
+				mv /home/"$USER"/.rtorrent.rc.bak /home/"$USER"/.rtorrent.rc
 				# remove ancien script pour mise à jour init.d
 				update-rc.d "$USER"-rtorrent remove
 
@@ -258,7 +268,7 @@ if FONCYES "$VALIDE"; then
 				FONCSCRIPTRT "$USER"
 
 				# start user
-				rm /home/"$USER"/.session/rtorrent.lock
+				rm /home/"$USER"/.session/rtorrent.lock >/dev/null 2>&1
 				FONCSERVICE start "$USER"-rtorrent
 				if [ -f "/etc/irssi.conf" ]; then
 					FONCSERVICE start "$USER"-irssi
