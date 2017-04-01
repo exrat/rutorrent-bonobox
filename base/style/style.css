@@ -1,0 +1,304 @@
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu'), url(https://themes.googleusercontent.com/static/fonts/ubuntu/v5/_xyN3apAT_yRRDeqB3sPRg.woff) format('woff');
+}
+
+@font-face
+{
+    font-family: 'bebas_neueregular';
+    src: url('bebasneue-webfont.eot');
+    src: url('bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('bebasneue-webfont.woff') format('woff'),
+         url('bebasneue-webfont.ttf') format('truetype'),
+         url('bebasneue-webfont.svg#bebas_neueregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body
+{
+    background-color: #3a3a3a;
+
+}
+
+#movemonkey
+{
+    display: inline-block;
+/*    background-color: #FF7FED;*/
+	background-color: white; 
+   border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    /*margin-right: 50%;*/
+    text-aligne: center;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50); /* IE */
+    width: 350px;
+	height: 350px;
+    /*border: solid 1px white;*/
+}
+
+#fond2
+{
+    display: inline-block;
+	background-color: #FF7FED;
+   border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+   width: 360px;
+	height: 360px;
+    margin-top: 3%;
+    margin-left: 37%;
+}
+
+#welcome
+{
+    color: #FFFFFF;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 7vh;
+    float:left;
+    position:absolute;
+    transform:rotate(-90deg);
+    -moz-transform:rotate(-90deg);
+    -o-transform:rotate-90deg);
+    -webkit-transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg);
+    margin-left: -10%;
+    margin-top: -10%;
+    margin-bottom:auto;
+}
+
+#welcome span
+{
+    color: #FF7FED;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.contactgr, #contact
+{
+    text-align: center;
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: 300;
+    font-family: 'Ubuntu';
+    line-height: 1;
+}
+
+.contactgr
+{
+    color: #8bbcfe;
+    margin-top: 5%;
+}
+
+#contact
+{
+    color: #ffffff;
+    margin-top: 10%;
+}
+
+/* div logo */
+#logo {
+    margin-top: 4%;
+    display: inline-block;
+    margin-left: 35%;
+    /*border: solid 1px white;*/
+}
+
+.title-site
+{
+    text-align: center;
+    margin-bottom: -10px;
+}
+
+#name-title
+{
+    color: #FFFFFF;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+}
+
+#name-title span
+{
+    color: #FF7FED;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+#name-title::before
+{
+    color: #FFFFFF;
+    content: '{';
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+}
+
+#name-title::after
+{
+    color:#FF7FED ;
+    content: '}';
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+}
+
+.date
+{
+    text-align: center;
+    font-size: 26px;
+    margin-top: 0px;
+}
+
+#date-grey
+{
+    color: #FFFFFF;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+}
+
+#date-grey span
+{
+    color: #FF7FED;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+#description, #powered
+{
+    font-style: italic;
+    font-weight: 300;
+    font-family: 'Ubuntu';
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    text-align: center;
+}
+
+#description
+{
+    margin-top: 10px;
+    font-size: 20px;
+    color: #FF7FED;
+}
+
+#powered
+{
+    margin-top: -4%;
+    font-size: 17px;
+    color: #FFFFFF;
+}
+
+#limited-rose
+{
+    float:right;
+    position:absolute;
+    margin-left: 13%;
+	margin-top: 15%;
+    width: 195px;
+	height: 164px;
+	background-color: #FF7FED;
+   border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#limited
+{
+    float:right;
+    position:absolute;
+    margin-left: 5px;
+	margin-top: 5px;
+}
+
+#fond1
+{
+    float:right;
+    position:absolute;
+    margin-left: 72%;
+	margin-top: 3%;
+    width: 310px;
+	height: 510px;
+	background-color: #FF7FED;
+   border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#kama
+{
+    float:right;
+    position:absolute;
+    margin-left: 5px;
+	margin-top: 5px;
+    width: 300px;
+	height: 500px;
+    background-color: #FFFFFF;
+   border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+
+#position
+{
+    margin-left: 30%;
+}
+
+.btn
+{
+  background-color: #8bbcfe;
+  display: block;
+  border: none;
+  margin: auto;
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 2px;
+  text-align: center;
+  box-shadow : 0.15em 0.15em 0 #8c8c8c;
+}
+
+nav
+{
+  margin-left: 30px;
+}
+
+.link
+{
+	color: #3a3a3a;
+	text-decoration: none;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+}
+
+.link:hover
+{
+	color: #FF7FED;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+}
+
+.link_nav
+{
+	color: #3a3a3a;
+	text-decoration: none;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+}
+
+.link_nav:hover
+{
+	color: #FF7FED;
+    font-family: 'bebas_neueregular', Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    font-weight: 400;
+}
