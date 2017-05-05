@@ -523,24 +523,11 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	chmod +x /usr/bin/composer
 	echo ""; set "156" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
 
-	# node.js
-	cd /tmp || exit
-	curl -o- https://raw.githubusercontent.com/creationix/nvm/v"$NVM"/install.sh | bash
-	# shellcheck source=/dev/null
-	source ~/.bashrc
-	FONCBASHRC
-	nvm install v"$NODE"
-	echo ""; set "158" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
-
-	# bower
-	npm install -g bower
-	echo ""; set "160" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
-
 	# app
 	cd "$NGINXWEB" || exit
 	composer create-project magicalex/seedbox-manager:"$SBMVERSION"
 	cd seedbox-manager || exit
-	bower install --allow-root --config.interactive=false
+	#bower install --allow-root --config.interactive=false
 	touch "$SBM"/sbm_v3
 	chown -R "$WDATA" "$SBM"
 	# conf app
