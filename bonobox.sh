@@ -576,8 +576,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
 
 	# torrent welcome
-	cp -f "$FILES"/rutorrent/Welcome.To.Bonobox.nfo /home/"$USER"/torrents/Welcome.To.Bonobox.nfo
-	cp -f "$FILES"/rutorrent/Welcome.To.Bonobox.torrent /home/"$USER"/watch/Welcome.To.Bonobox.torrent
+	#cp -f "$FILES"/rutorrent/Welcome.To.Bonobox.nfo /home/"$USER"/torrents/Welcome.To.Bonobox.nfo
+	#cp -f "$FILES"/rutorrent/Welcome.To.Bonobox.torrent /home/"$USER"/watch/Welcome.To.Bonobox.torrent
 
 	# permissions
 	chown -R "$USER":"$USER" /home/"$USER"
