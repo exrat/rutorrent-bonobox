@@ -12,7 +12,7 @@
 120 comme mot de passe ? (o/n):
 122 Le mot de passe ne doit pas contenir de caractères spéciaux\net doit faire plus de 5 chiffres ou lettres.
 124 Entrez l'email de contact qui apparaîtra dans Seedbox-Manager:
-126 L'adresse mail n'est pas valide, merci de corrigez ou laissez vide.
+126 L'adresse mail n'est pas valide, merci de corriger ou laisser vide.
 128 Voulez vous installer un serveur FTP (o/n):
 130          Ce script doit être exécuté sur Debian 7 ou 8 exclusivement.
 132 Mise à jour du serveur
