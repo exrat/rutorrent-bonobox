@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FONCCONTROL () {
-	if [[ "$VERSION" =~ 7.* ]] || [[ "$VERSION" =~ 8.* ]]; then
+	if [[ $(uname -m) == x86_64 ]] && [[ "$VERSION" =~ 7.* ]] || [[ "$VERSION" =~ 8.* ]] || [[ "$VERSION" =~ 9.* ]]; then
 		if [ "$(id -u)" -ne 0 ]; then
 			echo ""; set "100"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
 			exit 1
@@ -19,48 +19,60 @@ FONCBASHRC () {
 }
 
 FONCUSER () {
-	read -r TESTUSER
-	grep -w "$TESTUSER" /etc/passwd &> /dev/null
-	if [ $? -eq 1 ]; then
-		if [[ "$TESTUSER" =~ ^[a-z0-9]{3,}$ ]]; then
-			USER="$TESTUSER"
-			# shellcheck disable=SC2104
-			break
+	while :; do
+		set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
+		read -r TESTUSER
+		grep -w "$TESTUSER" /etc/passwd &> /dev/null
+		if [ $? -eq 1 ]; then
+			if [[ "$TESTUSER" =~ ^[a-z0-9]{3,}$ ]]; then
+				USER="$TESTUSER"
+				# shellcheck disable=SC2104
+				break
+			else
+				echo ""; set "110"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
+			fi
 		else
-			echo ""; set "110"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
+			echo ""; set "198"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
 		fi
-	else
-		echo ""; set "198"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
-	fi
+	done
 }
 
 FONCPASS () {
-	read -r REPPWD
-	if [ "$REPPWD" = "" ]; then
-		AUTOPWD=$(tr -dc "1-9a-nA-Np-zP-Z" < /dev/urandom | head -c 8)
-		echo ""; set "118" "120"; FONCTXT "$1" "$2"; echo  -n -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$AUTOPWD${CEND} ${CGREEN}$TXT2 ${CEND}"
-		read -r REPONSEPWD
-		if FONCNO "$REPONSEPWD"; then
-			echo
+	while :; do
+		set "112" "114" "116"; FONCTXT "$1" "$2" "$3"; echo -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$TXT2${CEND} ${CGREEN}$TXT3 ${CEND}"
+		read -r REPPWD
+		if [ "$REPPWD" = "" ]; then
+			AUTOPWD=$(tr -dc "1-9a-nA-Np-zP-Z" < /dev/urandom | head -c 8)
+			echo ""; set "118" "120"; FONCTXT "$1" "$2"; echo  -n -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$AUTOPWD${CEND} ${CGREEN}$TXT2 ${CEND}"
+			read -r REPONSEPWD
+			if FONCNO "$REPONSEPWD"; then
+				echo
+			else
+				USERPWD="$AUTOPWD"
+				# shellcheck disable=SC2104
+				break
+			fi
 		else
-			USERPWD="$AUTOPWD"
-			# shellcheck disable=SC2104
-			break
+			if [[ "$REPPWD" =~ ^[a-zA-Z0-9]{6,}$ ]]; then
+				# shellcheck disable=SC2034
+				USERPWD="$REPPWD"
+				# shellcheck disable=SC2104
+				break
+			else
+				echo ""; set "122"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
+			fi
 		fi
-	else
-		if [[ "$REPPWD" =~ ^[a-zA-Z0-9]{6,}$ ]]; then
-			# shellcheck disable=SC2034
-			USERPWD="$REPPWD"
-			# shellcheck disable=SC2104
-			break
-		else
-			echo ""; set "122"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
-		fi
-	fi
+	done
 }
 
 FONCIP () {
-	IP=$(ifconfig | grep "inet ad" | cut -f2 -d: | awk '{print $1}' | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
+	if [[ "$VERSION" =~ 7.* ]] || [[ "$VERSION" =~ 8.* ]]; then
+		IP=$(ifconfig | grep "inet ad" | cut -f2 -d: | awk '{print $1}' | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
+
+	elif [[ "$VERSION" =~ 9.* ]]; then
+		IP=$(ip -4 addr | grep "inet" | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | awk '{print $2}' | cut -d/ -f1)
+	fi
+
 	if [ "$IP" = "" ]; then
 		IP=$(wget -qO- ipv4.icanhazip.com)
 			if [ "$IP" = "" ]; then
@@ -94,9 +106,9 @@ FONCTXT () {
 }
 
 FONCSERVICE () {
-	if [[ $VERSION =~ 7. ]]; then
+	if [[ "$VERSION" =~ 7.* ]]; then
 		service "$2" "$1"
-	elif [[ $VERSION =~ 8. ]]; then
+	elif [[ "$VERSION" =~ 8.* ]] || [[ "$VERSION" =~ 9.* ]]; then
 		systemctl "$1" "$2".service
 	fi
 } # FONCSERVICE $1 {start/stop/restart} $2 {nom service}
@@ -276,17 +288,6 @@ FONCBAKSESSION () {
 	EOF
 }
 
-FONCMEDIAINFO () {
-	cd /tmp || exit
-	wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/libzen0_"$LIBZEN0"-1_"$SYS"."$DEBNUMBER"
-	wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS"."$DEBNUMBER"
-	wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_"$SYS"."$DEBNUMBER"
-
-	dpkg -i libzen0_"$LIBZEN0"-1_"$SYS"."$DEBNUMBER"
-	dpkg -i libmediainfo0_"$LIBMEDIAINFO0"-1_"$SYS"."$DEBNUMBER"
-	dpkg -i mediainfo_"$MEDIAINFO"-1_"$SYS"."$DEBNUMBER"
-}
-
 FONCGEN () {
 	if [[ -f "$RAPPORT" ]]; then
 		rm "$RAPPORT"
@@ -297,7 +298,7 @@ FONCGEN () {
 
 		### Report generated on $DATE ###
 
-		Use ruTorrent --> $USERNAME
+		User ruTorrent --> $USERNAME
 		Debian : $VERSION
 		Kernel : $NOYAU
 		CPU : $CPU
@@ -318,7 +319,7 @@ FONCCHECKBIN () {
 }
 
 FONCGENRAPPORT () {
-	LINK=$(/usr/bin/pastebinit -b http://paste.ubuntu.com "$RAPPORT")
+	LINK=$(/usr/bin/pastebinit -b "$PASTEBIN" "$RAPPORT")
 	echo -e "${CBLUE}Report link:${CEND} ${CYELLOW}$LINK${CEND}"
 	echo -e "${CBLUE}Report backup:${CEND} ${CYELLOW}$RAPPORT${CEND}"
 }
@@ -430,4 +431,15 @@ FONCARG () {
 	USER=$(grep -m 1 : < "$ARGFILE" | cut -f 1 -d ':')
 	USERPWD=$(grep -m 1 : < "$ARGFILE" | cut -d ':' -f2-)
 	sed -i '1d' "$ARGFILE"
+}
+
+FONCMEDIAINFO () {
+	cd /tmp || exit
+	wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/"$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
+	wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/"$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
+	wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
+
+	dpkg -i "$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
+	dpkg -i "$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
+	dpkg -i mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
 }

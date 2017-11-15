@@ -48,15 +48,9 @@ if FONCYES "$VALIDE"; then
 
 		case $OPTION in
 			1) # ajout utilisateur
-				while :; do # demande nom user
-					set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
-					FONCUSER
-				done
+				FONCUSER # demande nom user
 				echo ""
-				while :; do # demande mot de passe
-					set "112" "114" "116"; FONCTXT "$1" "$2" "$3"; echo -e "${CGREEN}$TXT1${CEND}${CYELLOW}$TXT2${CEND}${CGREEN}$TXT3${CEND}"
-					FONCPASS
-				done
+				FONCPASS # demande mot de passe
 
 				# récupération 5% root sur /home/user si présent
 				FONCFSUSER "$USER"
@@ -287,11 +281,7 @@ if FONCYES "$VALIDE"; then
 			4) # modification mot de passe utilisateur
 				echo ""; set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
 				read -r USER
-				echo ""
-				while :; do
-					set "274" "114" "116"; FONCTXT "$1" "$2" "$3"; echo -e "${CGREEN}$TXT1${CEND}${CYELLOW}$TXT2${CEND}${CGREEN}$TXT3${CEND}"
-					FONCPASS
-				done
+				echo ""; FONCPASS
 
 				echo ""; set "276"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
 
@@ -362,7 +352,7 @@ if FONCYES "$VALIDE"; then
 					update-rc.d "$USER"-rtorrent remove
 
 					# supression rc.local (pour rétro-compatibilité)
-					sed -i "/$USER/d" /etc/rc.local
+					sed -i "/$USER/d" /etc/rc.local 2>/dev/null
 
 					# suppression configuration rutorrent
 					rm -R "${RUCONFUSER:?}"/"$USER"

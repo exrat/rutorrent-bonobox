@@ -3,7 +3,7 @@
 102                   Welcome to installation wizard of ruTorrent
 104                 The first user will be Seedbox-Manager's owner,
 106     when the installation is complete you should be able to add more users.
-108 Enter the login account name of the first user (in lowercase):
+108
 110 The login account name must be lowercase, contain more than\nthree letters and without special characters.
 112 Please enter a valid password or press "
 114 Enter
@@ -14,7 +14,7 @@
 124 Enter email address which will appear in Seedbox-Manager:
 126 The email address is not valid, fix it or leave blank.
 128 Do you want to install an FTP server (y/n):
-130                   This script must be run on Debian 7/8 only.
+130             This script must be run on Debian 7/8/9 - 64 bits only.
 132 Updating server
 134      Done !
 136 Installing core packages

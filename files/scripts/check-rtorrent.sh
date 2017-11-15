@@ -29,11 +29,17 @@ else
 	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
-		## Partition
+		## Partitions & Droits
 		.......................................................................................................................................
 
 	EOF
 	df -h >> "$RAPPORT"
+
+	echo "" >> $RAPPORT
+	stat -c "%a %U:%G %n" /home/"$USERNAME" >> $RAPPORT
+	for CHECK in '.autodl' '.backup-session' '.irssi' '.rtorrent.rc' '.session' 'torrents' 'watch'; do
+		stat -c "%a %U:%G %n" /home/"$USERNAME"/"$CHECK" >> $RAPPORT
+	done
 
 	FONCTESTRTORRENT
 
@@ -79,16 +85,47 @@ else
 	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
-		## ruTorrent config.php $USERNAME
-		## File : $RUTORRENT/conf/users/$USERNAME/config.php
+		## ruTorrent /filemanager/conf.php
+		## File : $RUPLUGINS/filemanager/conf.php
 		.......................................................................................................................................
 	EOF
 	echo "" >> "$RAPPORT"
 
-	if [[ ! -f "$RUTORRENT"/conf/users/"$USERNAME"/config.php ]]; then
+	if [[ ! -f "$RUPLUGINS/filemanager/conf.php" ]]; then
+		echo "--> Fichier introuvable" >> "$RAPPORT"
+	else
+		cat "$RUPLUGINS"/filemanager/conf.php >> "$RAPPORT"
+	fi
+
+	cat <<-EOF >> $RAPPORT
+
+		.......................................................................................................................................
+		## ruTorrent /create/conf.php
+		## File : $RUPLUGINS/create/conf.php
+		.......................................................................................................................................
+	EOF
+
+	echo "" >> "$RAPPORT"
+
+	if [[ ! -f "$RUPLUGINS/create/conf.php" ]]; then
+		echo "--> Fichier introuvable" >> $RAPPORT
+	else
+		cat "$RUPLUGINS"/create/conf.php >> "$RAPPORT"
+	fi
+
+	cat <<-EOF >> "$RAPPORT"
+
+		.......................................................................................................................................
+		## ruTorrent config.php $USERNAME
+		## File : $RUCONFUSER/$USERNAME/config.php
+		.......................................................................................................................................
+	EOF
+	echo "" >> "$RAPPORT"
+
+	if [[ ! -f "$RUCONFUSER"/"$USERNAME"/config.php ]]; then
 		echo "--> File not found" >> "$RAPPORT"
 	else
-		cat "$RUTORRENT"/conf/users/"$USERNAME"/config.php >> "$RAPPORT"
+		cat "$RUCONFUSER"/"$USERNAME"/config.php >> "$RAPPORT"
 	fi
 
 	FONCRAPPORT /etc/init.d/"$USERNAME"-rtorrent "$USERNAME"-rtorrent 1
@@ -100,42 +137,39 @@ else
 	done
 
 	if [[ -f "$NGINXENABLE"/cakebox.conf ]]; then
-		FONCRAPPORT /var/www/cakebox/config/"$USERNAME".php cakebox.config.php 1
+		FONCRAPPORT "$NGINXWEB"/cakebox/config/"$USERNAME".php cakebox.config.php 1
 	fi
 
-	FONCRAPPORT /etc/nginx/nginx.conf nginx.conf 1
+	FONCRAPPORT "$NGINX"/nginx.conf nginx.conf 1
 
-	cd /etc/nginx/conf.d || exit
+	cd "$NGINXCONFD" || exit
 	for CONF_D in $(ls)
 	do
-		FONCRAPPORT /etc/nginx/conf.d/"$CONF_D" "$CONF_D" 1
+		FONCRAPPORT "$NGINXCONFD"/"$CONF_D" "$CONF_D" 1
 	done
 
 	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## files pass nginx
-		## Dir : /etc/nginx/passwd
+		## Dir : $NGINXPASS
 		.......................................................................................................................................
 	EOF
 	echo "" >> "$RAPPORT"
 
-	cd /etc/nginx/passwd || exit
-	for PASS in $(ls)
-	do
-		echo "$PASS" >> "$RAPPORT"
-	done
+	cd "$NGINXPASS" || exit
+	stat -c "%a %U:%G %n" * >> $RAPPORT
 
 	cat <<-EOF >> "$RAPPORT"
 
 		.......................................................................................................................................
 		## files ssl nginx
-		## Dir : /etc/nginx/ssl
+		## Dir : $NGINXSSL
 		.......................................................................................................................................
 	EOF
 	echo "" >> "$RAPPORT"
 
-	cd /etc/nginx/ssl || exit
+	cd "$NGINXSSL" || exit
 	for SSL in $(ls)
 	do
 		echo "$SSL" >> "$RAPPORT"

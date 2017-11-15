@@ -3,7 +3,7 @@
 102            Willkommen in der automatische Einrichtung von ruTorrent
 104         Der erste User wird der Administrator von Seedbox-Manager sein,
 106          Si können, am Ende der Einrichtung zusätzliche User eingeben.
-108 Bitte Name des ersten User erfassen (Kleinbuchstaben):
+108
 110 Der User name muss in Kleinbuchstaben sein,\ngrösser als 3 Charakteer und ohne Sonderzeichen.
 112 Passwort eingeben für diesen User, oder "
 114 Enter
@@ -14,7 +14,7 @@
 124 In Seedbox-Manager bitte Kontakt E-Mail erfassen:
 126 Die Mail Adresse ist nicht gültig, bitte verbessern oder leer lassen.
 128 Möchten Sie ein Server FTP installieren (j/n):
-130        Dieser Skript kann nur unter Debian 7 oder 8 ausgeführt werden.
+130      Dieser Skript kann nur unter Debian 7/8/9 - 64 bits ausgeführt werden.
 132 Update vom Server
 134      Erledigt!
 136 Einrichtung der wesentliche Datenpaketen
