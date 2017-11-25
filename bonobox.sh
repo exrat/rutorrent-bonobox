@@ -138,7 +138,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
 
 	# récupération ip serveur
-	if [[ "$VERSION" =~ 9.* ]]; then
+	if [[ $(echo "$VERSION" "9" | awk '{print ($1 >= $2)}') == 1 ]]; then
 		apt-get install -y net-tools
 	fi
 	FONCIP
@@ -318,7 +318,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	cd libtorrent || exit
 	git checkout "$LIBTORRENT"
 
-	if [[ "$VERSION" =~ 9.* ]]; then
+	if [[ $(echo "$VERSION" "9" | awk '{print ($1 >= $2)}') == 1 ]]; then
 		cp -f "$FILES"/rutorrent/configure.ac /tmp/libtorrent/configure.ac
 		cp -f "$FILES"/rutorrent/diffie_hellman.cc /tmp/libtorrent/src/utils/diffie_hellman.cc
 	fi
@@ -384,9 +384,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# configuration logoff
 	sed -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
-
-	# configuration spectrogram
-	sed -i "s/\/usr\/local\/bin\/sox/\/usr\/bin\/sox/g;" "$RUPLUGINS"/spectrogram/conf.php
 
 	# configuration autodl-irssi
 	git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi
@@ -454,6 +451,9 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	sed -i "s/^;listen.owner = www-data/listen.owner = www-data/g;" "$PHPPATH"/fpm/pool.d/www.conf
 	sed -i "s/^;listen.group = www-data/listen.group = www-data/g;" "$PHPPATH"/fpm/pool.d/www.conf
 	sed -i "s/^;listen.mode = 0660/listen.mode = 0660/g;" "$PHPPATH"/fpm/pool.d/www.conf
+	if [[ $(echo "$VERSION" "9" | awk '{print ($1 >= $2)}') == 1 ]]; then
+		echo "php_admin_value[error_reporting] = E_ALL & ~E_WARNING" >> "$PHPPATH"/fpm/pool.d/www.conf
+	fi
 
 	FONCSERVICE restart "$PHPNAME"-fpm
 	echo ""; set "150" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
@@ -465,16 +465,20 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	# configuration serveur web
 	mkdir "$NGINXENABLE"
 	cp -f "$FILES"/nginx/nginx.conf "$NGINX"/nginx.conf
-	cp -f "$FILES"/nginx/ciphers.conf "$NGINXCONFD"/ciphers.conf
-	cp -f "$FILES"/nginx/cache.conf "$NGINXCONFD"/cache.conf
-	cp -f "$FILES"/nginx/php.conf "$NGINXCONFD"/php.conf
+	for CONF in 'log_rutorrent.conf' 'ciphers.conf' 'cache.conf' 'php.conf'; do
+		cp -f "$FILES"/nginx/"$CONF" "$NGINXCONFD"/"$CONF"
+	done
 	sed -i "s|@PHPSOCK@|$PHPSOCK|g;" "$NGINXCONFD"/php.conf
-
 
 	cp -f "$FILES"/rutorrent/rutorrent.conf "$NGINXENABLE"/rutorrent.conf
 	for VAR in "${!NGINXCONFD@}" "${!NGINXBASE@}" "${!NGINXSSL@}" "${!NGINXPASS@}" "${!NGINXWEB@}" "${!PHPSOCK@}" "${!SBM@}" "${!USER@}"; do
 		sed -i "s|@${VAR}@|${!VAR}|g;" "$NGINXENABLE"/rutorrent.conf
 	done
+
+	if [[ $(echo "$VERSION" "9" | awk '{print ($1 >= $2)}') == 1 ]]; then
+		sed -i "1i\include /etc/nginx/conf.d/log_rutorrent.conf;\n" "$NGINXENABLE"/rutorrent.conf
+		sed -i "s/combined;/combined if=\$loggable;/g;" "$NGINXENABLE"/rutorrent.conf
+	fi
 
 	echo ""; set "152" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
 
