@@ -19,7 +19,8 @@ FONCDEP () {
 	EOF
 
 	# clés
-	wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg 2>/dev/null
+	wget http://www.bonobox.net/script/dotdeb.gpg && apt-key add dotdeb.gpg 2>/dev/null
+	#wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg 2>/dev/null
 
 	wget http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.key 2>/dev/null
 }
@@ -31,8 +32,10 @@ FONCDEP "$DEBNAME"
 if [[ "$VERSION" =~ 7.* ]]; then
 	cat <<- EOF > "$SOURCES"/dotdeb-php56.list
 		# dépôt dotdeb php 5.6
-		deb http://packages.dotdeb.org $DEBNAME-php56 all
-		deb-src http://packages.dotdeb.org $DEBNAME-php56 all
+		deb http://dotdeb.thefox.com.fr $DEBNAME-php56 all
+		#deb http://packages.dotdeb.org $DEBNAME-php56 all
+		deb-src http://dotdeb.thefox.com.fr $DEBNAME-php56 all
+		#deb-src http://packages.dotdeb.org $DEBNAME-php56 all
 	EOF
 
 	# clé deb-multimedia.org
@@ -41,8 +44,10 @@ if [[ "$VERSION" =~ 7.* ]]; then
 elif [[ "$VERSION" =~ 8.* ]]; then
 	cat <<- EOF > "$SOURCES"/dotdeb.list
 		# dépôt dotdeb
-		deb http://packages.dotdeb.org $DEBNAME all
-		deb-src http://packages.dotdeb.org $DEBNAME all
+		deb http://dotdeb.thefox.com.fr $DEBNAME all
+		#deb http://packages.dotdeb.org $DEBNAME all
+		deb-src http://dotdeb.thefox.com.fr $DEBNAME all
+		#deb-src http://packages.dotdeb.org $DEBNAME all
 	EOF
 
 	# clé deb-multimedia.org
