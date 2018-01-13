@@ -440,7 +440,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	sed -i "s/8M/10M/g;" "$PHPPATH"/fpm/php.ini
 	sed -i "s/expose_php = On/expose_php = Off/g;" "$PHPPATH"/fpm/php.ini
 
-	if [ "$BASELANG" = "fr" ]; then
+	if [ "$GENLANG" = "fr" ]; then
 		sed -i "s/^;date.timezone =/date.timezone = Europe\/Paris/g;" "$PHPPATH"/fpm/php.ini
 		sed -i "s/^;date.timezone =/date.timezone = Europe\/Paris/g;" "$PHPPATH"/cli/php.ini
 	else

@@ -32,9 +32,9 @@ elif [[ "$VERSION" =~ 8.* ]]; then
 elif [[ "$VERSION" =~ 9.* ]]; then
 	DEBNUMBER="Debian_9.0.deb"
 	DEBNAME="stretch"
-	PHPPATH="/etc/php/7.1"
-	PHPNAME="php7.1"
-	PHPSOCK="/run/php/php7.1-fpm.sock"
+	PHPPATH="/etc/php/7.2"
+	PHPNAME="php7.2"
+	PHPSOCK="/run/php/php7.2-fpm.sock"
 	LIBZEN0NAME="libzen0v5"
 	LIBMEDIAINFO0NAME="libmediainfo0v5"
 
