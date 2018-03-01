@@ -296,21 +296,16 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# installation xmlrpc libtorrent rtorrent
 	cd /tmp || exit
-	# svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/advanced xmlrpc-c
-	svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-	if [ ! -d /tmp/xmlrpc-c ]; then
-		wget http://bonobox.net/script/xmlrpc-c.tar.gz
-		tar xzfv xmlrpc-c.tar.gz
-	fi
+	git clone https://github.com/mirror/xmlrpc-c.git
 
-	cd xmlrpc-c || exit
+	cd xmlrpc-c/stable || exit
 	./configure #--disable-cplusplus
 	make -j "$THREAD"
 	make install
 	echo ""; set "140" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
 
 	# clone rtorrent et libtorrent
-	cd .. || exit
+	cd /tmp || exit
 	git clone https://github.com/rakshasa/libtorrent.git
 	git clone https://github.com/rakshasa/rtorrent.git
 
