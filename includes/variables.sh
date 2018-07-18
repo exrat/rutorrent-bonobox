@@ -40,8 +40,8 @@ elif [[ "$VERSION" =~ 9.* ]]; then
 
 fi
 
-LIBTORRENT="0.13.6"
-RTORRENT="0.9.6"
+LIBTORRENT="v0.13.7"
+RTORRENT="v0.9.7"
 SBMVERSION="3.0.1"
 
 LIBZEN0="0.4.37"
