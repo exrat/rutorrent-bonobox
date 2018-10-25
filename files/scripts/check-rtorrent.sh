@@ -17,7 +17,7 @@ INCLUDES="/tmp/rutorrent-bonobox/includes"
 FONCCONTROL
 echo "";
 set "266"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} "
-set "214"; FONCTXT "$1"; echo -e -n "${CGREEN}$TXT1 :${CEND} "
+set "214"; FONCTXT "$1"; echo -e -n "${CGREEN}$TXT1 ${CEND} "
 read -r USERNAME
 
 if [[ $(grep "$USERNAME:" -c /etc/shadow) != "1" ]]; then

@@ -381,7 +381,7 @@ FONCRAPPORT () {
 }
 
 FONCTESTRTORRENT () {
-	SCGI="$(sed -n '/^scgi_port/p' /home/"$USERNAME"/.rtorrent.rc | cut -b 23-)"
+	SCGI="$(sed -n '/^network.scgi.open_port/p' /home/"$USERNAME"/.rtorrent.rc | cut -b 36-)"
 	PORT_LISTENING=$(netstat -aultnp | awk '{print $4}' | grep -E ":$SCGI\$" -c)
 	RTORRENT_LISTENING=$(netstat -aultnp | sed -n '/'$SCGI'/p' | grep rtorrent -c)
 
