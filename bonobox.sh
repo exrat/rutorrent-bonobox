@@ -200,6 +200,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		"$PHPNAME"-fpm \
 		"$PHPNAME"-curl \
 		"$PHPNAME"-geoip \
+		"$PHPNAME"-json \
 		unrar \
 		rar \
 		zip \
@@ -242,6 +243,9 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 				libtinyxml2-4 \
 				"$PHPNAME"-xml \
 				"$PHPNAME"-mbstring \
+				"$PHPNAME"-readline \
+				"$PHPNAME"-opcache \
+				"$PHPNAME"-common \
 				zlib1g-dev \
 				unzip \
 				munin-node \

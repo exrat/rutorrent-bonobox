@@ -32,9 +32,9 @@ elif [[ "$VERSION" = 8.* ]]; then
 elif [[ "$VERSION" = 9.* ]]; then
 	DEBNUMBER="Debian_9.0.deb"
 	DEBNAME="stretch"
-	PHPPATH="/etc/php/7.2"
-	PHPNAME="php7.2"
-	PHPSOCK="/run/php/php7.2-fpm.sock"
+	PHPPATH="/etc/php/7.3"
+	PHPNAME="php7.3"
+	PHPSOCK="/run/php/php7.3-fpm.sock"
 	LIBZEN0NAME="libzen0v5"
 	LIBMEDIAINFO0NAME="libmediainfo0v5"
 
@@ -45,8 +45,8 @@ RTORRENT="v0.9.7"
 SBMVERSION="3.0.1"
 
 LIBZEN0="0.4.37"
-LIBMEDIAINFO0="18.08.1"
-MEDIAINFO="18.08.1"
+LIBMEDIAINFO0="18.12"
+MEDIAINFO="18.12"
 
 RUTORRENT="/var/www/rutorrent"
 RUPLUGINS="/var/www/rutorrent/plugins"
