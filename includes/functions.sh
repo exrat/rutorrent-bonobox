@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FONCCONTROL () {
-	if [[ $(uname -m) == x86_64 ]] && [[ "$VERSION" =~ 7.* ]] || [[ "$VERSION" =~ 8.* ]] || [[ "$VERSION" =~ 9.* ]]; then
+	if [[ $(uname -m) == x86_64 ]] && [[ "$VERSION" = 7.* ]] || [[ "$VERSION" = 8.* ]] || [[ "$VERSION" = 9.* ]]; then
 		if [ "$(id -u)" -ne 0 ]; then
 			echo ""; set "100"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
 			exit 1
@@ -66,10 +66,10 @@ FONCPASS () {
 }
 
 FONCIP () {
-	if [[ "$VERSION" =~ 7.* ]] || [[ "$VERSION" =~ 8.* ]]; then
+	if [[ "$VERSION" = 7.* ]] || [[ "$VERSION" = 8.* ]]; then
 		IP=$(ifconfig | grep "inet ad" | cut -f2 -d: | awk '{print $1}' | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
 
-	elif [[ "$VERSION" =~ 9.* ]]; then
+	elif [[ "$VERSION" = 9.* ]]; then
 		IP=$(ip -4 addr | grep "inet" | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | awk '{print $2}' | cut -d/ -f1)
 	fi
 
@@ -106,9 +106,9 @@ FONCTXT () {
 }
 
 FONCSERVICE () {
-	if [[ "$VERSION" =~ 7.* ]]; then
+	if [[ "$VERSION" = 7.* ]]; then
 		service "$2" "$1"
-	elif [[ "$VERSION" =~ 8.* ]] || [[ "$VERSION" =~ 9.* ]]; then
+	elif [[ "$VERSION" = 8.* ]] || [[ "$VERSION" = 9.* ]]; then
 		systemctl "$1" "$2".service
 	fi
 } # FONCSERVICE $1 {start/stop/restart} $2 {nom service}
