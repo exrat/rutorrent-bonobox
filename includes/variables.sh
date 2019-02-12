@@ -11,7 +11,7 @@ CBLUE="${CSI}1;34m"
 ARG="$*"
 VERSION=$(cat /etc/debian_version)
 
-if [[ "$VERSION" =~ 7.* ]]; then
+if [[ "$VERSION" = 7.* ]]; then
 	DEBNUMBER="Debian_7.0.deb"
 	DEBNAME="wheezy"
 	PHPPATH="/etc/php5"
@@ -20,7 +20,7 @@ if [[ "$VERSION" =~ 7.* ]]; then
 	LIBZEN0NAME="libzen0"
 	LIBMEDIAINFO0NAME="libmediainfo0"
 
-elif [[ "$VERSION" =~ 8.* ]]; then
+elif [[ "$VERSION" = 8.* ]]; then
 	DEBNUMBER="Debian_8.0.deb"
 	DEBNAME="jessie"
 	PHPPATH="/etc/php5"
@@ -29,7 +29,7 @@ elif [[ "$VERSION" =~ 8.* ]]; then
 	LIBZEN0NAME="libzen0"
 	LIBMEDIAINFO0NAME="libmediainfo0"
 
-elif [[ "$VERSION" =~ 9.* ]]; then
+elif [[ "$VERSION" = 9.* ]]; then
 	DEBNUMBER="Debian_9.0.deb"
 	DEBNAME="stretch"
 	PHPPATH="/etc/php/7.2"

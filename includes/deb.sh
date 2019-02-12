@@ -28,7 +28,7 @@ FONCDEP () {
 cd /tmp || exit
 FONCDEP "$DEBNAME"
 
-if [[ "$VERSION" =~ 7.* ]]; then
+if [[ "$VERSION" = 7.* ]]; then
 	cat <<- EOF > "$SOURCES"/dotdeb-php56.list
 		# dépôt dotdeb php 5.6
 		deb http://packages.dotdeb.org $DEBNAME-php56 all
@@ -38,7 +38,7 @@ if [[ "$VERSION" =~ 7.* ]]; then
 	# clé deb-multimedia.org
 	apt-get update && apt-get install -y --force-yes deb-multimedia-keyring
 
-elif [[ "$VERSION" =~ 8.* ]]; then
+elif [[ "$VERSION" = 8.* ]]; then
 	cat <<- EOF > "$SOURCES"/dotdeb.list
 		# dépôt dotdeb
 		deb http://packages.dotdeb.org $DEBNAME all
@@ -48,7 +48,7 @@ elif [[ "$VERSION" =~ 8.* ]]; then
 	# clé deb-multimedia.org
 	apt-get update && apt-get install -y --force-yes deb-multimedia-keyring
 
-elif [[ "$VERSION" =~ 9.* ]]; then
+elif [[ "$VERSION" = 9.* ]]; then
 	apt-get install -y apt-transport-https
 
 	# clé sury.org
