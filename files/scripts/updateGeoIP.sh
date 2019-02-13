@@ -1,13 +1,12 @@
 #!/bin/bash
 #
-# mise à jour mensuel db geoip et complément plugin city
-cd /tmp
-wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
-wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
-/bin/gunzip GeoIP.dat.gz GeoIPv6.dat.gz GeoLiteCity.dat.gz
-cp -f GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
-cp -f GeoLiteCity.dat /usr/share/GeoIP/GeoLiteCity.dat
-cp -f GeoIP.dat /usr/share/GeoIP/GeoIP.dat
-cp -f GeoIPv6.dat /usr/share/GeoIP/GeoIPv6.dat
-rm GeoIP.dat GeoIPv6.dat GeoLiteCity.dat
+# mise à jour mensuel db geoi2
+cd /var/www/rutorrent/plugins/geoip2/database/
+wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+tar xzfv GeoLite2-City.tar.gz
+rm GeoLite2-City.mmdb
+cd /var/www/rutorrent/plugins/geoip2/database/GeoLite2-City_*
+mv GeoLite2-City.mmdb /var/www/rutorrent/plugins/geoip2/database/GeoLite2-City.mmdb
+cd ..
+rm -R GeoLite2-City.tar.gz GeoLite2-City_*
+chown www-data:www-data /var/www/rutorrent/plugins/geoip2/database/GeoLite2-City.mmdb

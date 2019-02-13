@@ -364,6 +364,16 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		cp -R "$BONOBOX"/plugins/"$PLUGINS" "$RUPLUGINS"/
 	done
 
+	# plugin geoip2 - thank Micdu70 ;)
+	rm -R geoip
+	git clone https://github.com/Micdu70/geoip2-rutorrent.git geoip2
+	cd /tmp
+	wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+	tar xzfv GeoLite2-City.tar.gz
+	cd /tmp/GeoLite2-City_*
+	mv GeoLite2-City.mmdb "$RUPLUGINS"/geoip2/database/GeoLite2-City.mmdb
+	chown -R "$WDATA" "$RUPLUGINS"/geoip2
+
 	# plugin seedbox-manager
 	git clone https://github.com/Hydrog3n/linkseedboxmanager.git
 	sed -i "2i\$host = \$_SERVER['HTTP_HOST'];\n" "$RUPLUGINS"/linkseedboxmanager/conf.php
@@ -400,10 +410,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	# installation mediainfo
 	FONCMEDIAINFO
 
-	# script mise à jour mensuel geoip et complément plugin city
-	mkdir /usr/share/GeoIP
-
-	# variable minutes aléatoire crontab geoip
+	# variable minutes aléatoire crontab geoip2
 	MAXIMUM=58
 	MINIMUM=1
 	UPGEOIP=$((MINIMUM+RANDOM*(1+MAXIMUM-MINIMUM)/32767))
@@ -416,7 +423,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		chmod a+x "$COPY"
 	done
 
-	sh updateGeoIP.sh
 	FONCBAKSESSION
 
 	# copie favicons trackers
