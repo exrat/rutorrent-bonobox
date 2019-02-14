@@ -1,5 +1,0 @@
-<?php
-
-	$theSettings->registerPlugin("filemanager");
-
-?>
