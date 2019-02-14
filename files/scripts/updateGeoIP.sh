@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# mise à jour mensuel db geoi2
+# mise à jour mensuel db geoip2
 cd /var/www/rutorrent/plugins/geoip2/database/
 wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
 tar xzfv GeoLite2-City.tar.gz

@@ -230,15 +230,15 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		# reserve zap xlmrpc debian 8/9
 		# libxmlrpc-c++8-dev
 
-		if [[ "$VERSION" =~ 7.* ]]; then
+		if [[ "$VERSION" = 7.* ]]; then
 			apt-get install -y \
 				libtinyxml2-0.0.0 \
 				libglib2.0-0
-		elif [[ "$VERSION" =~ 8.* ]]; then
+		elif [[ "$VERSION" = 8.* ]]; then
 			apt-get install -y \
 				libtinyxml2-2 \
 				libsox-fmt-all
-		elif [[ "$VERSION" =~ 9.* ]]; then
+		elif [[ "$VERSION" = 9.* ]]; then
 			apt-get install -y \
 				libtinyxml2-4 \
 				"$PHPNAME"-xml \
