@@ -6,7 +6,7 @@
 
 
 # contrôle installation
-if [ ! -f "$RUTORRENT"/histo.log ]; then
+if [ ! -f "$RUTORRENT"/histo-2019.log ]; then
 	echo ""; set "220"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"
 	set "222"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
 	exit 1
@@ -37,12 +37,10 @@ if FONCYES "$VALIDE"; then
 		# menu gestion multi-utilisateurs
 		echo ""; set "234"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"
 		set "236" "248"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "238" "250"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "240" "252"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "242" "254"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "244" "256"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "246" "296"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "294" "258"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "238" "254"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "240" "256"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "242" "296"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "244" "258"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
 		set "260"; FONCTXT "$1"; echo -n -e "${CBLUE}$TXT1 ${CEND}"
 		read -r OPTION
 
@@ -54,14 +52,6 @@ if FONCYES "$VALIDE"; then
 
 				# récupération 5% root sur /home/user si présent
 				FONCFSUSER "$USER"
-
-				# variable email (rétro compatible)
-				TESTMAIL=$(sed -n "1 p" "$RUTORRENT"/histo.log)
-				if [[ "$TESTMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]]; then
-					EMAIL="$TESTMAIL"
-				else
-					EMAIL=contact@exemple.com
-				fi
 
 				# variable passe nginx
 				PASSNGINX=${USERPWD}
@@ -87,21 +77,12 @@ if FONCYES "$VALIDE"; then
 				# calcul port
 				FONCPORT
 
-				# configuration munin
-				FONCMUNIN "$USER" "$PORT"
-
 				# configuration .rtorrent.rc
 				FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
 
 				# configuration user rutorrent.conf
 				sed -i '$d' "$NGINXENABLE"/rutorrent.conf
 				FONCRTCONF "$USERMAJ"  "$PORT" "$USER"
-
-				# configuration logserver
-				sed -i '$d' "$SCRIPT"/logserver.sh
-				echo "sed -i '/@USERMAJ@\ HTTP/d' access.log" >> "$SCRIPT"/logserver.sh
-				sed -i "s/@USERMAJ@/$USERMAJ/g;" "$SCRIPT"/logserver.sh
-				echo "ccze -h < /tmp/access.log > $RUTORRENT/logserver/access.html" >> "$SCRIPT"/logserver.sh
 
 				# configuration script backup .session (rétro-compatibilité)
 				if [ -f "$SCRIPT"/backup-session.sh ]; then
@@ -114,10 +95,6 @@ if FONCYES "$VALIDE"; then
 
 				# plugins.ini
 				cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
-				cat <<- EOF >> "$RUCONFUSER"/"$USER"/plugins.ini
-					[linklogs]
-					enabled = no
-				EOF
 
 				# configuration autodl-irssi
 				if [ -f "/etc/irssi.conf" ]; then
@@ -144,32 +121,15 @@ if FONCYES "$VALIDE"; then
 				# htpasswd
 				FONCHTPASSWD "$USER"
 
-				# seedbox-manager configuration user
-				cd "$SBMCONFUSER" || exit
-				mkdir "$USER"
-				if [ ! -f "$SBM"/sbm_v3 ]; then
-					cp -f "$FILES"/sbm_old/config-user.ini "$SBMCONFUSER"/"$USER"/config.ini
-				else
-					cp -f "$FILES"/sbm/config-user.ini "$SBMCONFUSER"/"$USER"/config.ini
-				fi
-
-				sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
-				sed -i "s/https:\/\/graph.domaine.fr/..\/graph\/$USER.php/g;" "$SBMCONFUSER"/"$USER"/config.ini
-				sed -i "s/RPC1/$USERMAJ/g;" "$SBMCONFUSER"/"$USER"/config.ini
-				sed -i "s/contact@mail.com/$EMAIL/g;" "$SBMCONFUSER"/"$USER"/config.ini
-
-				chown -R "$WDATA" "$SBMCONFUSER"
-
-				# configuration page index munin
-				FONCGRAPH "$USER"
+				# lancement user
 				FONCSERVICE start "$USER"-rtorrent
 				if [ -f "/etc/irssi.conf" ]; then
 					FONCSERVICE start "$USER"-irssi
 				fi
 
 				# log users
-				echo "userlog">> "$RUTORRENT"/histo.log
-				sed -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/histo.log
+				echo "userlog">> "$RUTORRENT"/histo-2019.log
+				sed -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/histo-2019.log
 				FONCSERVICE restart nginx
 				echo ""; set "218"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
 				set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
@@ -178,107 +138,9 @@ if FONCYES "$VALIDE"; then
 				set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
 			;;
 
-			2) # suspendre utilisateur
-				echo ""; set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
-				read -r USER
 
-				# variable email (rétro compatible)
-				TESTMAIL=$(sed -n "1 p" "$RUTORRENT"/histo.log)
-				if [[ "$TESTMAIL" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]*$ ]]; then
-					EMAIL="$TESTMAIL"
-				else
-					EMAIL=contact@exemple.com
-				fi
 
-				# récupération ip serveur
-				FONCIP
-
-				# variable utilisateur majuscule
-				USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
-
-				echo ""; set "262"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
-
-				# crontab (pour retro-compatibilité)
-				crontab -l > /tmp/rmuser
-				sed -i "s/* \* \* \* \* if ! ( ps -U $USER | grep rtorrent > \/dev\/null ); then \/etc\/init.d\/$USER-rtorrent start; fi > \/dev\/null 2>&1//g;" /tmp/rmuser
-				crontab /tmp/rmuser
-				rm /tmp/rmuser
-
-				update-rc.d "$USER"-rtorrent remove
-
-				# contrôle présence utilitaire
-				if [ ! -f "$NGINXBASE"/aide/contact.html ]; then
-					cd /tmp || exit
-					wget http://www.bonobox.net/script/contact.tar.gz
-					tar xzfv contact.tar.gz
-					cp -f /tmp/contact/contact.html "$NGINXBASE"/aide/contact.html
-					cp -f /tmp/contact/style/style.css "$NGINXBASE"/aide/style/style.css
-				fi
-
-				# page support
-				cp -f "$NGINXBASE"/aide/contact.html "$NGINXBASE"/"$USER".html
-				sed -i "s/@USER@/$USER/g;" "$NGINXBASE"/"$USER".html
-				chown -R "$WDATA" "$NGINXBASE"/"$USER".html
-
-				# seedbox-manager service minimum
-				mv "$SBMCONFUSER"/"$USER"/config.ini "$SBMCONFUSER"/"$USER"/config.bak
-				if [ ! -f "$SBM"/sbm_v3 ]; then
-					cp -f "$FILES"/sbm_old/config-mini.ini "$SBMCONFUSER"/"$USER"/config.ini
-				else
-					cp -f "$FILES"/sbm/config-mini.ini "$SBMCONFUSER"/"$USER"/config.ini
-				fi
-
-				sed -i "s/\"\/\"/\"\/home\/$USER\"/g;" "$SBMCONFUSER"/"$USER"/config.ini
-				sed -i "s/https:\/\/rutorrent.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
-				sed -i "s/https:\/\/graph.domaine.fr/..\/$USER.html/g;" "$SBMCONFUSER"/"$USER"/config.ini
-				sed -i "s/RPC1/$USERMAJ/g;" "$SBMCONFUSER"/"$USER"/config.ini
-				sed -i "s/contact@mail.com/$EMAIL/g;" "$SBMCONFUSER"/"$USER"/config.ini
-
-				chown -R "$WDATA" "$SBMCONFUSER"
-
-				# stop user
-				FONCSERVICE stop "$USER"-rtorrent
-				if [ -f "/etc/irssi.conf" ]; then
-					FONCSERVICE stop "$USER"-irssi
-				fi
-				killall --user "$USER" rtorrent
-				killall --user "$USER" screen
-				mv /home/"$USER"/.rtorrent.rc /home/"$USER"/.rtorrent.rc.bak
-				usermod -L "$USER"
-
-				echo ""; set "264" "268"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
-			;;
-
-			3) # rétablir utilisateur
-				echo ""; set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
-				read -r USER
-				echo ""; set "270"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
-
-				mv /home/"$USER"/.rtorrent.rc.bak /home/"$USER"/.rtorrent.rc
-				# remove ancien script pour mise à jour init.d
-				update-rc.d "$USER"-rtorrent remove
-
-				# script rtorrent
-				FONCSCRIPTRT "$USER"
-
-				# start user
-				rm /home/"$USER"/.session/rtorrent.lock >/dev/null 2>&1
-				FONCSERVICE start "$USER"-rtorrent
-				if [ -f "/etc/irssi.conf" ]; then
-					FONCSERVICE start "$USER"-irssi
-				fi
-				usermod -U "$USER"
-
-				# seedbox-manager service normal
-				rm "$SBMCONFUSER"/"$USER"/config.ini
-				mv "$SBMCONFUSER"/"$USER"/config.bak "$SBMCONFUSER"/"$USER"/config.ini
-				chown -R "$WDATA" "$SBMCONFUSER"
-				rm "$NGINXBASE"/"$USER".html
-
-				echo ""; set "264" "272"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
-			;;
-
-			4) # modification mot de passe utilisateur
+			2) # modification mot de passe utilisateur
 				echo ""; set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
 				read -r USER
 				echo ""; FONCPASS
@@ -302,7 +164,7 @@ if FONCYES "$VALIDE"; then
 				set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
 			;;
 
-			5) # suppression utilisateur
+			3) # suppression utilisateur
 				echo ""; set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
 				read -r USER
 				echo ""; set "282" "284"; FONCTXT "$1" "$2"; echo -n -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CGREEN}$TXT2 ${CEND}"
@@ -315,25 +177,6 @@ if FONCYES "$VALIDE"; then
 
 					# variable utilisateur majuscule
 					USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
-
-					# suppression conf munin
-					rm "$GRAPH"/img/rtom_"$USER"_*
-					rm "$GRAPH"/"$USER".php
-
-					sed -i "/rtom_${USER}_peers.graph_width 700/,+8d" /etc/munin/munin.conf
-					sed -i "/\[rtom_${USER}_\*\]/,+6d" /etc/munin/plugin-conf.d/munin-node
-
-					rm /etc/munin/plugins/rtom_"$USER"_*
-					rm "$MUNIN"/rtom_"$USER"_*
-					rm "$MUNINROUTE"/rtom_"$USER"_*
-
-					FONCSERVICE restart munin-node
-
-					# crontab (pour rétro-compatibilité)
-					crontab -l > /tmp/rmuser
-					sed -i "s/* \* \* \* \* if ! ( ps -U $USER | grep rtorrent > \/dev\/null ); then \/etc\/init.d\/$USER-rtorrent start; fi > \/dev\/null 2>&1//g;" /tmp/rmuser
-					crontab /tmp/rmuser
-					rm /tmp/rmuser
 
 					# stop utilisateur
 					FONCSERVICE stop "$USER"-rtorrent
@@ -351,9 +194,6 @@ if FONCYES "$VALIDE"; then
 					rm /etc/init.d/"$USER"-rtorrent
 					update-rc.d "$USER"-rtorrent remove
 
-					# supression rc.local (pour rétro-compatibilité)
-					sed -i "/$USER/d" /etc/rc.local 2>/dev/null
-
 					# suppression configuration rutorrent
 					rm -R "${RUCONFUSER:?}"/"$USER"
 					rm -R "${RUTORRENT:?}"/share/users/"$USER"
@@ -366,13 +206,8 @@ if FONCYES "$VALIDE"; then
 					sed -i '/location \/'"$USERMAJ"'/,/}/d' "$NGINXENABLE"/rutorrent.conf
 					FONCSERVICE restart nginx
 
-					# suppression seedbox-manager
-					rm -R "${SBMCONFUSER:?}"/"$USER"
-
-					# suppression backup .session (rétro-compatibilité)
-					if [ -f "$SCRIPT"/backup-session.sh ]; then
-						sed -i "/backup $USER/d" "$SCRIPT"/backup-session.sh
-					fi
+					# suppression backup .session
+					sed -i "/FONCBACKUP $USER/d" "$SCRIPT"/backup-session.sh
 
 					# suppression utilisateur
 					deluser "$USER" --remove-home
@@ -381,12 +216,12 @@ if FONCYES "$VALIDE"; then
 				fi
 			;;
 
-			6) # debug
+			4) # debug
 				chmod a+x "$FILES"/scripts/check-rtorrent.sh
 				bash "$FILES"/scripts/check-rtorrent.sh
 			;;
 
-			7) # sortir gestion utilisateurs
+			5) # sortir gestion utilisateurs
 				echo ""; set "290"; FONCTXT "$1"; echo -n -e "${CGREEN}$TXT1 ${CEND}"
 				read -r REBOOT
 

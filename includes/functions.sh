@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FONCCONTROL () {
-	if [[ $(uname -m) == x86_64 ]] && [[ "$VERSION" = 7.* ]] || [[ "$VERSION" = 8.* ]] || [[ "$VERSION" = 9.* ]]; then
+	if [[ $(uname -m) == x86_64 ]] && [[ "$VERSION" = 8.* ]] || [[ "$VERSION" = 9.* ]]; then
 		if [ "$(id -u)" -ne 0 ]; then
 			echo ""; set "100"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
 			exit 1
@@ -85,7 +85,7 @@ FONCIP () {
 }
 
 FONCPORT () {
-	HISTO=$(wc -l < "$RUTORRENT"/histo.log)
+	HISTO=$(wc -l < "$RUTORRENT"/histo-2019.log)
 	# shellcheck disable=SC2034
 	PORT=$(( 5001+HISTO ))
 }
@@ -106,12 +106,9 @@ FONCTXT () {
 }
 
 FONCSERVICE () {
-	if [[ "$VERSION" = 7.* ]]; then
-		service "$2" "$1"
-	elif [[ "$VERSION" = 8.* ]] || [[ "$VERSION" = 9.* ]]; then
-		systemctl "$1" "$2".service
-	fi
-} # FONCSERVICE $1 {start/stop/restart} $2 {nom service}
+	systemctl "$1" "$2".service
+}
+# FONCSERVICE $1 {start/stop/restart} $2 {nom service}
 
 FONCFSUSER () {
 	FSUSER=$(grep /home/"$1" /etc/fstab | cut -c 6-9)
@@ -121,81 +118,6 @@ FONCFSUSER () {
 		tune2fs -m 0 /dev/"$FSUSER" &> /dev/null
 		mount -o remount /home/"$1" &> /dev/null
 	fi
-}
-
-FONCMUNIN () {
-	cp -f "$MUNIN"/rtom_mem "$MUNIN"/rtom_"$1"_mem
-	cp -f "$MUNIN"/rtom_peers "$MUNIN"/rtom_"$1"_peers
-	cp -f "$MUNIN"/rtom_spdd "$MUNIN"/rtom_"$1"_spdd
-	cp -f "$MUNIN"/rtom_vol "$MUNIN"/rtom_"$1"_vol
-
-	chmod 755 "$MUNIN"/rtom_*
-
-	ln -s "$MUNIN"/rtom_"$1"_mem /etc/munin/plugins/rtom_"$1"_mem
-	ln -s "$MUNIN"/rtom_"$1"_peers /etc/munin/plugins/rtom_"$1"_peers
-	ln -s "$MUNIN"/rtom_"$1"_spdd /etc/munin/plugins/rtom_"$1"_spdd
-	ln -s "$MUNIN"/rtom_"$1"_vol /etc/munin/plugins/rtom_"$1"_vol
-
-	cat <<- EOF >> /etc/munin/plugin-conf.d/munin-node
-
-		[rtom_@USER@_*]
-		user @USER@
-		env.ip 127.0.0.1
-		env.port @PORT@
-		env.diff yes
-		env.category @USER@
-	EOF
-
-	sed -i "s/@USER@/$1/g;" /etc/munin/plugin-conf.d/munin-node
-	sed -i "s/@PORT@/$2/g;" /etc/munin/plugin-conf.d/munin-node
-
-	FONCSERVICE restart munin-node
-
-	cat <<- EOF >> /etc/munin/munin.conf
-
-		rtom_@USER@_peers.graph_width 700
-		rtom_@USER@_peers.graph_height 500
-		rtom_@USER@_spdd.graph_width 700
-		rtom_@USER@_spdd.graph_height 500
-		rtom_@USER@_vol.graph_width 700
-		rtom_@USER@_vol.graph_height 500
-		rtom_@USER@_mem.graph_width 700
-		rtom_@USER@_mem.graph_height 500
-	EOF
-
-	sed -i "s/@USER@/$1/g;" /etc/munin/munin.conf
-}
-
-FONCGRAPH () {
-	for PICS in 'mem-day' 'mem-week' 'mem-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-	for PICS in 'peers-day' 'peers-week' 'peers-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-	for PICS in 'spdd-day' 'spdd-week' 'spdd-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-	for PICS in 'vol-day' 'vol-week' 'vol-month'; do cp -f "$BONOBOX"/graph/img/tmp.png "$MUNINROUTE"/rtom_"$1"_"$PICS".png; done
-
-	chown munin:munin "$MUNINROUTE"/rtom_"$1"_* && chmod 644 "$MUNINROUTE"/rtom_"$1"_*
-
-	ln -s "$MUNINROUTE"/rtom_"$1"_mem-day.png "$GRAPH"/img/rtom_"$1"_mem-day.png
-	ln -s "$MUNINROUTE"/rtom_"$1"_mem-week.png "$GRAPH"/img/rtom_"$1"_mem-week.png
-	ln -s "$MUNINROUTE"/rtom_"$1"_mem-month.png "$GRAPH"/img/rtom_"$1"_mem-month.png
-
-	ln -s "$MUNINROUTE"/rtom_"$1"_peers-day.png "$GRAPH"/img/rtom_"$1"_peers-day.png
-	ln -s "$MUNINROUTE"/rtom_"$1"_peers-week.png "$GRAPH"/img/rtom_"$1"_peers-week.png
-	ln -s "$MUNINROUTE"/rtom_"$1"_peers-month.png "$GRAPH"/img/rtom_"$1"_peers-month.png
-
-	ln -s "$MUNINROUTE"/rtom_"$1"_spdd-day.png "$GRAPH"/img/rtom_"$1"_spdd-day.png
-	ln -s "$MUNINROUTE"/rtom_"$1"_spdd-week.png "$GRAPH"/img/rtom_"$1"_spdd-week.png
-	ln -s "$MUNINROUTE"/rtom_"$1"_spdd-month.png "$GRAPH"/img/rtom_"$1"_spdd-month.png
-
-	ln -s "$MUNINROUTE"/rtom_"$1"_vol-day.png "$GRAPH"/img/rtom_"$1"_vol-day.png
-	ln -s "$MUNINROUTE"/rtom_"$1"_vol-week.png "$GRAPH"/img/rtom_"$1"_vol-week.png
-	ln -s "$MUNINROUTE"/rtom_"$1"_vol-month.png "$GRAPH"/img/rtom_"$1"_vol-month.png
-
-	cp -f "$GRAPH"/user.php "$GRAPH"/"$1".php
-
-	sed -i "s/@USER@/$1/g;" "$GRAPH"/"$1".php
-	sed -i "s/@RTOM@/rtom_$1/g;" "$GRAPH"/"$1".php
-
-	chown -R "$WDATA" "$GRAPH"
 }
 
 FONCHTPASSWD () {
@@ -211,7 +133,7 @@ FONCRTCONF () {
 		        location /$1 {
 		                include scgi_params;
 		                scgi_pass 127.0.0.1:$2;
-		                auth_basic "seedbox";
+		                auth_basic "Restricted";
 		                auth_basic_user_file "$NGINXPASS/rutorrent_passwd_$3";
 		        }
 		}

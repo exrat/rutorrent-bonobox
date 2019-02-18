@@ -11,16 +11,7 @@ CBLUE="${CSI}1;34m"
 ARG="$*"
 VERSION=$(cat /etc/debian_version)
 
-if [[ "$VERSION" = 7.* ]]; then
-	DEBNUMBER="Debian_7.0.deb"
-	DEBNAME="wheezy"
-	PHPPATH="/etc/php5"
-	PHPNAME="php5"
-	PHPSOCK="/var/run/php5-fpm.sock"
-	LIBZEN0NAME="libzen0"
-	LIBMEDIAINFO0NAME="libmediainfo0"
-
-elif [[ "$VERSION" = 8.* ]]; then
+if [[ "$VERSION" = 8.* ]]; then
 	DEBNUMBER="Debian_8.0.deb"
 	DEBNAME="jessie"
 	PHPPATH="/etc/php5"
@@ -42,7 +33,6 @@ fi
 
 LIBTORRENT="v0.13.7"
 RTORRENT="v0.9.7"
-SBMVERSION="3.0.1"
 
 LIBZEN0="0.4.37"
 LIBMEDIAINFO0="18.12"
@@ -52,13 +42,8 @@ RUTORRENT="/var/www/rutorrent"
 RUPLUGINS="/var/www/rutorrent/plugins"
 RUCONFUSER="/var/www/rutorrent/conf/users"
 BONOBOX="/tmp/rutorrent-bonobox"
-GRAPH="/var/www/graph"
-MUNIN="/usr/share/munin/plugins"
-MUNINROUTE="/var/www/monitoring/localdomain/localhost.localdomain"
 FILES="/tmp/rutorrent-bonobox/files"
 SCRIPT="/usr/share/scripts-perso"
-SBM="/var/www/seedbox-manager"
-SBMCONFUSER="/var/www/seedbox-manager/conf/users"
 NGINX="/etc/nginx"
 NGINXWEB="/var/www"
 NGINXBASE="/var/www/base"
@@ -68,8 +53,6 @@ NGINXSSL="/etc/nginx/ssl"
 NGINXCONFD="/etc/nginx/conf.d"
 SOURCES="/etc/apt/sources.list.d"
 ARGFILE="/tmp/arg.tmp"
-ARGSBM=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 sbm)
-ARGMAIL=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 @)
 ARGFTP=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 ftp)
 ARGREBOOT=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 reboot)
 WDATA="www-data:www-data"

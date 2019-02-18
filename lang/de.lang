@@ -1,9 +1,9 @@
 ## Allemand ##
 100                       Dieser skript als root durchführen.
 102            Willkommen in der automatische Einrichtung von ruTorrent
-104         Der erste User wird der Administrator von Seedbox-Manager sein,
-106          Si können, am Ende der Einrichtung zusätzliche User eingeben.
-108
+104 #
+106 #
+108 #
 110 Der User name muss in Kleinbuchstaben sein,\ngrösser als 3 Charakteer und ohne Sonderzeichen.
 112 Passwort eingeben für diesen User, oder "
 114 Enter
@@ -11,10 +11,10 @@
 118 Möchten Sie
 120 als Passwort benutzen ? (j/n):
 122 Das Passwort darf kein Sonderzeichen enthalten und\nmuss grösser sein als 5 Buchstaben oder Ziffern.
-124 In Seedbox-Manager bitte Kontakt E-Mail erfassen:
-126 Die Mail Adresse ist nicht gültig, bitte verbessern oder leer lassen.
+124 #
+126 #
 128 Möchten Sie ein Server FTP installieren (j/n):
-130      Dieser Skript kann nur unter Debian 7/8/9 - 64 bits ausgeführt werden.
+130      Dieser Skript kann nur unter Debian 8/9 - 64 bits ausgeführt werden.
 132 Update vom Server
 134      Erledigt!
 136 Einrichtung der wesentliche Datenpaketen
@@ -27,12 +27,12 @@
 148 Konfiguration plugins
 150 Konfiguration PHP
 152 Konfiguration Nginx
-154 Konfiguration Munin
-156 Konfiguration Composer
-158 Konfiguration Nodejs
-160 Konfiguration Bower
-162 Konfiguration Seedbox-Manager
-164 Konfiguration Logs html und Logrotate
+154 #
+156 #
+158 #
+160 #
+162 #
+164 Konfiguration Logrotate
 166 Konfiguration SSH
 168 Konfiguration User ruTorrent
 170 Konfiguration Fail2Ban
@@ -44,7 +44,7 @@
 182 Merken Sie Sich bitte folgende Angaben:
 184 User Name:
 186 Passwort:
-188 Sie benötigen diese Angaben damit Sie Sich bei ruTorrent,\nSeedbox-Manager und in FTP, wenn Ausgewählt, anmelden möchten.
+188 Sie benötigen diese Angaben damit Sie Sich bei ruTorrent,\nund in FTP, wenn Ausgewählt, anmelden möchten.
 190 Möchten Sie ein anderen User installieren (j/n):
 192 Generation von der Logfile installation.
 194 Möchten Sie neu starten um die installation zu beenden (j/n):
@@ -54,7 +54,7 @@
 200 Betrachten sie manuell ihren Server neu Starten, bevor nutzung !
 202 Sie können Sich jetzt auf ruTorrent einloggen:
 204 #
-206 Im Teil "Administration" von Seedbox-Manager für verschiedene Einstellungen:
+206 #
 208 #
 210        Gutes Download, bleiben Sie in seed et bis gleich auf mondedie.fr
 212 #
@@ -76,8 +76,8 @@
 244  5
 246  6
 248 : Anfügen neuer User
-250 : Sperren von User
-252 : Reaktivieren von user
+250 #
+252 #
 254 : Änderung von Passwort
 256 : User löschen
 258 : Escape
@@ -85,9 +85,9 @@
 262 User sperren.
 264 Der User
 266 Debug
-268 wurde gesperrt.
-270 Wiederherstellung von einem User.
-272 wurde wieder aktiviert.
+268 #
+270 #
+272 #
 274 Neues Passwort für diesen User eingeben, oder auf\n"
 276 Änderung vom User Passwort.
 278 Der User Passwort
@@ -100,9 +100,9 @@
 292 Wahl ungültig
 294  7
 296 : Debug
-298  Der erste erfasste User ist der Administrator von SB-Manager wenn installiert,
-300 Möchten Sie Seedbox-Manager installieren (j/n):
-302 Und im teil "Administration" von Seedbox-Manager um\nzusatzeinstellungen wenn installiert:
+298 #
+300 #
+302 #
 304 Ihre Installation auswählen:
 306 Full
 308 Light

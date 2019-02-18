@@ -4,26 +4,19 @@
 
 * Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur
 * Français, English, German, Pусский,  Español, Português
-* Nécessite Debian 7/8/9 (64 bits) & un serveur fraîchement installé
+* Nécessite Debian 8/9 (64 bits) & un serveur fraîchement installé
 
 * Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh)
-* Seedbox-Manager, Auteurs: Magicalex, Hydrog3n et Backtoback
 
-Tiré du tutoriel de Magicalex pour mondedie.fr disponible ici:
+Tiré du tutoriel de mondedie.fr disponible ici:
 
-[Installer ruTorrent sur Debian {nginx & php-fpm}](http://mondedie.fr/viewtopic.php?id=5302)
+[Installer ruTorrent sur Debian {nginx & php-fpm}](https://mondedie.fr/d/9655-tuto-installer-rutorrent-sur-debian-9-nginx-php-fpm)
 
 [Aide, support & plus si affinités à la même adresse !](http://mondedie.fr/)
 
 **Auteur :** Ex_Rat
 
-Merci Aliochka & Meister pour les conf de munin et VsFTPd
-
-à Albaret pour le coup de main sur la gestion d'users, LetsGo67 pour ses rectifs et
-
-Jedediah pour avoir joué avec le html/css du thème
-
-Aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam, Hierra
+Merci aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam, Hierra
 
 ## Installation:
 Multilingue automatique
