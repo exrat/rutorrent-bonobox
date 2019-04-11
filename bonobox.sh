@@ -206,7 +206,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		zlib1g-dev \
 		gawk \
 		libncursesw5-dev \
-		psmisc
+		psmisc \
+		python-pip
 		# reserve zap xlmrpc debian 8/9
 		# libxmlrpc-c++8-dev
 
@@ -341,6 +342,9 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	for PLUGINS in 'addzip' 'autodl-irssi' 'chat' 'filemanager' 'fileshare' 'geoip2' 'lbll-suite' 'logoff' 'nfo' 'pausewebui'  'ratiocolor' 'titlebar' 'trackerstatus'; do
 		cp -R /tmp/rutorrent-plugins-pack/"$PLUGINS" "$RUPLUGINS"/
 	done
+
+	# installation cfscrape pour _cloudflare
+	pip install cfscrape
 
 	# configuration geoip2
 	wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz

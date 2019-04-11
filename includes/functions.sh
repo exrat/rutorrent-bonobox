@@ -152,12 +152,17 @@ FONCPHPCONF () {
 		\$pathToExternals = array(
 		    "curl"  => '/usr/bin/curl',
 		    "stat"  => '/usr/bin/stat',
+		    "php"    => '/usr/bin/@PHPNAME@',
+		    "pgrep"  => '/usr/bin/pgrep',
+		    "python" => '/usr/bin/python2.7'
 		    );
 		\$topDirectory = '/home/$1';
 		\$scgi_port = $2;
 		\$scgi_host = '127.0.0.1';
 		\$XMLRPCMountPoint = '/$3';
 	EOF
+
+	sed -i "s/@PHPNAME@/$PHPNAME/g;" "$RUCONFUSER"/"$1"/config.php
 }
 
 FONCTORRENTRC () {
