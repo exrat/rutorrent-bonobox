@@ -343,8 +343,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		cp -R /tmp/rutorrent-plugins-pack/"$PLUGINS" "$RUPLUGINS"/
 	done
 
-	# installation cfscrape pour _cloudflare
-	pip install cfscrape
+	# installation cloudscraper pour _cloudflare
+	pip install cloudscraper
 
 	# configuration geoip2
 	wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
