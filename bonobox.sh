@@ -344,6 +344,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	done
 
 	# installation cloudscraper pour _cloudflare
+	pip install setuptools --upgrade
 	pip install cloudscraper
 
 	# configuration geoip2
