@@ -28,6 +28,15 @@ elif [[ "$VERSION" = 9.* ]]; then
 	PHPSOCK="/run/php/php7.3-fpm.sock"
 	LIBZEN0NAME="libzen0v5"
 	LIBMEDIAINFO0NAME="libmediainfo0v5"
+	
+elif [[ "$VERSION" = 10.* ]]; then
+	DEBNUMBER="Debian_10.0.deb"
+	DEBNAME="buster"
+	PHPPATH="/etc/php/7.3"
+	PHPNAME="php7.3"
+	PHPSOCK="/run/php/php7.3-fpm.sock"
+	LIBZEN0NAME="libzen0v5"
+	LIBMEDIAINFO0NAME="libmediainfo0v5"
 
 fi
 
