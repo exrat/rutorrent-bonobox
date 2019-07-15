@@ -11,32 +11,28 @@ CBLUE="${CSI}1;34m"
 ARG="$*"
 VERSION=$(cat /etc/debian_version)
 
-if [[ "$VERSION" = 8.* ]]; then
-	DEBNUMBER="Debian_8.0.deb"
-	DEBNAME="jessie"
-	PHPPATH="/etc/php5"
-	PHPNAME="php5"
-	PHPSOCK="/var/run/php5-fpm.sock"
-	LIBZEN0NAME="libzen0"
-	LIBMEDIAINFO0NAME="libmediainfo0"
-
-elif [[ "$VERSION" = 9.* ]]; then
+if [[ "$VERSION" = 9.* ]]; then
 	DEBNUMBER="Debian_9.0.deb"
 	DEBNAME="stretch"
-	PHPPATH="/etc/php/7.3"
-	PHPNAME="php7.3"
-	PHPSOCK="/run/php/php7.3-fpm.sock"
-	LIBZEN0NAME="libzen0v5"
-	LIBMEDIAINFO0NAME="libmediainfo0v5"
 
+elif [[ "$VERSION" = 10.* ]]; then
+	DEBNUMBER="Debian_10.0.deb"
+	DEBNAME="buster"
 fi
+
+HISTOLOG="histo-2019"
+PHPNAME="php7.3"
+PHPPATH="/etc/php/7.3"
+PHPSOCK="/run/php/php7.3-fpm.sock"
+#LIBZEN0NAME="libzen0v5"
+#LIBMEDIAINFO0NAME="libmediainfo0v5"
 
 LIBTORRENT="v0.13.7"
 RTORRENT="v0.9.7"
 
-LIBZEN0="0.4.37"
-LIBMEDIAINFO0="19.04"
-MEDIAINFO="19.04"
+#LIBZEN0="0.4.37"
+#LIBMEDIAINFO0="19.04"
+#MEDIAINFO="19.04"
 
 RUTORRENT="/var/www/rutorrent"
 RUPLUGINS="/var/www/rutorrent/plugins"

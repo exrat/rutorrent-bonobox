@@ -3,13 +3,13 @@
 # Script d'installation ruTorrent / Nginx
 # Auteur : Ex_Rat
 #
-# Nécessite Debian 8/9 - 64 bits & un serveur fraîchement installé
+# Nécessite Debian 9/10 - 64 bits & un serveur fraîchement installé
 #
 # Multi-utilisateurs
 # Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh)
 #
 # Tiré du tutoriel de mondedie.fr disponible ici:
-# https://mondedie.fr/d/9655-tuto-installer-rutorrent-sur-debian-9-nginx-php-fpm
+# https://mondedie.fr/d/10831-tuto-installer-rutorrent-sur-debian-10-nginx-php-fpm
 #
 # Merci aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam, Hierra.
 #
@@ -119,9 +119,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
 
 	# récupération ip serveur
-	if [[ $(echo "$VERSION" "9" | awk '{print ($1 >= $2)}') == 1 ]]; then
-		apt-get install -y net-tools
-	fi
 	FONCIP
 
 	# récupération threads & sécu -j illimité
@@ -207,27 +204,25 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		gawk \
 		libncursesw5-dev \
 		psmisc \
-		python-pip
-		# reserve zap xlmrpc debian 8/9
-		# libxmlrpc-c++8-dev
+		python-pip \
+		"$PHPNAME"-xml \
+		"$PHPNAME"-mbstring \
+		"$PHPNAME"-readline \
+		"$PHPNAME"-opcache \
+		"$PHPNAME"-common \
+		"$PHPNAME"-zip \
+		zlib1g-dev \
+		unzip \
+		libsox-fmt-all \
+		mediainfo
 
-		if [[ "$VERSION" = 8.* ]]; then
+		if [[ "$VERSION" = 9.* ]]; then
 			apt-get install -y \
-				libtinyxml2-2 \
-				"$PHPNAME"-zip \
-				libsox-fmt-all
-		elif [[ "$VERSION" = 9.* ]]; then
+				libtinyxml2-4
+
+		elif [[ "$VERSION" = 10.* ]]; then
 			apt-get install -y \
-				libtinyxml2-4 \
-				"$PHPNAME"-xml \
-				"$PHPNAME"-mbstring \
-				"$PHPNAME"-readline \
-				"$PHPNAME"-opcache \
-				"$PHPNAME"-common \
-				"$PHPNAME"-zip \
-				zlib1g-dev \
-				unzip \
-				libsox-fmt-all
+				libtinyxml2-6a
 		fi
 
 	echo ""; set "136" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
@@ -380,7 +375,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
 	# installation mediainfo
-	FONCMEDIAINFO
+	# FONCMEDIAINFO
 
 	# variable minutes aléatoire crontab geoip2
 	MAXIMUM=58
@@ -455,12 +450,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	cp -f "$FILES"/rutorrent/rutorrent.conf "$NGINXENABLE"/rutorrent.conf
 	for VAR in "${!NGINXCONFD@}" "${!NGINXBASE@}" "${!NGINXSSL@}" "${!NGINXPASS@}" "${!NGINXWEB@}" "${!USER@}"; do
 		sed -i "s|@${VAR}@|${!VAR}|g;" "$NGINXENABLE"/rutorrent.conf
-	done
-
-	if [[ $(echo "$VERSION" "9" | awk '{print ($1 >= $2)}') == 1 ]]; then
-		sed -i "1i\include /etc/nginx/conf.d/log_rutorrent.conf;\n" "$NGINXENABLE"/rutorrent.conf
 		sed -i "s/combined;/combined if=\$loggable;/g;" "$NGINXENABLE"/rutorrent.conf
-	fi
+	done
 
 	echo ""; set "152" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
 
@@ -624,9 +615,9 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	fi
 
 	# log users
-	echo "histo-2019.log">> "$RUTORRENT"/histo-2019.log
-	echo "userlog">> "$RUTORRENT"/histo-2019.log
-	sed -i "s/userlog/$USER:5001/g;" "$RUTORRENT"/histo-2019.log
+	echo "$HISTOLOG.log">> "$RUTORRENT"/"$HISTOLOG".log
+	echo "userlog">> "$RUTORRENT"/"$HISTOLOG".log
+	sed -i "s/userlog/$USER:5001/g;" "$RUTORRENT"/"$HISTOLOG".log
 
 	set "180"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"
 	if [ ! -f "$ARGFILE" ]; then
@@ -771,8 +762,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 			FONCSERVICE restart nginx
 
 			# log users
-			echo "userlog">> "$RUTORRENT"/histo-2019.log
-			sed -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/histo-2019.log
+			echo "userlog">> "$RUTORRENT"/"$HISTOLOG".log
+			sed -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/"$HISTOLOG".log
 			if [ ! -f "$ARGFILE" ]; then
 				echo ""; set "218"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
 				set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"

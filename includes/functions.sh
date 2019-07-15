@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FONCCONTROL () {
-	if [[ $(uname -m) == x86_64 ]] && [[ "$VERSION" = 8.* ]] || [[ "$VERSION" = 9.* ]]; then
+	if [[ $(uname -m) == x86_64 ]] && [[ "$VERSION" = 9.* ]] || [[ "$VERSION" = 10.* ]]; then
 		if [ "$(id -u)" -ne 0 ]; then
 			echo ""; set "100"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
 			exit 1
@@ -66,12 +66,8 @@ FONCPASS () {
 }
 
 FONCIP () {
-	if [[ "$VERSION" = 7.* ]] || [[ "$VERSION" = 8.* ]]; then
-		IP=$(ifconfig | grep "inet ad" | cut -f2 -d: | awk '{print $1}' | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
-
-	elif [[ "$VERSION" = 9.* ]]; then
-		IP=$(ip -4 addr | grep "inet" | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | awk '{print $2}' | cut -d/ -f1)
-	fi
+	apt-get install -y net-tools
+	IP=$(ip -4 addr | grep "inet" | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | awk '{print $2}' | cut -d/ -f1)
 
 	if [ "$IP" = "" ]; then
 		IP=$(wget -qO- ipv4.icanhazip.com)
@@ -85,7 +81,7 @@ FONCIP () {
 }
 
 FONCPORT () {
-	HISTO=$(wc -l < "$RUTORRENT"/histo-2019.log)
+	HISTO=$(wc -l < "$RUTORRENT"/"$HISTOLOG".log)
 	# shellcheck disable=SC2034
 	PORT=$(( 5001+HISTO ))
 }
@@ -150,8 +146,8 @@ FONCPHPCONF () {
 	cat <<- EOF > "$RUCONFUSER"/"$1"/config.php
 		<?php
 		\$pathToExternals = array(
-		    "curl"  => '/usr/bin/curl',
-		    "stat"  => '/usr/bin/stat',
+		    "curl"   => '/usr/bin/curl',
+		    "stat"   => '/usr/bin/stat',
 		    "php"    => '/usr/bin/@PHPNAME@',
 		    "pgrep"  => '/usr/bin/pgrep',
 		    "python" => '/usr/bin/python2.7'
@@ -364,13 +360,13 @@ FONCARG () {
 	sed -i '1d' "$ARGFILE"
 }
 
-FONCMEDIAINFO () {
-	cd /tmp || exit
-	wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/"$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
-	wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/"$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
-	wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
-
-	dpkg -i "$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
-	dpkg -i "$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
-	dpkg -i mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
-}
+#FONCMEDIAINFO () {
+#	cd /tmp || exit
+#	wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/"$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
+#	wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/"$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
+#	wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
+#
+#	dpkg -i "$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
+#	dpkg -i "$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
+#	dpkg -i mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
+#}

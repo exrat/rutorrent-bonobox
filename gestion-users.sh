@@ -6,7 +6,7 @@
 
 
 # contrôle installation
-if [ ! -f "$RUTORRENT"/histo-2019.log ]; then
+if [ ! -f "$RUTORRENT"/"$HISTOLOG".log ]; then
 	echo ""; set "220"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"
 	set "222"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
 	exit 1
@@ -128,8 +128,8 @@ if FONCYES "$VALIDE"; then
 				fi
 
 				# log users
-				echo "userlog">> "$RUTORRENT"/histo-2019.log
-				sed -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/histo-2019.log
+				echo "userlog">> "$RUTORRENT"/"$HISTOLOG".log
+				sed -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/"$HISTOLOG".log
 				FONCSERVICE restart nginx
 				echo ""; set "218"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
 				set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
@@ -137,8 +137,6 @@ if FONCYES "$VALIDE"; then
 				set "186"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
 				set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
 			;;
-
-
 
 			2) # modification mot de passe utilisateur
 				echo ""; set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"

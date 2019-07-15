@@ -14,7 +14,7 @@
 124 #
 126 #
 128 Möchten Sie ein Server FTP installieren (j/n):
-130      Dieser Skript kann nur unter Debian 8/9 - 64 bits ausgeführt werden.
+130      Dieser Skript kann nur unter Debian 9/10 - 64 bits ausgeführt werden.
 132 Update vom Server
 134      Erledigt!
 136 Einrichtung der wesentliche Datenpaketen

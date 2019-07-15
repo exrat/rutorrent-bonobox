@@ -4,13 +4,13 @@
 
 * Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur
 * Français, English, German, Pусский,  Español, Português
-* Nécessite Debian 8/9 (64 bits) & un serveur fraîchement installé
+* Nécessite Debian 9/10 (64 bits) & un serveur fraîchement installé
 
 * Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh)
 
 Tiré du tutoriel de mondedie.fr disponible ici:
 
-[Installer ruTorrent sur Debian {nginx & php-fpm}](https://mondedie.fr/d/9655-tuto-installer-rutorrent-sur-debian-9-nginx-php-fpm)
+[Installer ruTorrent sur Debian {nginx & php-fpm}](https://mondedie.fr/d/10831-tuto-installer-rutorrent-sur-debian-10-nginx-php-fpm)
 
 [Aide, support & plus si affinités à la même adresse !](http://mondedie.fr/)
 

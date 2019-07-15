@@ -14,7 +14,7 @@
 124 #
 126 #
 128 Quieres instalar el servidor FTP (s/n):
-130           Este script se debe ejecutar sólo en Debian 8/9 - 64 bits.
+130           Este script se debe ejecutar sólo en Debian 9/10 - 64 bits.
 132 Actualizando servidor
 134      Hecho !
 136 Instalando paquetes necesarios
