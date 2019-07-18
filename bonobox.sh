@@ -450,7 +450,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	cp -f "$FILES"/rutorrent/rutorrent.conf "$NGINXENABLE"/rutorrent.conf
 	for VAR in "${!NGINXCONFD@}" "${!NGINXBASE@}" "${!NGINXSSL@}" "${!NGINXPASS@}" "${!NGINXWEB@}" "${!USER@}"; do
 		sed -i "s|@${VAR}@|${!VAR}|g;" "$NGINXENABLE"/rutorrent.conf
-		sed -i "s/combined;/combined if=\$loggable;/g;" "$NGINXENABLE"/rutorrent.conf
 	done
 
 	echo ""; set "152" "134"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; echo ""
