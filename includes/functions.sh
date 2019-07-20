@@ -16,7 +16,7 @@ FONCBASHRC () {
 	unalias cp 2>/dev/null
 	unalias rm 2>/dev/null
 	unalias mv 2>/dev/null
-	export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+	#export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 }
 
 FONCUSER () {
@@ -71,9 +71,9 @@ FONCIP () {
 	IP=$(ip -4 addr | grep "inet" | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | awk '{print $2}' | cut -d/ -f1)
 
 	if [ "$IP" = "" ]; then
-		IP=$(wget -qO- ipv4.icanhazip.com)
+		IP=$(/usr/bin/wget -qO- ipv4.icanhazip.com)
 			if [ "$IP" = "" ]; then
-				IP=$(wget -qO- ipv4.bonobox.net)
+				IP=$(/usr/bin/wget -qO- ipv4.bonobox.net)
 				if [ "$IP" = "" ]; then
 					IP=x.x.x.x
 				fi
@@ -180,7 +180,7 @@ FONCIRSSI () {
 	IRSSIPORT=1"$2"
 	mkdir -p /home/"$1"/.irssi/scripts/autorun
 	cd /home/"$1"/.irssi/scripts || exit
-	curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
+	curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs /usr/bin/wget --quiet -O autodl-irssi.zip
 	unzip -o autodl-irssi.zip
 	command rm autodl-irssi.zip
 	cp -f /home/"$1"/.irssi/scripts/autodl-irssi.pl /home/"$1"/.irssi/scripts/autorun
@@ -363,9 +363,9 @@ FONCARG () {
 
 #FONCMEDIAINFO () {
 #	cd /tmp || exit
-#	wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/"$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
-#	wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/"$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
-#	wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
+#	/usr/bin/wget http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/"$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
+#	/usr/bin/wget http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/"$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
+#	/usr/bin/wget http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
 #
 #	dpkg -i "$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
 #	dpkg -i "$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"

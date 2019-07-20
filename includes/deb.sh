@@ -28,11 +28,11 @@ FONCDEP () {
 	EOF
 
 	# clés
-	wget https://packages.sury.org/php/apt.gpg -O sury.gpg && apt-key add sury.gpg 2>/dev/null
+	/usr/bin/wget https://packages.sury.org/php/apt.gpg -O sury.gpg && apt-key add sury.gpg 2>/dev/null
 
-	wget http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.key 2>/dev/null
+	/usr/bin/wget http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.key 2>/dev/null
 
-	wget http://mediaarea.net/repo/deb/debian/pubkey.gpg -O mediainfo.gpg && apt-key add mediainfo.gpg 2>/dev/null
+	/usr/bin/wget http://mediaarea.net/repo/deb/debian/pubkey.gpg -O mediainfo.gpg && apt-key add mediainfo.gpg 2>/dev/null
 
 	apt-get update -oAcquire::AllowInsecureRepositories=true && apt-get install -y --allow-unauthenticated deb-multimedia-keyring
 	#apt-get update && apt-get install -y --allow-unauthenticated deb-multimedia-keyring

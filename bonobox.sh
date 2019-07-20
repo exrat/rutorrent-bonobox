@@ -50,6 +50,10 @@ FONCBASHRC
 
 # contrôle installation
 if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
+	# contröle wget
+	if [ ! -f /usr/bin/wget ]; then
+		apt-get install -y wget &>/dev/null
+	fi
 	# log de l'installation
 	exec > >(tee "/tmp/install.log") 2>&1
 	# liste users en arguments
@@ -106,10 +110,10 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	PASSNGINX=${USERPWD}
 
 	# ajout utilisateur
-	useradd -M -s /bin/bash "$USER"
+	/usr/sbin/useradd -M -s /bin/bash "$USER"
 
 	# création mot de passe utilisateur
-	echo "${USER}:${USERPWD}" | chpasswd
+	echo "${USER}:${USERPWD}" | /usr/sbin/chpasswd
 
 	# anti-bug /home/user déjà existant
 	mkdir -p /home/"$USER"
@@ -231,7 +235,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	openssl dhparam -out dhparams.pem 2048 >/dev/null 2>&1 &
 
 	# téléchargement complément favicons
-	wget -T 10 -t 3 http://www.bonobox.net/script/favicon.tar.gz || wget -T 10 -t 3 http://alt.bonobox.net/favicon.tar.gz
+	/usr/bin/wget -T 10 -t 3 http://www.bonobox.net/script/favicon.tar.gz || /usr/bin/wget -T 10 -t 3 http://alt.bonobox.net/favicon.tar.gz
 	tar xzfv favicon.tar.gz
 
 	# création fichiers couleurs nano
@@ -343,7 +347,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	pip install cloudscraper
 
 	# configuration geoip2
-	wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+	/usr/bin/wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
 	tar xzfv GeoLite2-City.tar.gz
 	cd /tmp/GeoLite2-City_* || exit
 	mv GeoLite2-City.mmdb "$RUPLUGINS"/geoip2/database/GeoLite2-City.mmdb
@@ -699,10 +703,10 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 			PASSNGINX=${USERPWD}
 
 			# ajout utilisateur
-			useradd -M -s /bin/bash "$USER"
+			/usr/sbin/useradd -M -s /bin/bash "$USER"
 
 			# création mot de passe utilisateur
-			echo "${USER}:${USERPWD}" | chpasswd
+			echo "${USER}:${USERPWD}" | /usr/sbin/chpasswd
 
 			# anti-bug /home/user déjà existant
 			mkdir -p /home/"$USER"

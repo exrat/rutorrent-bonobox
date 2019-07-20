@@ -57,10 +57,10 @@ if FONCYES "$VALIDE"; then
 				PASSNGINX=${USERPWD}
 
 				# ajout utilisateur
-				useradd -M -s /bin/bash "$USER"
+				/usr/sbin/useradd -M -s /bin/bash "$USER"
 
 				# création mot de passe utilisateur
-				echo "${USER}:${USERPWD}" | chpasswd
+				echo "${USER}:${USERPWD}" | /usr/sbin/chpasswd
 
 				# anti-bug /home/user déjà existant
 				mkdir -p /home/"$USER"
@@ -149,7 +149,7 @@ if FONCYES "$VALIDE"; then
 				PASSNGINX=${USERPWD}
 
 				# modification du mot de passe
-				echo "${USER}:${USERPWD}" | chpasswd
+				echo "${USER}:${USERPWD}" | /usr/sbin/chpasswd
 
 				# htpasswd
 				FONCHTPASSWD "$USER"
