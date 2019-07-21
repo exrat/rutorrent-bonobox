@@ -297,7 +297,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	# compilation libtorrent
 	cd libtorrent || exit
 	git checkout "$LIBTORRENT"
-	git cherry-pick 7b29b6b
+	# git cherry-pick 7b29b6b
 
 	# if [[ $(echo "$VERSION" "9" | awk '{print ($1 >= $2)}') == 1 ]]; then
 		# cp -f "$FILES"/rutorrent/configure.ac /tmp/libtorrent/configure.ac

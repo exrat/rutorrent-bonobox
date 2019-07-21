@@ -16,7 +16,7 @@ FONCBASHRC () {
 	unalias cp 2>/dev/null
 	unalias rm 2>/dev/null
 	unalias mv 2>/dev/null
-	#export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+	export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 }
 
 FONCUSER () {
