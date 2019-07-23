@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # langues
-OPTS=$(getopt -o vhns: --long en,fr,de,ru,es,pt,ptbr -n 'parse-options' -- "$@")
+OPTS=$("$CMDGETOPT" -o vhns: --long en,fr,de,ru,es,pt,ptbr -n 'parse-options' -- "$@")
 eval set -- "$OPTS"
 while true; do
 	case "$1" in
@@ -31,4 +31,4 @@ while true; do
 done
 
 # fix langue shell root
-echo "export LANG=$LANG" >> /root/.bashrc
+"$CMDECHO" "export LANG=$LANG" >> /root/.bashrc

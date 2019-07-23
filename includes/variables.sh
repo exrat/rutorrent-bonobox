@@ -9,7 +9,7 @@ CYELLOW="${CSI}1;33m"
 CBLUE="${CSI}1;34m"
 
 ARG="$*"
-VERSION=$(cat /etc/debian_version)
+VERSION=$("$CMDCAT" /etc/debian_version)
 
 if [[ "$VERSION" = 9.* ]]; then
 	DEBNUMBER="Debian_9.0.deb"
@@ -49,16 +49,16 @@ NGINXSSL="/etc/nginx/ssl"
 NGINXCONFD="/etc/nginx/conf.d"
 SOURCES="/etc/apt/sources.list.d"
 ARGFILE="/tmp/arg.tmp"
-ARGFTP=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 ftp)
-ARGREBOOT=$(echo "$ARG" | tr -s ' ' '\n' | grep -m 1 reboot)
+ARGFTP=$("$CMDECHO" "$ARG" | "$CMDTR" -s ' ' '\n' | "$CMDGREP" -m 1 ftp)
+ARGREBOOT=$("$CMDECHO" "$ARG" | "$CMDTR" -s ' ' '\n' | "$CMDGREP" -m 1 reboot)
 WDATA="www-data:www-data"
 
 RAPPORT="/tmp/rapport.txt"
-NOYAU=$(uname -r)
-DATE=$(date +"%d-%m-%Y à %H:%M")
-NGINX_VERSION=$(2>&1 nginx -v | grep -Eo "[0-9.+]{1,}")
-RUTORRENT_VERSION=$(grep version: < /var/www/rutorrent/js/webui.js | grep -E -o "[0-9]\.[0-9]{1,}")
-RTORRENT_VERSION=$(rtorrent -h | grep -E -o "[0-9]\.[0-9].[0-9]{1,}")
-PHP_VERSION=$(php -v | cut -c 1-7 | grep PHP | cut -c 5-7)
-CPU=$(sed '/^$/d' < /proc/cpuinfo | grep -m 1 'model name' | cut -c14-)
+NOYAU=$("$CMDUNAME" -r)
+DATE=$("$CMDDATE" +"%d-%m-%Y à %H:%M")
+NGINX_VERSION=$(2>&1 "$CMDNGINX" -v | "$CMDGREP" -Eo "[0-9.+]{1,}")
+RUTORRENT_VERSION=$("$CMDGREP" version: < /var/www/rutorrent/js/webui.js | "$CMDGREP" -E -o "[0-9]\.[0-9]{1,}")
+RTORRENT_VERSION=$("$CMDRTORRENT" -h | "$CMDGREP" -E -o "[0-9]\.[0-9].[0-9]{1,}")
+PHP_VERSION=$("$CMDPHP" -v | "$CMDCUT" -c 1-7 | "$CMDGREP" PHP | "$CMDCUT" -c 5-7)
+CPU=$("$CMDSED" '/^$/d' < /proc/cpuinfo | "$CMDGREP" -m 1 'model name' | "$CMDCUT" -c14-)
 PASTEBIN="paste.ubuntu.com"

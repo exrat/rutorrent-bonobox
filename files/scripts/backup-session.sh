@@ -9,17 +9,34 @@
 NBSAVE=7
 
 #Définition des chemins absolues des commandes pour la crontab et de la date
-CMDDATE="/bin/date"
-CMDMKDIR="/bin/mkdir"
-CMDCHOWN="/bin/chown"
-CMDCP="/bin/cp"
-CMDGREP="/bin/grep"
-CMDLS="/bin/ls"
-CMDWC="/usr/bin/wc"
-CMDZIP="/usr/bin/zip"
-CMDRM="/bin/rm"
-CMDTAIL="/usr/bin/tail"
-DATE=$("$CMDDATE" '+%d-%m-%y-a-%Hh%Mm%Ss')
+CMDBACKUP=$(/usr/bin/lsb_release -cs)
+
+if [[ "$CMDBACKUP" == buster ]]; then
+    CMDDATE="/usr/bin/date"
+    CMDMKDIR="/usr/bin/mkdir"
+    CMDCHOWN="/usr/bin/chown"
+    CMDCP="/usr/bin/cp"
+    CMDGREP="/usr/bin/grep"
+    CMDLS="/usr/bin/ls"
+    CMDWC="/usr/bin/wc"
+    CMDZIP="/usr/bin/zip"
+    CMDRM="/usr/bin/rm"
+    CMDTAIL="/usr/bin/tail"
+    DATE=$("$CMDDATE" '+%d-%m-%y-a-%Hh%Mm%Ss')
+
+elif [[ "$CMDBACKUP" == stretch ]]; then
+    CMDDATE="/bin/date"
+    CMDMKDIR="/bin/mkdir"
+    CMDCHOWN="/bin/chown"
+    CMDCP="/bin/cp"
+    CMDGREP="/bin/grep"
+    CMDLS="/bin/ls"
+    CMDWC="/usr/bin/wc"
+    CMDZIP="/usr/bin/zip"
+    CMDRM="/bin/rm"
+    CMDTAIL="/usr/bin/tail"
+    DATE=$("$CMDDATE" '+%d-%m-%y-a-%Hh%Mm%Ss')
+fi
 
 # fonction backup : exige un paramètre -> nom du user
 FONCBACKUP () {

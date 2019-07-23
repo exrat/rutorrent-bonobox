@@ -7,27 +7,27 @@
 
 # contrôle installation
 if [ ! -f "$RUTORRENT"/"$HISTOLOG".log ]; then
-	echo ""; set "220"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"
-	set "222"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"; echo ""
+	"$CMDECHO" ""; set "220"; FONCTXT "$1"; "$CMDECHO" -e "${CRED}$TXT1${CEND}"
+	set "222"; FONCTXT "$1"; "$CMDECHO" -e "${CRED}$TXT1${CEND}"; "$CMDECHO" ""
 	exit 1
 fi
 
 # message d'accueil
-clear
-echo ""; set "224"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
+"$CMDCLEAR"
+"$CMDECHO" ""; set "224"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}"; "$CMDECHO" ""
 # shellcheck source=/dev/null
 . "$INCLUDES"/logo.sh
 
 # mise en garde
-echo ""; set "226"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"
-set "228"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"
-set "230"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"
-echo ""; set "232"; FONCTXT "$1"; echo -n -e "${CGREEN}$TXT1 ${CEND}"
+"$CMDECHO" ""; set "226"; FONCTXT "$1"; "$CMDECHO" -e "${CRED}$TXT1${CEND}"
+set "228"; FONCTXT "$1"; "$CMDECHO" -e "${CRED}$TXT1${CEND}"
+set "230"; FONCTXT "$1"; "$CMDECHO" -e "${CRED}$TXT1${CEND}"
+"$CMDECHO" ""; set "232"; FONCTXT "$1"; "$CMDECHO" -n -e "${CGREEN}$TXT1 ${CEND}"
 read -r VALIDE
 
 if FONCNO "$VALIDE"; then
-	echo ""; set "210"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"
-	echo -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}"; echo ""
+	"$CMDECHO" ""; set "210"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}"
+	"$CMDECHO" -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}"; "$CMDECHO" ""
 	exit 1
 fi
 
@@ -35,19 +35,19 @@ if FONCYES "$VALIDE"; then
 	# boucle ajout/suppression utilisateur
 	while :; do
 		# menu gestion multi-utilisateurs
-		echo ""; set "234"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"
-		set "236" "248"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "238" "254"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "240" "256"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "242" "296"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "244" "258"; FONCTXT "$1" "$2"; echo -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
-		set "260"; FONCTXT "$1"; echo -n -e "${CBLUE}$TXT1 ${CEND}"
+		"$CMDECHO" ""; set "234"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}"
+		set "236" "248"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "238" "254"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "240" "256"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "242" "296"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "244" "258"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CYELLOW}$TXT1${CEND} ${CGREEN}$TXT2${CEND}"
+		set "260"; FONCTXT "$1"; "$CMDECHO" -n -e "${CBLUE}$TXT1 ${CEND}"
 		read -r OPTION
 
 		case $OPTION in
 			1) # ajout utilisateur
 				FONCUSER # demande nom user
-				echo ""
+				"$CMDECHO" ""
 				FONCPASS # demande mot de passe
 
 				# récupération 5% root sur /home/user si présent
@@ -57,22 +57,22 @@ if FONCYES "$VALIDE"; then
 				PASSNGINX=${USERPWD}
 
 				# ajout utilisateur
-				/usr/sbin/useradd -M -s /bin/bash "$USER"
+				"$CMDUSERADD" -M -s /bin/bash "$USER"
 
 				# création mot de passe utilisateur
-				echo "${USER}:${USERPWD}" | /usr/sbin/chpasswd
+				"$CMDECHO" "${USER}:${USERPWD}" | "$CMDCHPASSWD"
 
 				# anti-bug /home/user déjà existant
-				mkdir -p /home/"$USER"
-				chown -R "$USER":"$USER" /home/"$USER"
+				"$CMDMKDIR" -p /home/"$USER"
+				"$CMDCHOWN" -R "$USER":"$USER" /home/"$USER"
 
 				# variable utilisateur majuscule
-				USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
+				USERMAJ=$("$CMDECHO" "$USER" | "$CMDTR" "[:lower:]" "[:upper:]")
 
 				# récupération ip serveur
 				FONCIP
 
-				su "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session ~/.backup-session'
+				"$CMDSU" "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session ~/.backup-session'
 
 				# calcul port
 				FONCPORT
@@ -81,7 +81,7 @@ if FONCYES "$VALIDE"; then
 				FONCTORRENTRC "$USER" "$PORT" "$RUTORRENT"
 
 				# configuration user rutorrent.conf
-				sed -i '$d' "$NGINXENABLE"/rutorrent.conf
+				"$CMDSED" -i '$d' "$NGINXENABLE"/rutorrent.conf
 				FONCRTCONF "$USERMAJ"  "$PORT" "$USER"
 
 				# configuration script backup .session (rétro-compatibilité)
@@ -90,11 +90,11 @@ if FONCYES "$VALIDE"; then
 				fi
 
 				# config.php
-				mkdir "$RUCONFUSER"/"$USER"
+				"$CMDMKDIR" "$RUCONFUSER"/"$USER"
 				FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 				# plugins.ini
-				cp -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
+				"$CMDCP" -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
 
 				# configuration autodl-irssi
 				if [ -f "/etc/irssi.conf" ]; then
@@ -102,7 +102,7 @@ if FONCYES "$VALIDE"; then
 				fi
 
 				# chroot user supplémentaire
-				cat <<- EOF >> /etc/ssh/sshd_config
+				"$CMDCAT" <<- EOF >> /etc/ssh/sshd_config
 					Match User $USER
 					ChrootDirectory /home/$USER
 				EOF
@@ -110,10 +110,10 @@ if FONCYES "$VALIDE"; then
 				FONCSERVICE restart ssh
 
 				# permissions
-				chown -R "$WDATA" "$RUTORRENT"
-				chown -R "$USER":"$USER" /home/"$USER"
-				chown root:"$USER" /home/"$USER"
-				chmod 755 /home/"$USER"
+				"$CMDCHOWN" -R "$WDATA" "$RUTORRENT"
+				"$CMDCHOWN" -R "$USER":"$USER" /home/"$USER"
+				"$CMDCHOWN" root:"$USER" /home/"$USER"
+				"$CMDCHMOD" 755 /home/"$USER"
 
 				# script rtorrent
 				FONCSCRIPTRT "$USER"
@@ -128,119 +128,120 @@ if FONCYES "$VALIDE"; then
 				fi
 
 				# log users
-				echo "userlog">> "$RUTORRENT"/"$HISTOLOG".log
-				sed -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/"$HISTOLOG".log
+				"$CMDECHO" "userlog">> "$RUTORRENT"/"$HISTOLOG".log
+				"$CMDSED" -i "s/userlog/$USER:$PORT/g;" "$RUTORRENT"/"$HISTOLOG".log
 				FONCSERVICE restart nginx
-				echo ""; set "218"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
-				set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
-				set "184"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND}"
-				set "186"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
-				set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
+				"$CMDECHO" ""; set "218"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}"; "$CMDECHO" ""
+				set "182"; FONCTXT "$1"; "$CMDECHO" -e "${CGREEN}$TXT1${CEND}"
+				set "184"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND}"
+				set "186"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
+				set "188"; FONCTXT "$1"; "$CMDECHO" -e "${CGREEN}$TXT1${CEND}"; "$CMDECHO" ""
 			;;
 
 			2) # modification mot de passe utilisateur
-				echo ""; set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
+				"$CMDECHO" ""; set "214"; FONCTXT "$1"; "$CMDECHO" -e "${CGREEN}$TXT1 ${CEND}"
 				read -r USER
-				echo ""; FONCPASS
+				"$CMDECHO" ""; FONCPASS
 
-				echo ""; set "276"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
+				"$CMDECHO" ""; set "276"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}"; "$CMDECHO" ""
 
 				# variable passe nginx
 				PASSNGINX=${USERPWD}
 
 				# modification du mot de passe
-				echo "${USER}:${USERPWD}" | /usr/sbin/chpasswd
+				"$CMDECHO" "${USER}:${USERPWD}" | "$CMDCHPASSWD"
 
 				# htpasswd
 				FONCHTPASSWD "$USER"
 
-				echo ""; set "278" "280"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
-				echo
-				set "182"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"
-				set "184"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND}"
-				set "186"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
-				set "188"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1${CEND}"; echo ""
+				"$CMDECHO" ""; set "278" "280"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
+				"$CMDECHO"
+				set "182"; FONCTXT "$1"; "$CMDECHO" -e "${CGREEN}$TXT1${CEND}"
+				set "184"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND}"
+				set "186"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND} ${CYELLOW}${PASSNGINX}${CEND}"
+				set "188"; FONCTXT "$1"; "$CMDECHO" -e "${CGREEN}$TXT1${CEND}"; "$CMDECHO" ""
 			;;
 
 			3) # suppression utilisateur
-				echo ""; set "214"; FONCTXT "$1"; echo -e "${CGREEN}$TXT1 ${CEND}"
+				"$CMDECHO" ""; set "214"; FONCTXT "$1"; "$CMDECHO" -e "${CGREEN}$TXT1 ${CEND}"
 				read -r USER
-				echo ""; set "282" "284"; FONCTXT "$1" "$2"; echo -n -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CGREEN}$TXT2 ${CEND}"
+				"$CMDECHO" ""; set "282" "284"; FONCTXT "$1" "$2"; "$CMDECHO" -n -e "${CGREEN}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CGREEN}$TXT2 ${CEND}"
 				read -r SUPPR
 
 				if FONCNO "$SUPPR"; then
-					echo
+					"$CMDECHO"
 				else
-					set "286"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"; echo ""
+					set "286"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}"; "$CMDECHO" ""
 
 					# variable utilisateur majuscule
-					USERMAJ=$(echo "$USER" | tr "[:lower:]" "[:upper:]")
+					USERMAJ=$("$CMDECHO" "$USER" | "$CMDTR" "[:lower:]" "[:upper:]")
 
 					# stop utilisateur
 					FONCSERVICE stop "$USER"-rtorrent
 					if [ -f "/etc/irssi.conf" ]; then
 						FONCSERVICE stop "$USER"-irssi
 					fi
-					killall --user "$USER" rtorrent
-					killall --user "$USER" screen
+
+					# arrêt user
+					"$CMDPKILL" -u "$USER"
 
 					# suppression script
 					if [ -f "/etc/irssi.conf" ]; then
-						rm /etc/init.d/"$USER"-irssi
-						update-rc.d "$USER"-irssi remove
+						"$CMDRM" /etc/init.d/"$USER"-irssi
+						"$CMDUPDATERC" "$USER"-irssi remove
 					fi
-					rm /etc/init.d/"$USER"-rtorrent
-					update-rc.d "$USER"-rtorrent remove
+					"$CMDRM" /etc/init.d/"$USER"-rtorrent
+					"$CMDUPDATERC" "$USER"-rtorrent remove
 
 					# suppression configuration rutorrent
-					rm -R "${RUCONFUSER:?}"/"$USER"
-					rm -R "${RUTORRENT:?}"/share/users/"$USER"
+					"$CMDRM" -R "${RUCONFUSER:?}"/"$USER"
+					"$CMDRM" -R "${RUTORRENT:?}"/share/users/"$USER"
 
 					# suppression mot de passe
-					sed -i "/^$USER/d" "$NGINXPASS"/rutorrent_passwd
-					rm "$NGINXPASS"/rutorrent_passwd_"$USER"
+					"$CMDSED" -i "/^$USER/d" "$NGINXPASS"/rutorrent_passwd
+					"$CMDRM" "$NGINXPASS"/rutorrent_passwd_"$USER"
 
 					# suppression nginx
-					sed -i '/location \/'"$USERMAJ"'/,/}/d' "$NGINXENABLE"/rutorrent.conf
+					"$CMDSED" -i '/location \/'"$USERMAJ"'/,/}/d' "$NGINXENABLE"/rutorrent.conf
 					FONCSERVICE restart nginx
 
 					# suppression backup .session
-					sed -i "/FONCBACKUP $USER/d" "$SCRIPT"/backup-session.sh
+					"$CMDSED" -i "/FONCBACKUP $USER/d" "$SCRIPT"/backup-session.sh
 
 					# suppression utilisateur
-					deluser "$USER" --remove-home
-
-					echo ""; set "264" "288"; FONCTXT "$1" "$2"; echo -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
+					"$CMDDELUSER" "$USER" --remove-home
+					cd "$BONOBOX"
+					"$CMDECHO" ""; set "264" "288"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND} ${CYELLOW}$USER${CEND} ${CBLUE}$TXT2${CEND}"
 				fi
 			;;
 
 			4) # debug
-				chmod a+x "$FILES"/scripts/check-rtorrent.sh
-				bash "$FILES"/scripts/check-rtorrent.sh
+				"$CMDCHMOD" a+x "$FILES"/scripts/check-rtorrent.sh
+				"$CMDBASH" "$FILES"/scripts/check-rtorrent.sh
 			;;
 
 			5) # sortir gestion utilisateurs
-				echo ""; set "290"; FONCTXT "$1"; echo -n -e "${CGREEN}$TXT1 ${CEND}"
+				"$CMDECHO" ""; set "290"; FONCTXT "$1"; "$CMDECHO" -n -e "${CGREEN}$TXT1 ${CEND}"
 				read -r REBOOT
 
 				if FONCNO "$REBOOT"; then
 					FONCSERVICE restart nginx &> /dev/null
-					echo ""; set "200"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"
-					echo ""; set "210"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"
-					echo -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}"; echo ""
+					"$CMDECHO" ""; set "200"; FONCTXT "$1"; "$CMDECHO" -e "${CRED}$TXT1${CEND}"
+					"$CMDECHO" ""; set "210"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}"
+					"$CMDECHO" -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}"; "$CMDECHO" ""
 					exit 1
 				fi
 
 				if FONCYES "$REBOOT"; then
-					echo ""; set "210"; FONCTXT "$1"; echo -e "${CBLUE}$TXT1${CEND}"
-					echo -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}"; echo ""
-					reboot
+					"$CMDECHO" ""; set "210"; FONCTXT "$1"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}"
+					"$CMDECHO" -e "${CBLUE}                          Ex_Rat - http://mondedie.fr${CEND}"; "$CMDECHO" ""
+					"$CMDSYSTEMCTL" reboot
 				fi
 				break
 			;;
 
 			*) # fail
-				set "292"; FONCTXT "$1"; echo -e "${CRED}$TXT1${CEND}"
+				set "292"; FONCTXT "$1"; "$CMDECHO" -e "${CRED}$TXT1${CEND}"
 			;;
 		esac
 	done
