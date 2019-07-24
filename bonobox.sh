@@ -158,69 +158,68 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	"$CMDECHO" ""; set "132" "134"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; "$CMDECHO" ""
 
 	"$CMDAPTGET" install -y \
-		htop \
-		openssl \
-		apt-utils \
-		python \
-		build-essential \
-		libssl-dev \
-		pkg-config \
-		automake \
-		libcppunit-dev \
-		libtool \
-		whois \
-		libcurl4-openssl-dev \
-		libsigc++-2.0-dev \
-		libncurses5-dev \
-		vim \
-		nano \
-		ccze \
-		screen \
-		subversion \
 		apache2-utils \
-		curl \
-		"$PHPNAME" \
-		"$PHPNAME"-cli \
-		"$PHPNAME"-fpm \
-		"$PHPNAME"-curl \
-		"$PHPNAME"-geoip \
-		"$PHPNAME"-json \
-		unrar \
-		rar \
-		zip \
-		mktorrent \
-		fail2ban \
-		ntp \
-		ntpdate \
-		ffmpeg \
+		apt-utils \
 		aptitude \
+		automake \
+		build-essential \
+		ccze \
+		curl \
 		dnsutils \
+		fail2ban \
+		ffmpeg \
+		gawk \
+		htop \
 		irssi \
 		libarchive-zip-perl \
+		libcppunit-dev \
+		libncurses5-dev \
+		libcurl4-openssl-dev \
 		libjson-perl \
 		libjson-xs-perl \
-		libxml-libxslt-perl \
-		libwww-perl \
-		nginx \
 		libmms0 \
-		pastebinit \
-		sox \
-		libsox-fmt-mp3 \
-		zlib1g-dev \
-		gawk \
 		libncursesw5-dev \
-		psmisc \
-		python-pip \
-		"$PHPNAME"-xml \
-		"$PHPNAME"-mbstring \
-		"$PHPNAME"-readline \
-		"$PHPNAME"-opcache \
-		"$PHPNAME"-common \
-		"$PHPNAME"-zip \
-		zlib1g-dev \
-		unzip \
+		libsigc++-2.0-dev \
 		libsox-fmt-all \
-		mediainfo
+		libsox-fmt-mp3 \
+		libssl-dev \
+		libtool \
+		libwww-perl \
+		mediainfo \
+		mktorrent \
+		nano \
+		nginx \
+		ntp \
+		ntpdate \
+		openssl \
+		pastebinit \
+		"$PHPNAME" \
+		"$PHPNAME"-cli \
+		"$PHPNAME"-common \
+		"$PHPNAME"-curl \
+		"$PHPNAME"-fpm \
+		"$PHPNAME"-geoip \
+		"$PHPNAME"-json \
+		"$PHPNAME"-mbstring \
+		"$PHPNAME"-opcache \
+		"$PHPNAME"-readline \
+		"$PHPNAME"-xml \
+		"$PHPNAME"-zip \
+		pkg-config \
+		psmisc \
+		pv \
+		python \
+		python-pip \
+		rar \
+		screen \
+		sox \
+		subversion \
+		unrar \
+		unzip \
+		vim \
+		whois \
+		zip \
+		zlib1g-dev
 
 		if [[ "$VERSION" = 9.* ]]; then
 			"$CMDAPTGET" install -y \
@@ -283,7 +282,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# installation xmlrpc libtorrent rtorrent
 	cd /tmp || exit
-	"$CMDGIT" clone https://github.com/mirror/xmlrpc-c.git
+	"$CMDGIT" clone --progress https://github.com/mirror/xmlrpc-c.git
 
 	cd xmlrpc-c/stable || exit
 	./configure #--disable-cplusplus
@@ -293,8 +292,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# clone rtorrent et libtorrent
 	cd /tmp || exit
-	"$CMDGIT" clone https://github.com/rakshasa/libtorrent.git
-	"$CMDGIT" clone https://github.com/rakshasa/rtorrent.git
+	"$CMDGIT" clone --progress https://github.com/rakshasa/libtorrent.git
+	"$CMDGIT" clone --progress https://github.com/rakshasa/rtorrent.git
 
 	# compilation libtorrent
 	cd libtorrent || exit
@@ -333,12 +332,12 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	"$CMDCP" -R "$BONOBOX"/base "$NGINXBASE"
 
 	# téléchargement et déplacement de rutorrent
-	"$CMDGIT" clone https://github.com/Novik/ruTorrent.git "$RUTORRENT"
+	"$CMDGIT" clone --progress https://github.com/Novik/ruTorrent.git "$RUTORRENT"
 	"$CMDECHO" ""; set "146" "134"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; "$CMDECHO" ""
 
 	# installation des plugins - thank Micdu70 ;)
 	cd /tmp || exit
-	"$CMDGIT" clone https://github.com/exrat/rutorrent-plugins-pack
+	"$CMDGIT" clone --progress https://github.com/exrat/rutorrent-plugins-pack
 
 	for PLUGINS in 'addzip' 'autodl-irssi' 'chat' 'filemanager' 'fileshare' 'geoip2' 'lbll-suite' 'logoff' 'nfo' 'pausewebui'  'ratiocolor' 'titlebar' 'trackerstatus'; do
 		"$CMDCP" -R /tmp/rutorrent-plugins-pack/"$PLUGINS" "$RUPLUGINS"/
@@ -405,7 +404,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	"$CMDRM" -R "${RUPLUGINS:?}"/theme/themes/Blue
 	"$CMDCP" -R "$BONOBOX"/theme/ru/Blue "$RUPLUGINS"/theme/themes/Blue
 	"$CMDCP" -R "$BONOBOX"/theme/ru/SpiritOfBonobo "$RUPLUGINS"/theme/themes/SpiritOfBonobo
-	"$CMDGIT" clone https://github.com/themightykitten/ruTorrent-MaterialDesign.git "$RUPLUGINS"/theme/themes/MaterialDesign
+	"$CMDGIT" clone --progress https://github.com/themightykitten/ruTorrent-MaterialDesign.git "$RUPLUGINS"/theme/themes/MaterialDesign
 
 	# configuration thème
 	"$CMDSED" -i "s/defaultTheme = \"\"/defaultTheme = \"SpiritOfBonobo\"/g;" "$RUPLUGINS"/theme/conf.php
@@ -649,7 +648,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 			CLEANPASS="$("$CMDGREP" 182 "$BONOBOX"/lang/"$GENLANG".lang | "$CMDCUT" -c5- | "$CMDSED" "s/.$//")"
 			"$CMDSED" -i "/$CLEANPASS/,+4d" /tmp/install.log
 			"$CMDCP" -f /tmp/install.log "$RUTORRENT"/install.log
-			"$CMDCCZE" -h < "$RUTORRENT"/install.log > "$RUTORRENT"/install.html
+			"$CMDPV" -f "$RUTORRENT"/install.log | "$CMDCCZE" -h > "$RUTORRENT"/install.html
 			"$CMDTRUE" > /var/log/nginx/rutorrent-error.log
 			if [ -z "$ARGREBOOT" ]; then
 				"$CMDECHO" ""; set "194"; FONCTXT "$1"; "$CMDECHO" -n -e "${CGREEN}$TXT1 ${CEND}"

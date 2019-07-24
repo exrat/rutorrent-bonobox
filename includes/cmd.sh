@@ -47,6 +47,7 @@ if [[ "$CMDPATH" == buster ]]; then
 	CMDPIP="/usr/bin/pip"
 	CMDPKILL="/usr/bin/pkill"
 	CMDPS="/usr/bin/ps" #
+	CMDPV="/usr/bin/pv"
 	CMDRM="/usr/bin/rm" #
 	CMDRTORRENT="/usr/local/bin/rtorrent"
 	CMDSED="/usr/bin/sed" #
@@ -113,6 +114,7 @@ elif [[ "$CMDPATH" == stretch ]]; then
 	CMDPIP="/usr/bin/pip"
 	CMDPKILL="/usr/bin/pkill"
 	CMDPS="/bin/ps" #
+	CMDPV="/usr/bin/pv"
 	CMDRM="/bin/rm" #
 	CMDRTORRENT="/usr/local/bin/rtorrent"
 	CMDSED="/bin/sed" #
