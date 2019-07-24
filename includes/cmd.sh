@@ -8,6 +8,7 @@ if [[ "$CMDPATH" == buster ]]; then
 	CMDAPTKEY="/usr/bin/apt-key"
 	CMDAWK="/usr/bin/awk"
 	CMDBASH="/usr/bin/bash" #
+	CMDBZIP2="/usr/bin/bzip2" #
 	CMDCAT="/usr/bin/cat" #
 	CMDCCZE="/usr/bin/ccze"
 	CMDCHMOD="/usr/bin/chmod" #
@@ -25,6 +26,7 @@ if [[ "$CMDPATH" == buster ]]; then
 	CMDGETOPT="/usr/bin/getopt"
 	CMDGIT="/usr/bin/git"
 	CMDGREP="/usr/bin/grep" #
+	CMDGZIP="/usr/bin/gzip" #
 	CMDHEAD="/usr/bin/head"
 	CMDHTPASSWD="/usr/bin/htpasswd"
 	CMDID="/usr/bin/id"
@@ -48,6 +50,7 @@ if [[ "$CMDPATH" == buster ]]; then
 	CMDPKILL="/usr/bin/pkill"
 	CMDPS="/usr/bin/ps" #
 	CMDPV="/usr/bin/pv"
+	CMDRAR="/usr/bin/rar"
 	CMDRM="/usr/bin/rm" #
 	CMDRTORRENT="/usr/local/bin/rtorrent"
 	CMDSED="/usr/bin/sed" #
@@ -75,6 +78,7 @@ elif [[ "$CMDPATH" == stretch ]]; then
 	CMDAPTKEY="/usr/bin/apt-key"
 	CMDAWK="/usr/bin/awk"
 	CMDBASH="/bin/bash" #
+	CMDBZIP2="/bin/bzip2" #
 	CMDCAT="/bin/cat" #
 	CMDCCZE="/usr/bin/ccze"
 	CMDCHMOD="/bin/chmod" #
@@ -92,6 +96,7 @@ elif [[ "$CMDPATH" == stretch ]]; then
 	CMDGETOPT="/usr/bin/getopt"
 	CMDGIT="/usr/bin/git"
 	CMDGREP="/bin/grep" #
+	CMDGZIP="/bin/gzip" #
 	CMDHEAD="/usr/bin/head"
 	CMDHTPASSWD="/usr/bin/htpasswd"
 	CMDID="/usr/bin/id"
@@ -115,6 +120,7 @@ elif [[ "$CMDPATH" == stretch ]]; then
 	CMDPKILL="/usr/bin/pkill"
 	CMDPS="/bin/ps" #
 	CMDPV="/usr/bin/pv"
+	CMDRAR="/usr/bin/rar"
 	CMDRM="/bin/rm" #
 	CMDRTORRENT="/usr/local/bin/rtorrent"
 	CMDSED="/bin/sed" #

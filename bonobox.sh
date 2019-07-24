@@ -355,6 +355,12 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# configuration filemanager
 	"$CMDCP" -f "$FILES"/rutorrent/filemanager.conf "$RUPLUGINS"/filemanager/conf.php
+	"$CMDSED" -i "s|@RAR@|$CMDRAR|g;" "$RUPLUGINS"/filemanager/conf.php
+	"$CMDSED" -i "s|@ZIP@|$CMDZIP|g;" "$RUPLUGINS"/filemanager/conf.php
+	"$CMDSED" -i "s|@UNZIP@|$CMDUNZIP|g;" "$RUPLUGINS"/filemanager/conf.php
+	"$CMDSED" -i "s|@TAR@|$CMDTAR|g;" "$RUPLUGINS"/filemanager/conf.php
+	"$CMDSED" -i "s|@GZIP@|$CMDGZIP|g;" "$RUPLUGINS"/filemanager/conf.php
+	"$CMDSED" -i "s|@BZIP2@|$CMDBZIP2|g;" "$RUPLUGINS"/filemanager/conf.php
 
 	# configuration fileshare
 	"$CMDCP" -f "$FILES"/rutorrent/fileshare.conf "$RUPLUGINS"/fileshare/conf.php
