@@ -367,7 +367,7 @@ FONCARG () {
 #	"$CMDWGET" http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/"$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
 #	"$CMDWGET" http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
 #
-#	dpkg -i "$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
-#	dpkg -i "$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
-#	dpkg -i mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
+#	"$CMDDPKG" -i "$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
+#	"$CMDDPKG" -i "$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
+#	"$CMDDPKG" -i mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
 #}

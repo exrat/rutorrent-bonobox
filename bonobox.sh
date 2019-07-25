@@ -173,11 +173,11 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		irssi \
 		libarchive-zip-perl \
 		libcppunit-dev \
-		libncurses5-dev \
 		libcurl4-openssl-dev \
 		libjson-perl \
 		libjson-xs-perl \
 		libmms0 \
+		libncurses5-dev \
 		libncursesw5-dev \
 		libsigc++-2.0-dev \
 		libsox-fmt-all \

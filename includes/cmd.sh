@@ -22,6 +22,7 @@ if [[ "$CMDPATH" == buster ]]; then
 	CMDDATE="/usr/bin/date" #
 	CMDDELUSER="/usr/sbin/deluser"
 	CMDDF="/usr/bin/df" #
+	CMDDPKG="/usr/bin/dpkg"
 	CMDECHO="/usr/bin/echo" #
 	CMDGETOPT="/usr/bin/getopt"
 	CMDGIT="/usr/bin/git"
@@ -92,6 +93,7 @@ elif [[ "$CMDPATH" == stretch ]]; then
 	CMDDATE="/bin/date" #
 	CMDDELUSER="/usr/sbin/deluser"
 	CMDDF="/bin/df" #
+	CMDDPKG="/usr/bin/dpkg"
 	CMDECHO="/bin/echo" #
 	CMDGETOPT="/usr/bin/getopt"
 	CMDGIT="/usr/bin/git"
