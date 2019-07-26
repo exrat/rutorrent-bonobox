@@ -198,13 +198,13 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		"$PHPNAME"-common \
 		"$PHPNAME"-curl \
 		"$PHPNAME"-fpm \
-		"$PHPNAME"-geoip \
 		"$PHPNAME"-json \
 		"$PHPNAME"-mbstring \
 		"$PHPNAME"-opcache \
 		"$PHPNAME"-readline \
 		"$PHPNAME"-xml \
 		"$PHPNAME"-zip \
+		php-geoip \
 		pkg-config \
 		psmisc \
 		pv \
@@ -298,13 +298,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	# compilation libtorrent
 	cd libtorrent || exit
 	"$CMDGIT" checkout "$LIBTORRENT"
-	# git cherry-pick 7b29b6b
-
-	# if [[ $("$CMDECHO" "$VERSION" "9" | awk '{print ($1 >= $2)}') == 1 ]]; then
-		# cp -f "$FILES"/rutorrent/configure.ac /tmp/libtorrent/configure.ac
-		# cp -f "$FILES"/rutorrent/diffie_hellman.cc /tmp/libtorrent/src/utils/diffie_hellman.cc
-	# fi
-
 	./autogen.sh
 	./configure --disable-debug
 	"$CMDMAKE" -j "$THREAD"
@@ -523,8 +516,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	"$CMDCRONTAB" -l > rtorrentdem
 
 	"$CMDCAT" <<- EOF >> rtorrentdem
-		$UPGEOIP 2 9 * * sh $SCRIPT/updateGeoIP.sh > /dev/null 2>&1
-		0 5 * * * sh $SCRIPT/backup-session.sh > /dev/null 2>&1
+		$UPGEOIP 2 9 * * $CMDBASH $SCRIPT/updateGeoIP.sh > /dev/null 2>&1
+		0 5 * * * $CMDBASH $SCRIPT/backup-session.sh > /dev/null 2>&1
 	EOF
 
 	"$CMDCRONTAB" rtorrentdem
@@ -721,7 +714,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 			USERMAJ=$("$CMDECHO" "$USER" | "$CMDTR" "[:lower:]" "[:upper:]")
 
 			# création de dossier
-			"$CMDSU" "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session ~/.backup-session'
+			"$CMDSU" "$USER" -c ""$CMDMKDIR" -p ~/watch ~/torrents ~/.session ~/.backup-session"
 
 			# calcul port
 			FONCPORT

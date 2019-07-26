@@ -71,8 +71,7 @@ if FONCYES "$VALIDE"; then
 
 				# récupération ip serveur
 				FONCIP
-
-				"$CMDSU" "$USER" -c 'mkdir -p ~/watch ~/torrents ~/.session ~/.backup-session'
+				"$CMDSU" "$USER" -c ""$CMDMKDIR" -p ~/watch ~/torrents ~/.session ~/.backup-session"
 
 				# calcul port
 				FONCPORT
