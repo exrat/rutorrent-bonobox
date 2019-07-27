@@ -71,6 +71,7 @@ if [[ "$CMDPATH" == buster ]]; then
 	CMDUSERADD="/usr/sbin/useradd"
 	CMDWC="/usr/bin/wc"
 	CMDWGET="/usr/bin/wget"
+	CMDXARGS="/usr/bin/xargs"
 	CMDZIP="/usr/bin/zip"
 
 elif [[ "$CMDPATH" == stretch ]]; then
@@ -142,5 +143,6 @@ elif [[ "$CMDPATH" == stretch ]]; then
 	CMDUSERADD="/usr/sbin/useradd"
 	CMDWC="/usr/bin/wc"
 	CMDWGET="/usr/bin/wget"
+	CMDXARGS="/usr/bin/xargs"
 	CMDZIP="/usr/bin/zip"
 fi

@@ -35,7 +35,6 @@ FONCDEP () {
 	"$CMDWGET" http://mediaarea.net/repo/deb/debian/pubkey.gpg -O mediainfo.gpg && "$CMDAPTKEY" add mediainfo.gpg 2>/dev/null
 
 	"$CMDAPTGET" update -oAcquire::AllowInsecureRepositories=true && "$CMDAPTGET" install -y --allow-unauthenticated deb-multimedia-keyring
-	#"$CMDAPTGET" update && "$CMDAPTGET" install -y --allow-unauthenticated deb-multimedia-keyring
 }
 
 # dépôts standard
