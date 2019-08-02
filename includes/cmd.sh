@@ -46,7 +46,7 @@ if [[ "$CMDPATH" == buster ]]; then
 	CMDOPENSSL="/usr/bin/openssl"
 	CMDPASTEBINIT="/usr/bin/pastebinit"
 	CMDPGREP="/usr/bin/pgrep"
-	CMDPHP="/bin/php"
+	CMDPHP="/usr/bin/php"
 	CMDPIP="/usr/bin/pip"
 	CMDPKILL="/usr/bin/pkill"
 	CMDPS="/bin/ps" #
