@@ -74,7 +74,8 @@ if [[ "$CMDPATH" == buster ]]; then
 	CMDXARGS="/usr/bin/xargs"
 	CMDZIP="/usr/bin/zip"
 
-elif [[ "$CMDPATH" == stretch ]]; then
+# Youre distribution can be upgrated to buster but still have the program runing in /bin
+elif [ "$CMDPATH" == stretch ]  || [ ! -f "/usr/bin/bash" ]; then
 	# variables cmd stretch
 	CMDAPTGET="/usr/bin/apt-get"
 	CMDAPTKEY="/usr/bin/apt-key"
