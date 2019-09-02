@@ -22,7 +22,7 @@ Merci aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam, Hie
 Multilingue automatique
 ```
 apt-get update && apt-get upgrade -y
-apt-get install git-core -y
+apt-get install git lsb-release -y
 
 cd /tmp
 git clone https://github.com/exrat/rutorrent-bonobox
