@@ -341,10 +341,10 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	"$CMDPIP" install cloudscraper
 
 	# configuration geoip2
-	"$CMDWGET" https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
-	"$CMDTAR" xzfv GeoLite2-City.tar.gz
-	cd /tmp/GeoLite2-City_* || exit
-	"$CMDMV" GeoLite2-City.mmdb "$RUPLUGINS"/geoip2/database/GeoLite2-City.mmdb
+	#"$CMDWGET" https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+	#"$CMDTAR" xzfv GeoLite2-City.tar.gz
+	#cd /tmp/GeoLite2-City_* || exit
+	#"$CMDMV" GeoLite2-City.mmdb "$RUPLUGINS"/geoip2/database/GeoLite2-City.mmdb
 
 	# configuration filemanager
 	"$CMDCP" -f "$FILES"/rutorrent/filemanager.conf "$RUPLUGINS"/filemanager/conf.php
@@ -516,7 +516,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	"$CMDCRONTAB" -l > rtorrentdem
 
 	"$CMDCAT" <<- EOF >> rtorrentdem
-		$UPGEOIP 2 9 * * $CMDBASH $SCRIPT/updateGeoIP.sh > /dev/null 2>&1
+		#$UPGEOIP 2 9 * * $CMDBASH $SCRIPT/updateGeoIP.sh > /dev/null 2>&1
 		0 5 * * * $CMDBASH $SCRIPT/backup-session.sh > /dev/null 2>&1
 	EOF
 
