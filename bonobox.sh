@@ -170,7 +170,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		ffmpeg \
 		gawk \
 		htop \
-		irssi \
 		libarchive-zip-perl \
 		libcppunit-dev \
 		libcurl4-openssl-dev \
@@ -332,7 +331,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	cd /tmp || exit
 	"$CMDGIT" clone --progress https://github.com/exrat/rutorrent-plugins-pack
 
-	for PLUGINS in 'addzip' 'autodl-irssi' 'chat' 'filemanager' 'fileshare' 'geoip2' 'lbll-suite' 'logoff' 'nfo' 'pausewebui'  'ratiocolor' 'titlebar' 'trackerstatus'; do
+	for PLUGINS in 'addzip' 'chat' 'filemanager' 'fileshare' 'geoip2' 'lbll-suite' 'logoff' 'nfo' 'pausewebui' 'ratiocolor' 'titlebar' 'trackerstatus'; do
 		"$CMDCP" -R /tmp/rutorrent-plugins-pack/"$PLUGINS" "$RUPLUGINS"/
 	done
 
@@ -377,14 +376,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# configuration logoff
 	"$CMDSED" -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
-
-	# configuration autodl-irssi
-	cd "$RUPLUGINS" || exit
-	"$CMDCP" -f autodl-irssi/_conf.php autodl-irssi/conf.php
-	"$CMDCP" -f autodl-irssi/css/oblivion.min.css autodl-irssi/css/spiritofbonobo.min.css
-	"$CMDCP" -f autodl-irssi/css/oblivion.min.css.map autodl-irssi/css/spiritofbonobo.min.css.map
-	"$CMDTOUCH" autodl-irssi/css/materialdesign.min.css
-	FONCIRSSI "$USER" "$PORT" "$USERPWD"
 
 	# installation mediainfo
 	# FONCMEDIAINFO
@@ -517,7 +508,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	# script rtorrent
 	FONCSCRIPTRT "$USER"
 	FONCSERVICE start "$USER"-rtorrent
-	FONCSERVICE start "$USER"-irssi
 
 	# mise en place crontab
 	"$CMDCRONTAB" -l > rtorrentdem
@@ -751,9 +741,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 			# plugins.ini
 			"$CMDCP" -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
 
-			# configuration autodl-irssi
-			FONCIRSSI "$USER" "$PORT" "$USERPWD"
-
 			# permissions
 			"$CMDCHOWN" -R "$WDATA" "$RUTORRENT"
 			"$CMDCHOWN" -R "$USER":"$USER" /home/"$USER"
@@ -763,7 +750,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 			# script rtorrent
 			FONCSCRIPTRT "$USER"
 			FONCSERVICE start "$USER"-rtorrent
-			FONCSERVICE start "$USER"-irssi
 
 			# htpasswd
 			FONCHTPASSWD "$USER"

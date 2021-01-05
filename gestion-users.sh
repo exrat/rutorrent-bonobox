@@ -83,7 +83,7 @@ if FONCYES "$VALIDE"; then
 				"$CMDSED" -i '$d' "$NGINXENABLE"/rutorrent.conf
 				FONCRTCONF "$USERMAJ"  "$PORT" "$USER"
 
-				# configuration script backup .session (rétro-compatibilité)
+				# configuration script backup .session (retro-compatible)
 				if [ -f "$SCRIPT"/backup-session.sh ]; then
 					FONCBAKSESSION
 				fi
@@ -94,11 +94,6 @@ if FONCYES "$VALIDE"; then
 
 				# plugins.ini
 				"$CMDCP" -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
-
-				# configuration autodl-irssi
-				if [ -f "/etc/irssi.conf" ]; then
-					FONCIRSSI "$USER" "$PORT" "$USERPWD"
-				fi
 
 				# chroot user supplémentaire
 				"$CMDCAT" <<- EOF >> /etc/ssh/sshd_config
@@ -122,9 +117,6 @@ if FONCYES "$VALIDE"; then
 
 				# lancement user
 				FONCSERVICE start "$USER"-rtorrent
-				if [ -f "/etc/irssi.conf" ]; then
-					FONCSERVICE start "$USER"-irssi
-				fi
 
 				# log users
 				"$CMDECHO" "userlog">> "$RUTORRENT"/"$HISTOLOG".log
@@ -177,18 +169,21 @@ if FONCYES "$VALIDE"; then
 
 					# stop utilisateur
 					FONCSERVICE stop "$USER"-rtorrent
-					if [ -f "/etc/irssi.conf" ]; then
+
+                    # stop irssi retro-compatible
+					if [ -f "/etc/init.d/"$USER"-irssi" ]; then
 						FONCSERVICE stop "$USER"-irssi
 					fi
 
 					# arrêt user
 					"$CMDPKILL" -u "$USER"
 
-					# suppression script
-					if [ -f "/etc/irssi.conf" ]; then
+					# suppression script irssi retro-compatible
+					if [ -f "/etc/init.d/"$USER"-irssi" ]; then
 						"$CMDRM" /etc/init.d/"$USER"-irssi
 						"$CMDUPDATERC" "$USER"-irssi remove
 					fi
+
 					"$CMDRM" /etc/init.d/"$USER"-rtorrent
 					"$CMDUPDATERC" "$USER"-rtorrent remove
 

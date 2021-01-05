@@ -176,37 +176,6 @@ FONCSCRIPTRT () {
 	"$CMDUPDATERC" "$1"-rtorrent defaults
 }
 
-FONCIRSSI () {
-	IRSSIPORT=1"$2"
-	"$CMDMKDIR" -p /home/"$1"/.irssi/scripts/autorun
-	cd /home/"$1"/.irssi/scripts || exit
-	"$CMDCURL" -sL http://git.io/vlcND | "$CMDGREP" -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | "$CMDXARGS" "$CMDWGET" --quiet -O autodl-irssi.zip
-	"$CMDUNZIP" -o autodl-irssi.zip
-	command "$CMDRM" autodl-irssi.zip
-	"$CMDCP" -f /home/"$1"/.irssi/scripts/autodl-irssi.pl /home/"$1"/.irssi/scripts/autorun
-	"$CMDMKDIR" -p /home/"$1"/.autodl
-
-	"$CMDCAT" <<- EOF > /home/"$1"/.autodl/autodl.cfg
-		[options]
-		gui-server-port = $IRSSIPORT
-		gui-server-password = $3
-	EOF
-
-	"$CMDMKDIR" -p  "$RUCONFUSER"/"$1"/plugins/autodl-irssi
-
-	"$CMDCAT" <<- EOF > "$RUCONFUSER"/"$1"/plugins/autodl-irssi/conf.php
-		<?php
-		\$autodlPort = $IRSSIPORT;
-		\$autodlPassword = "$3";
-		?>
-	EOF
-
-	"$CMDCP" -f "$FILES"/rutorrent/irssi.conf /etc/init.d/"$1"-irssi
-	"$CMDSED" -i "s/@USER@/$1/g;" /etc/init.d/"$1"-irssi
-	"$CMDCHMOD" +x /etc/init.d/"$1"-irssi
-	"$CMDUPDATERC" "$1"-irssi defaults
-}
-
 FONCBAKSESSION () {
 	"$CMDSED" -i '$d' "$SCRIPT"/backup-session.sh
 
