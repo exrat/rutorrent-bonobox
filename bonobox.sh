@@ -500,6 +500,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	FONCRTCONF "$USERMAJ"  "$PORT" "$USER"
 
 	# config.php
+    "$CMDMKDIR" "$RUCONFUSER"/"$USER"
 	FONCPHPCONF "$USER" "$PORT" "$USERMAJ"
 
 	# plugins.ini
