@@ -21,9 +21,9 @@ elif [[ "$VERSION" = 10.* ]]; then
 fi
 
 HISTOLOG="histo-2019"
-PHPNAME="php7.3"
-PHPPATH="/etc/php/7.3"
-PHPSOCK="/run/php/php7.3-fpm.sock"
+PHPNAME="php7.4"
+PHPPATH="/etc/php/7.4"
+PHPSOCK="/run/php/php7.4-fpm.sock"
 #LIBZEN0NAME="libzen0v5"
 #LIBMEDIAINFO0NAME="libmediainfo0v5"
 
