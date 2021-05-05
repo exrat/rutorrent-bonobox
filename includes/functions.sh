@@ -151,7 +151,7 @@ FONCPHPCONF () {
 		    "stat"   => '/usr/bin/stat',
 		    "php"    => '/usr/bin/@PHPNAME@',
 		    "pgrep"  => '/usr/bin/pgrep',
-		    "python" => '/usr/bin/python2.7'
+		    "python" => '/usr/bin/python3'
 		    );
 		\$topDirectory = '/home/$1';
 		\$scgi_port = $2;

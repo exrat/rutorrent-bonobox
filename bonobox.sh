@@ -226,7 +226,9 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 		elif [[ "$VERSION" = 10.* ]]; then
 			"$CMDAPTGET" install -y \
-				libtinyxml2-6a
+				libtinyxml2-6a \
+				python3-venv \
+				python3-pip
 		fi
 
 	"$CMDECHO" ""; set "136" "134"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; "$CMDECHO" ""
@@ -336,8 +338,10 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	done
 
 	# installation cloudscraper pour _cloudflare
-	"$CMDPIP" install setuptools --upgrade
-	"$CMDPIP" install cloudscraper
+	if [[ "$VERSION" = 10.* ]]; then
+		"$CMDPIP" install setuptools --upgrade
+		"$CMDPIP" install cloudscraper
+	fi
 
 	# configuration geoip2
 	cd "$RUPLUGINS"/geoip2/database || exit
@@ -505,6 +509,13 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# plugins.ini
 	"$CMDCP" -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
+
+	if [[ "$VERSION" = 9.* ]]; then
+		"$CMDCAT" <<- EOF >> "$RUCONFUSER"/"$USER"/plugins.ini
+			[_cloudflare]
+			enabled = no
+		EOF
+	fi
 
 	# script rtorrent
 	FONCSCRIPTRT "$USER"
@@ -741,6 +752,12 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 			# plugins.ini
 			"$CMDCP" -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
+				if [[ "$VERSION" = 9.* ]]; then
+					"$CMDCAT" <<- EOF >> "$RUCONFUSER"/"$USER"/plugins.ini
+						[_cloudflare]
+						enabled = no
+					EOF
+				fi
 
 			# permissions
 			"$CMDCHOWN" -R "$WDATA" "$RUTORRENT"

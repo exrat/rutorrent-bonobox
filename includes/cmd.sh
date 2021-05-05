@@ -121,7 +121,7 @@ elif [[ "$CMDPATH" == buster ]]; then
         CMDPASTEBINIT="/usr/bin/pastebinit"
         CMDPGREP="/usr/bin/pgrep"
         CMDPHP="/usr/bin/php"
-        CMDPIP="/usr/bin/pip"
+        CMDPIP="/usr/bin/pip3"
         CMDPKILL="/usr/bin/pkill"
         CMDPS="/usr/bin/ps" #
         CMDPV="/usr/bin/pv"

@@ -94,6 +94,12 @@ if FONCYES "$VALIDE"; then
 
 				# plugins.ini
 				"$CMDCP" -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
+				if [[ "$VERSION" = 9.* ]]; then
+					"$CMDCAT" <<- EOF >> "$RUCONFUSER"/"$USER"/plugins.ini
+						[_cloudflare]
+						enabled = no
+					EOF
+				fi
 
 				# chroot user supplémentaire
 				"$CMDCAT" <<- EOF >> /etc/ssh/sshd_config
