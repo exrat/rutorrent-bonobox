@@ -220,13 +220,15 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		zip \
 		zlib1g-dev
 
-		if [[ "$VERSION" = 9.* ]]; then
+		if [[ "$VERSION" = 10.* ]]; then
 			"$CMDAPTGET" install -y \
-				libtinyxml2-4
+				libtinyxml2-6a \
+				python3-venv \
+				python3-pip
 
 		elif [[ "$VERSION" = 10.* ]]; then
 			"$CMDAPTGET" install -y \
-				libtinyxml2-6a \
+				libtinyxml2-8 \
 				python3-venv \
 				python3-pip
 		fi
