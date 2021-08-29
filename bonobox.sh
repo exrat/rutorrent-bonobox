@@ -339,7 +339,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	done
 
 	# installation cloudscraper pour _cloudflare
-	if [[ "$VERSION" = 10.* ]]; then
+	if [[ "$VERSION" = 11.* ]]; then
 		"$CMDPIP" install setuptools --upgrade
 		"$CMDPIP" install cloudscraper
 	fi
