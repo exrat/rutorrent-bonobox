@@ -11,13 +11,13 @@ CBLUE="${CSI}1;34m"
 ARG="$*"
 VERSION=$("$CMDCAT" /etc/debian_version)
 
-if [[ "$VERSION" = 9.* ]]; then
-	DEBNUMBER="Debian_9.0.deb"
-	DEBNAME="stretch"
-
-elif [[ "$VERSION" = 10.* ]]; then
+if [[ "$VERSION" = 10.* ]]; then
 	DEBNUMBER="Debian_10.0.deb"
 	DEBNAME="buster"
+
+elif [[ "$VERSION" = 11.* ]]; then
+	DEBNUMBER="Debian_11.0.deb"
+	DEBNAME="bullseye"
 fi
 
 HISTOLOG="histo-2019"
