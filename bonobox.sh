@@ -184,6 +184,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		libssl-dev \
 		libtool \
 		libwww-perl \
+		mediainfo \
 		mktorrent \
 		nano \
 		nginx \
