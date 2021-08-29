@@ -207,8 +207,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		pkg-config \
 		psmisc \
 		pv \
-		python \
-		python-pip \
+		python-is-python2 \
+		python3-pip \
 		rar \
 		screen \
 		sox \
@@ -226,7 +226,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 				python3-venv \
 				python3-pip
 
-		elif [[ "$VERSION" = 10.* ]]; then
+		elif [[ "$VERSION" = 11.* ]]; then
 			"$CMDAPTGET" install -y \
 				libtinyxml2-8 \
 				python3-venv \
