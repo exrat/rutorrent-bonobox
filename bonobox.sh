@@ -207,8 +207,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		pkg-config \
 		psmisc \
 		pv \
-		python \
-		python-pip \
+		python-is-python2 \
+		python3-pip \
 		rar \
 		screen \
 		sox \
@@ -220,13 +220,15 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		zip \
 		zlib1g-dev
 
-		if [[ "$VERSION" = 9.* ]]; then
-			"$CMDAPTGET" install -y \
-				libtinyxml2-4
-
-		elif [[ "$VERSION" = 10.* ]]; then
+		if [[ "$VERSION" = 10.* ]]; then
 			"$CMDAPTGET" install -y \
 				libtinyxml2-6a \
+				python3-venv \
+				python3-pip
+
+		elif [[ "$VERSION" = 11.* ]]; then
+			"$CMDAPTGET" install -y \
+				libtinyxml2-8 \
 				python3-venv \
 				python3-pip
 		fi
@@ -338,7 +340,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	done
 
 	# installation cloudscraper pour _cloudflare
-	if [[ "$VERSION" = 10.* ]]; then
+	if [[ "$VERSION" = 11.* ]]; then
 		"$CMDPIP" install setuptools --upgrade
 		"$CMDPIP" install cloudscraper
 	fi

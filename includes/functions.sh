@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FONCCONTROL () {
-	if [[ $("$CMDUNAME" -m) == x86_64 ]] && [[ "$VERSION" = 9.* ]] || [[ "$VERSION" = 10.* ]]; then
+	if [[ $("$CMDUNAME" -m) == x86_64 ]] && [[ "$VERSION" = 10.* ]] || [[ "$VERSION" = 11.* ]]; then
 		if [ "$("$CMDID" -u)" -ne 0 ]; then
 			"$CMDECHO" ""; set "100"; FONCTXT "$1"; "$CMDECHO" -e "${CRED}$TXT1${CEND}"; "$CMDECHO" ""
 			exit 1
