@@ -4,28 +4,27 @@
 
 * Multi-utilisateurs & Multilingue automatique en fonction de l'installation du serveur
 * Français, English, German, Pусский,  Español, Português
-* Nécessite Debian 9/10 (64 bits) & un serveur fraîchement installé
+* Nécessite Debian 10/11 (64 bits) & un serveur fraîchement installé
 
 * Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh)
 
-Tiré du tutoriel de mondedie.fr disponible ici:
-
-[Installer ruTorrent sur Debian {nginx & php-fpm}](https://mondedie.fr/d/10831-tuto-installer-rutorrent-sur-debian-10-nginx-php-fpm)
-
+Tiré du tutoriel de mondedie.fr
 [Aide, support & plus si affinités à la même adresse !](http://mondedie.fr/)
 
 **Auteur :** Ex_Rat
 
-Merci aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam, Hierra
+Merci aux contributeurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam, Hierra, mog54
 
 ## Installation:
 Multilingue automatique
 ```
+# su -  ou  sudo su -
+
 apt-get update && apt-get upgrade -y
-apt-get install sudo git lsb-release -y
+apt-get install git lsb-release -y
 
 cd /tmp
-git clone https://github.com/mog54/rutorrent-bonobox
+git clone https://github.com/exrat/rutorrent-bonobox
 cd rutorrent-bonobox
 chmod a+x bonobox.sh && ./bonobox.sh
 ```

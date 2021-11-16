@@ -73,7 +73,7 @@ FONCIP () {
 	if [ "$IP" = "" ]; then
 		IP=$("$CMDWGET" -qO- ipv4.icanhazip.com)
 			if [ "$IP" = "" ]; then
-				IP=$("$CMDWGET" -qO- ipv4.bonobox.net)
+				IP=$("$CMDWGET" -qO- ipv4.ratbox.nl)
 				if [ "$IP" = "" ]; then
 					IP=x.x.x.x
 				fi
@@ -329,14 +329,3 @@ FONCARG () {
 	USERPWD=$("$CMDGREP" -m 1 : < "$ARGFILE" | "$CMDCUT" -d ':' -f2-)
 	"$CMDSED" -i '1d' "$ARGFILE"
 }
-
-#FONCMEDIAINFO () {
-#	cd /tmp || exit
-#	"$CMDWGET" http://mediaarea.net/download/binary/libzen0/"$LIBZEN0"/"$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
-#	"$CMDWGET" http://mediaarea.net/download/binary/libmediainfo0/"$LIBMEDIAINFO0"/"$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
-#	"$CMDWGET" http://mediaarea.net/download/binary/mediainfo/"$MEDIAINFO"/mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
-#
-#	"$CMDDPKG" -i "$LIBZEN0NAME"_"$LIBZEN0"-1_amd64."$DEBNUMBER"
-#	"$CMDDPKG" -i "$LIBMEDIAINFO0NAME"_"$LIBMEDIAINFO0"-1_amd64."$DEBNUMBER"
-#	"$CMDDPKG" -i mediainfo_"$MEDIAINFO"-1_amd64."$DEBNUMBER"
-#}

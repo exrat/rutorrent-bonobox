@@ -3,7 +3,7 @@
 # Script d'installation ruTorrent / Nginx
 # Auteur : Ex_Rat
 #
-# Nécessite Debian 9/10 - 64 bits & un serveur fraîchement installé
+# Nécessite Debian 10/11 - 64 bits & un serveur fraîchement installé
 #
 # Multi-utilisateurs
 # Inclus VsFTPd (ftp & ftps sur le port 21), Fail2ban (avec conf nginx, ftp & ssh)
@@ -11,10 +11,11 @@
 # Tiré du tutoriel de mondedie.fr disponible ici:
 # https://mondedie.fr/d/10831-tuto-installer-rutorrent-sur-debian-10-nginx-php-fpm
 #
-# Merci aux traducteurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam, Hierra.
+# Merci aux contributeurs: Sophie, Spectre, Hardware, Zarev, SirGato, MiguelSam, Hierra, mog54.
 #
 # Installation:
 #
+# su -  ou  sudo su -
 # apt-get update && apt-get upgrade -y
 # apt-get install git-core -y
 #
@@ -207,7 +208,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		pkg-config \
 		psmisc \
 		pv \
-		python-is-python2 \
+		python3-venv \
 		python3-pip \
 		rar \
 		screen \
@@ -222,25 +223,18 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 		if [[ "$VERSION" = 10.* ]]; then
 			"$CMDAPTGET" install -y \
-				libtinyxml2-6a \
-				python3-venv \
-				python3-pip
+				libtinyxml2-6a
 
 		elif [[ "$VERSION" = 11.* ]]; then
 			"$CMDAPTGET" install -y \
 				libtinyxml2-8 \
-				python3-venv \
-				python3-pip
+				python-is-python2
 		fi
 
 	"$CMDECHO" ""; set "136" "134"; FONCTXT "$1" "$2"; "$CMDECHO" -e "${CBLUE}$TXT1${CEND}${CGREEN}$TXT2${CEND}"; "$CMDECHO" ""
 
 	# génération clé 2048 bits
 	"$CMDOPENSSL" dhparam -out dhparams.pem 2048 >/dev/null 2>&1 &
-
-	# téléchargement complément favicons
-	"$CMDWGET" -T 10 -t 3 http://www.bonobox.net/script/favicon.tar.gz || "$CMDWGET" -T 10 -t 3 http://alt.bonobox.net/favicon.tar.gz
-	"$CMDTAR" xzfv favicon.tar.gz
 
 	# création fichiers couleurs nano
 	"$CMDCP" -f "$FILES"/nano/ini.nanorc /usr/share/nano/ini.nanorc
@@ -340,10 +334,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	done
 
 	# installation cloudscraper pour _cloudflare
-	if [[ "$VERSION" = 11.* ]]; then
-		"$CMDPIP" install setuptools --upgrade
-		"$CMDPIP" install cloudscraper
-	fi
+	"$CMDPIP" install setuptools --upgrade
+	"$CMDPIP" install cloudscraper
 
 	# configuration geoip2
 	cd "$RUPLUGINS"/geoip2/database || exit
@@ -353,11 +345,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	done
 
 	"$CMDRM" -R GeoLite2-City.mmdb.tar.gz GeoLite2-Country.mmdb.tar.gz
-
-	#"$CMDWGET" https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
-	#"$CMDTAR" xzfv GeoLite2-City.tar.gz
-	#cd /tmp/GeoLite2-City_* || exit
-	#"$CMDMV" GeoLite2-City.mmdb "$RUPLUGINS"/geoip2/database/GeoLite2-City.mmdb
 
 	# configuration filemanager
 	"$CMDCP" -f "$FILES"/rutorrent/filemanager.conf "$RUPLUGINS"/filemanager/conf.php
@@ -511,13 +498,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 	# plugins.ini
 	"$CMDCP" -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
-
-	if [[ "$VERSION" = 9.* ]]; then
-		"$CMDCAT" <<- EOF >> "$RUCONFUSER"/"$USER"/plugins.ini
-			[_cloudflare]
-			enabled = no
-		EOF
-	fi
 
 	# script rtorrent
 	FONCSCRIPTRT "$USER"
@@ -754,12 +734,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 
 			# plugins.ini
 			"$CMDCP" -f "$FILES"/rutorrent/plugins.ini "$RUCONFUSER"/"$USER"/plugins.ini
-				if [[ "$VERSION" = 9.* ]]; then
-					"$CMDCAT" <<- EOF >> "$RUCONFUSER"/"$USER"/plugins.ini
-						[_cloudflare]
-						enabled = no
-					EOF
-				fi
 
 			# permissions
 			"$CMDCHOWN" -R "$WDATA" "$RUTORRENT"

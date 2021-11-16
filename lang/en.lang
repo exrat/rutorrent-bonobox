@@ -14,7 +14,7 @@
 124 #
 126 #
 128 Do you want to install an FTP server (y/n):
-130             This script must be run on Debian 9/10 - 64 bits only.
+130             This script must be run on Debian 10/11 - 64 bits only.
 132 Updating server
 134      Done !
 136 Installing core packages

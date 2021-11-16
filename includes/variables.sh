@@ -20,7 +20,7 @@ elif [[ "$VERSION" = 11.* ]]; then
 	DEBNAME="bullseye"
 fi
 
-HISTOLOG="histo-2019"
+HISTOLOG="histo-2022"
 PHPNAME="php7.4"
 PHPPATH="/etc/php/7.4"
 PHPSOCK="/run/php/php7.4-fpm.sock"
