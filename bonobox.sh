@@ -194,6 +194,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		openssl \
 		pastebinit \
 		"$PHPNAME" \
+		"$PHPNAME"-bcmath \
 		"$PHPNAME"-cli \
 		"$PHPNAME"-common \
 		"$PHPNAME"-curl \
@@ -208,8 +209,8 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 		pkg-config \
 		psmisc \
 		pv \
-		python3-venv \
 		python3-pip \
+		python3-venv \
 		rar \
 		screen \
 		sox \
