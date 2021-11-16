@@ -371,9 +371,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	# configuration logoff
 	"$CMDSED" -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
 
-	# installation mediainfo
-	# FONCMEDIAINFO
-
 	# variable minutes aléatoire crontab geoip2
 	MAXIMUM=58
 	MINIMUM=1
@@ -387,9 +384,6 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	done
 
 	FONCBAKSESSION
-
-	# copie favicons trackers
-	"$CMDCP" -f /tmp/favicon/*.png "$RUPLUGINS"/tracklabels/trackers/
 
 	# ajout thèmes
 	"$CMDRM" -R "${RUPLUGINS:?}"/theme/themes/Blue
