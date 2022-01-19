@@ -330,7 +330,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	cd /tmp || exit
 	"$CMDGIT" clone --progress https://github.com/exrat/rutorrent-plugins-pack
 
-	for PLUGINS in 'addzip' 'chat' 'filemanager' 'fileshare' 'geoip2' 'lbll-suite' 'logoff' 'nfo' 'pausewebui' 'ratiocolor' 'titlebar' 'trackerstatus'; do
+	for PLUGINS in 'addzip' 'chat' 'filemanager' 'filemanager-share' 'toggle_details_button' 'geoip2' 'lbll-suite' 'logoff' 'nfo' 'pausewebui' 'ratiocolor' 'titlebar' 'trackerstatus'; do
 		"$CMDCP" -R /tmp/rutorrent-plugins-pack/"$PLUGINS" "$RUPLUGINS"/
 	done
 
@@ -353,14 +353,14 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	"$CMDSED" -i "s|@ZIP@|$CMDZIP|g;" "$RUPLUGINS"/filemanager/conf.php
 	"$CMDSED" -i "s|@UNZIP@|$CMDUNZIP|g;" "$RUPLUGINS"/filemanager/conf.php
 	"$CMDSED" -i "s|@TAR@|$CMDTAR|g;" "$RUPLUGINS"/filemanager/conf.php
-	"$CMDSED" -i "s|@GZIP@|$CMDGZIP|g;" "$RUPLUGINS"/filemanager/conf.php
-	"$CMDSED" -i "s|@BZIP2@|$CMDBZIP2|g;" "$RUPLUGINS"/filemanager/conf.php
+	#"$CMDSED" -i "s|@GZIP@|$CMDGZIP|g;" "$RUPLUGINS"/filemanager/conf.php
+	#"$CMDSED" -i "s|@BZIP2@|$CMDBZIP2|g;" "$RUPLUGINS"/filemanager/conf.php
 
-	# configuration fileshare
-	"$CMDCP" -f "$FILES"/rutorrent/fileshare.conf "$RUPLUGINS"/fileshare/conf.php
-	"$CMDSED" -i "s/@IP@/$IP/g;" "$RUPLUGINS"/fileshare/conf.php
-	"$CMDCHOWN" -R "$WDATA" "$RUPLUGINS"/fileshare
-	"$CMDLN" -s "$RUPLUGINS"/fileshare/share.php "$NGINXBASE"/share.php
+	# configuration filemanager-share
+	"$CMDCP" -f "$FILES"/rutorrent/filemanager-share.conf "$RUPLUGINS"/filemanager-share/conf.php
+	"$CMDSED" -i "s/@IP@/$IP/g;" "$RUPLUGINS"/filemanager-share/conf.php
+	"$CMDCHOWN" -R "$WDATA" "$RUPLUGINS"/filemanager-share
+	"$CMDLN" -s "$RUPLUGINS"/filemanager-share/share.php "$NGINXBASE"/share.php
 
 	# configuration create
 	# shellcheck disable=SC2154
@@ -369,7 +369,7 @@ if [ ! -f "$NGINXENABLE"/rutorrent.conf ]; then
 	"$CMDSED" -i "s#$pathToCreatetorrent = '';#$pathToCreatetorrent = '/usr/bin/mktorrent';#" "$RUPLUGINS"/create/conf.php
 
 	# configuration logoff
-	"$CMDSED" -i "s/scars,user1,user2/$USER/g;" "$RUPLUGINS"/logoff/conf.php
+	"$CMDSED" -i "s/user1,user2,user3/$USER/g;" "$RUPLUGINS"/logoff/conf.php
 
 	# variable minutes aléatoire crontab geoip2
 	MAXIMUM=58
